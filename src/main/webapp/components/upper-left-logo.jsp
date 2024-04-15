@@ -1,11 +1,12 @@
 <style>
-    .home-link{
+    .home-link {
         position: absolute;
         top: 0;
         left: 0;
         margin: 13px 13px;
     }
-    .site-title{
+
+    .site-title {
         position: absolute;
         width: 110px;
     }
