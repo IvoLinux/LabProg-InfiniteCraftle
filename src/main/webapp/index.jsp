@@ -677,8 +677,7 @@
 			<div>
 				<div data-v-32e5f4a8="" class="container">
 					<p>hello super cum</p>
-					<a data-v-32e5f4a8="" href="https://neal.fun/" class="nuxt-link-active"><img data-v-32e5f4a8=""
-							src="./resources/logo_002.svg" class="site-title" alt="NEAL.FUN logo"/></a>
+					<%@include file="components/upper-left-logo.jsp"%>
 					<div data-v-32e5f4a8="" class="side-controls">
 						<img data-v-32e5f4a8="" src="./resources/trash.svg" class="trash" alt="delete element icon"/>
 						<img data-v-32e5f4a8="" src="./resources/dark-mode.svg" class="dark-mode-icon" alt="toggle dark mode icon"/>

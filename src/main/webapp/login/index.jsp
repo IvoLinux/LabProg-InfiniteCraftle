@@ -7,6 +7,7 @@
     <link href="../global.css" rel="stylesheet">
 </head>
 <body>
+<%@include file="../components/upper-left-logo.jsp"%>
 <div class="container">
     <form action="" method="post">
         <div>
