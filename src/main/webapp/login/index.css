@@ -1,0 +1,20 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+}
+
+.container{
+    width: 33%;
+    height: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: #e0e0e0;
+    box-shadow:  5px 5px 6px #b1b1b1,
+    -5px -5px 6px #e7e7e7;
+}

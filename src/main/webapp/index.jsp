@@ -4,7 +4,7 @@
 
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>Infinite Craft</title>
+	<title>Infinite Craftle</title>
 	<meta data-n-head="ssr" charset="utf-8" />
 	<meta data-n-head="ssr" name="viewport" content="width=device-width,initial-scale=1" />
 	<meta data-n-head="ssr" name="google-site-verification" content="Vyp6Lq2HJODQviN98DbqlmqefoUuDj_cwlmS7jAgaao" />
@@ -676,6 +676,7 @@
 		<div id="__layout">
 			<div>
 				<div data-v-32e5f4a8="" class="container">
+					<p>hello super cum</p>
 					<a data-v-32e5f4a8="" href="https://neal.fun/" class="nuxt-link-active"><img data-v-32e5f4a8=""
 							src="./resources/logo_002.svg" class="site-title" alt="NEAL.FUN logo"/></a>
 					<div data-v-32e5f4a8="" class="side-controls">
