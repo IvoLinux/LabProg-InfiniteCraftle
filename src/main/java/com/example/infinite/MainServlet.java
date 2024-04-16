@@ -12,7 +12,6 @@ public class MainServlet extends HttpServlet {
 
     public void init() {
         message = "SUP JIZZERS!";
-        databaseManager = DatabaseManager.getInstance();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -54,6 +53,5 @@ public class MainServlet extends HttpServlet {
 
 
     public void destroy() {
-        databaseManager.closeConnection();
     }
 }

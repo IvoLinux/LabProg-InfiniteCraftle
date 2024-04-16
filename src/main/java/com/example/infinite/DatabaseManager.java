@@ -1,64 +1,42 @@
 package com.example.infinite;
-import java.io.Console;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import org.mindrot.jbcrypt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
-    // JDBC URL, username, and password of MySQL server
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/infinitecraftledb";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "root@icraftle";
+    private static final int INITIAL_POOL_SIZE = 20;
+    private List<Connection> pool;
 
-    // Singleton instance
-    private static DatabaseManager instance;
-
-    // Connection object
-    private Connection connection;
-
-    // Private constructor to prevent instantiation
-    private DatabaseManager() {
-        try {
-            // Establish a connection to the database
-            connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-            System.out.println("Connected to the database.");
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public DatabaseManager() throws SQLException {
+        pool = new ArrayList<>();
+        initializePool();
+    }
+    private void initializePool() throws SQLException {
+        for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
+            Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+            pool.add(connection);
         }
     }
-
-    // Get the singleton instance
-    public static DatabaseManager getInstance() {
-        if (instance == null) {
-            synchronized (DatabaseManager.class) {
-                if (instance == null) {
-                    instance = new DatabaseManager();
-                }
-            }
+    public synchronized Connection getConnection() throws SQLException {
+        if (pool.isEmpty()) {
+            return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
         }
-        return instance;
+        return pool.remove(pool.size() - 1);
     }
 
-    // Get the database connection
-    public Connection getConnection() {
-        return connection;
+    public synchronized void releaseConnection(Connection connection) {
+        pool.add(connection);
     }
 
-    // Close the database connection
-    public void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-                System.out.println("Connection closed.");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public int removeUser(String username){
+    public int removeUser(String username) {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -69,9 +47,13 @@ public class DatabaseManager {
             return 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return -1;
         }
-        return -1; // Error occurred while registering the user
+        finally {
+            if(connection != null) releaseConnection(connection);
+        }
     }
+
     public int registerUser(String username, String password) {
         Connection connection = null;
         try {
@@ -90,23 +72,62 @@ public class DatabaseManager {
             // If the username doesn't exist, register the user
             String salt = BCrypt.gensalt(); // Generate a salt
             String hashedPassword = BCrypt.hashpw(password, salt); // Hash the password with the salt
-            System.out.println(salt + " "  + salt.length());
-            System.out.println(hashedPassword + " " + hashedPassword.length());
-
-            String queryInsert = "INSERT INTO User (username, password_salt, password_hash) VALUES (?, ?, ?)";
+            String queryInsert = "INSERT INTO User (username, password_hash) VALUES (?, ?)";
             try (PreparedStatement statementInsert = connection.prepareStatement(queryInsert)) {
                 statementInsert.setString(1, username);
-                statementInsert.setString(2, salt);
-                statementInsert.setString(3, hashedPassword);
+                statementInsert.setString(2, hashedPassword);
                 int rowsAffected = statementInsert.executeUpdate();
                 if (rowsAffected > 0) {
                     return 0; // User registered successfully
+                } else{
+                    return -1;
                 }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return -1;
         }
-        return -1; // Error occurred while registering the user
+        finally {
+            if(connection != null) releaseConnection(connection);
+        }
+    }
+
+    public int authenticateUser(String username, String password) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = getConnection();
+            String query = "SELECT * FROM User WHERE username = ?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+
+            // Execute the query
+            resultSet = statement.executeQuery();
+
+            // Check if a user with the given username exists
+            if (resultSet.next()) {
+                // Retrieve the hashed password and salt from the database
+                String storedPasswordHash = resultSet.getString("password_hash");
+
+                // Verify the provided password against the stored hash
+                if (BCrypt.checkpw(password, storedPasswordHash)) {
+                    return 0;
+                } else {
+                    return 2;
+                }
+            }
+            else{
+                return 3;
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return -1;
+        }
+        finally {
+            if(connection != null) releaseConnection(connection);
+        }
     }
 }
