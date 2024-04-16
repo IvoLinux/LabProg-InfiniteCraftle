@@ -3,23 +3,55 @@ const itemInstances = document.querySelector('.instances')
 let instanceIdTracker = 0;
 
 function handleItemDrag(event, component) {
+    // Adds selected class and saves initial cursor offset
+    component.classList.add('instance-selected')
     const shiftX = event.clientX - event.target.getBoundingClientRect().left + 4
     const shiftY = event.clientY - event.target.getBoundingClientRect().top + 4
-
-    function updateComponentPosition(event) {
-        component.style.left = event.pageX - shiftX + 'px'
-        component.style.top = event.pageY - shiftY + 'px'
-    }
-
-    function stopElementDrag() {
-        document.removeEventListener('mouseup', stopElementDrag)
-        document.removeEventListener('mousemove', updateComponentPosition)
-        if (doDivsOverlap(component, document.querySelector('.items'))) component.remove()
-    }
-
+    // Adds event listeners for dragging/dropping
     document.addEventListener('mouseup', stopElementDrag)
     document.addEventListener('mousemove', updateComponentPosition)
     updateComponentPosition(event)
+
+    function updateComponentPosition(event) {
+        // Updates (x, y) of the component
+        component.style.left = event.pageX - shiftX + 'px'
+        component.style.top = event.pageY - shiftY + 'px'
+        // Determines which single element is being hovered
+        let children = itemInstances.children
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i]
+            if (child.id === component.id) continue;
+            if (doDivsOverlap(event.target, child)) {
+                child.classList.add('instance-hover')
+                for (let j = i + 1; j < children.length; j++) children[j].classList.remove('instance-hover')
+                break;
+            } else {
+                child.classList.remove('instance-hover')
+            }
+        }
+    }
+
+    function stopElementDrag() {
+        const matchedElement = document.querySelector('.instance-hover')
+        if (matchedElement !== null) {
+            instanceIdTracker++
+            let midX = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2
+            let midY = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2
+            const newElement = component.cloneNode(true)
+            newElement.id = 'instance-' + instanceIdTracker
+            newElement.style.left = midX + 'px'
+            newElement.style.top = midY + 'px'
+            itemInstances.appendChild(newElement)
+            matchedElement.remove()
+            component.remove()
+        }
+        document.removeEventListener('mouseup', stopElementDrag)
+        document.removeEventListener('mousemove', updateComponentPosition)
+        component.classList.remove('instance-selected')
+        let children = itemInstances.children
+        for (let i = 0; i < children.length; i++) children[i].classList.remove('instance-hover')
+        if (doDivsOverlap(component, document.querySelector('.items'))) component.remove()
+    }
 }
 
 function doDivsOverlap(div1, div2) {
@@ -60,6 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const itemInstance = event.target.cloneNode(true)
             itemInstance.classList.add('instance')
             itemInstances.appendChild(itemInstance)
+            instanceIdTracker++
+            itemInstance.id = 'instance-' + instanceIdTracker
             handleItemDrag(event, itemInstance)
         }
     })
@@ -67,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Adds an on click event listener to all "item" divs in the canvas
     itemInstances.addEventListener('mousedown', function (event) {
         // Drags item
+        instanceIdTracker++
         if (event.target.classList.contains('item')) handleItemDrag(event, event.target)
     })
 })

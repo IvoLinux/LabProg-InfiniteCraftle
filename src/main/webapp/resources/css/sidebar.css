@@ -287,6 +287,12 @@
     pointer-events: none !important;
 }
 
+.instance-hover {
+    scale: 1.04;
+    background: var(--instance-bg-hover);
+    border: 1px solid var(--instance-border-hover);
+}
+
 @media screen and (min-width: 1150px) {
     .instance {
         font-size: 20px;
