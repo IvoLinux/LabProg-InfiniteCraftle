@@ -30,7 +30,7 @@
   </component>
   <component name="JspContextManager">
     <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/components/upper-left-logo.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/signup/index.jsp" />
-    <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/modules/sidebar.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/index.jsp" />
+    <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/modules/element-playground.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/index.jsp" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
