@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/components/upper-left-logo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/components" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/modules/element-playground.jsp" value="file://$PROJECT_DIR$/src/main/webapp/modules" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/modules/sidebar.jsp" value="file://$PROJECT_DIR$/src/main/webapp/modules" />
       </map>
     </option>

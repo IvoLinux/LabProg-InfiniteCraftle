@@ -273,6 +273,10 @@
     background: var(--instance-bg);
 }
 
+.instances {
+    overflow: auto;
+}
+
 .instance-emoji {
     font-size: 21px;
     margin-right: 5px;
