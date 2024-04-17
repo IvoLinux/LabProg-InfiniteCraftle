@@ -14,7 +14,7 @@ public class ErrorCodeDictionary {
         errorMessages.put(3, "Authentication failed: user does not exist");
         errorMessages.put(4, "Add element failed: element already exists");
         errorMessages.put(5, "Searching failed: element not found");
-        errorMessages.put(6, "Invalid date");
+        errorMessages.put(6, "DataBase error");
         errorMessages.put(-1, "calma ai biggers deu ruim aqui");
 
     }
