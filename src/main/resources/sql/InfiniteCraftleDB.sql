@@ -1,7 +1,8 @@
 CREATE TABLE Element (
-  element_id INT PRIMARY KEY,
+  element_id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255),
-  emoji VARCHAR(255)
+  emoji VARCHAR(255),
+  depth INT
 );
 
 CREATE TABLE ElementsCrafted (
@@ -9,21 +10,20 @@ CREATE TABLE ElementsCrafted (
   parent2_id INT,
   child_id INT,
   PRIMARY KEY (parent1_id, parent2_id),
-  FOREIGN KEY (parent1_id) REFERENCES Element(element_id),
-  FOREIGN KEY (parent2_id) REFERENCES Element(element_id),
-  FOREIGN KEY (child_id) REFERENCES Element(element_id)
+  FOREIGN KEY (parent1_id) REFERENCES Element(element_id) ON DELETE CASCADE,
+  FOREIGN KEY (parent2_id) REFERENCES Element(element_id) ON DELETE CASCADE,
+  FOREIGN KEY (child_id) REFERENCES Element(element_id) ON DELETE CASCADE
 );
 
 CREATE TABLE LastGames (
   date DATE PRIMARY KEY,
   element_id INT,
-  FOREIGN KEY (element_id) REFERENCES Element(element_id)
+  FOREIGN KEY (element_id) REFERENCES Element(element_id) ON DELETE CASCADE
 );
 
 CREATE TABLE User (
-  user_id INT PRIMARY KEY,
+  user_id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255),
-  password_salt VARCHAR(16), -- For bcrypt, 16 bytes (128 bits)
   password_hash VARCHAR(60) -- For bcrypt, typically 60 characters
 );
 
@@ -34,8 +34,8 @@ CREATE TABLE GameInstance (
   time DOUBLE,
   past_game BOOLEAN,
   PRIMARY KEY (date, user_id),
-  FOREIGN KEY (user_id) REFERENCES User(user_id),
-  FOREIGN KEY (date) REFERENCES LastGames(date)
+  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (date) REFERENCES LastGames(date) ON DELETE CASCADE
 );
 
 CREATE TABLE CraftedInGame (
@@ -43,6 +43,6 @@ CREATE TABLE CraftedInGame (
   user_id INT,
   element_id INT,
   PRIMARY KEY (date, user_id, element_id),
-  FOREIGN KEY (date, user_id) REFERENCES GameInstance(date, user_id),
-  FOREIGN KEY (element_id) REFERENCES Element(element_id)
+  FOREIGN KEY (date, user_id) REFERENCES GameInstance(date, user_id) ON DELETE CASCADE,
+  FOREIGN KEY (element_id) REFERENCES Element(element_id) ON DELETE CASCADE
 );
