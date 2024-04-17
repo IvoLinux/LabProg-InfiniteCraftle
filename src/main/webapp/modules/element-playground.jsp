@@ -25,7 +25,7 @@
         <div class="sidebar-search">
             <input placeholder="Search (n) items..." class="sidebar-input"/>
             <img src="<%= resourcesURL + "/images/close.svg" %>" class="sidebar-input-close" style="display: none"
-                 alt="close icon"/>
+                 alt="close icon" height="13px"/>
         </div>
     </div>
 </div>
