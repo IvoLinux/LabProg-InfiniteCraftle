@@ -33,12 +33,12 @@ public class SignupServlet extends HttpServlet {
                 //Aqui recebe os dados do jogo de hoje, com a lista de elementos
                 GameInstance gameInstance = databaseManager.getGameInstance(today(), username);
                 //Aqui recebe a lista de jogos já ganhos com os scores e tempos
-                List <String> listOfGamesDones = databaseManager.listOfGamesDones(username);
+                List <String> listDates = databaseManager.listDates(username);
 
                 request.getSession().setAttribute("initialTime",System.currentTimeMillis());
                 request.getSession().setAttribute("error", null);
                 request.getSession().setAttribute("username", username);
-                request.getSession().setAttribute("listOfGamesDones", listOfGamesDones);
+                request.getSession().setAttribute("listDates", listDates);
                 request.getSession().setAttribute("gameInstance", gameInstance);
                 request.getSession().setAttribute("gameDay",today());
                 response.sendRedirect("/signup");
