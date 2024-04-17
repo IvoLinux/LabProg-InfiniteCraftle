@@ -81,11 +81,6 @@
     opacity: 1;
 }
 
-.item-emoji {
-    font-size: 15px;
-    pointer-events: none;
-}
-
 .sidebar-search {
     display: flex;
     align-items: center;
@@ -191,10 +186,6 @@
         padding: 9px 10px 8px;
     }
 
-    .item-emoji {
-        font-size: 16px;
-    }
-
     .sidebar-input {
         background-size: 23px 23px;
         background-position: 11px 12px;
@@ -280,6 +271,7 @@
 .instance-emoji {
     font-size: 21px;
     margin-right: 5px;
+    pointer-events: none;
 }
 
 .instance-hide {

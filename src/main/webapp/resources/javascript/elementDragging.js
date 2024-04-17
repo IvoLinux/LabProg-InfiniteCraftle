@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Adds an on click event listener to all "item" divs in Sidebar
     itemSidebar.addEventListener('mousedown', function (event) {
+        console.log(event.target.classList)
         if (event.target.classList.contains('item')) {
             // Copies the item and implements dragging functionality
             const itemInstance = event.target.cloneNode(true)
@@ -101,7 +102,7 @@ function createElement(emoji, text, instance = false) {
     if (instance) newElement.classList.add('instance')
     newElement.classList.add('item')
     const emojiElement = document.createElement('span')
-    emojiElement.classList.add('item-emoji')
+    emojiElement.classList.add('instance-emoji')
     emojiElement.textContent = emoji
     const textNode = document.createTextNode(text)
     newElement.appendChild(emojiElement)
