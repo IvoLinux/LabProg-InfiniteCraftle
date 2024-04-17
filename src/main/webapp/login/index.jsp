@@ -24,5 +24,8 @@
         <a href="../signup/" class="discrete" target="_self">Sign up</a>
     </form>
 </div>
+
+<script>if (window.location.pathname.includes("/components/")) window.location.href = '<%= request.getContextPath() %>'</script>
+
 </body>
 </html>

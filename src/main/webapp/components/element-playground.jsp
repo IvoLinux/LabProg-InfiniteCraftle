@@ -30,12 +30,11 @@
     </div>
 </div>
 <div class="instances">
-    <div>
-        <div id="instance-0" class="item instance instance-hide">
-            <span class="instance-emoji">💧</span>
-            Water
-        </div>
+    <div id="instance-0" class="item instance instance-hide">
+        <span class="instance-emoji">💧</span>
+        Water
     </div>
 </div>
 
+<script>if (window.location.pathname.includes("/components/")) window.location.href = '<%= request.getContextPath() %>'</script>
 <script src="<%= resourcesURL + "/javascript/elementDragging.js" %>" defer="defer"></script>

@@ -7,7 +7,7 @@
     <link href="../global.css" rel="stylesheet">
 </head>
 <body>
-<%@include file="../components/upper-left-logo.jsp"%>
+<%@include file="../components/upper-left-logo.jsp" %>
 <div class="session">
     <form action="" class="log-in" autocomplete="off">
         <h4><span>Infinite Craftle</span></h4>
@@ -21,7 +21,8 @@
             <label for="password">Password</label>
         </div>
         <div class="floating-label">
-            <input placeholder="Confirm Password" type="password" name="confirm-password" id="confirm-password" autocomplete="off">
+            <input placeholder="Confirm Password" type="password" name="confirm-password" id="confirm-password"
+                   autocomplete="off">
             <label for="confirm-password">Password</label>
         </div>
         <button type="submit" onClick="return false;">Sign up</button>
@@ -29,4 +30,7 @@
     </form>
 </div>
 </body>
+
+<script>if (window.location.pathname.includes("/components/")) window.location.href = '<%= request.getContextPath() %>'</script>
+
 </html>
