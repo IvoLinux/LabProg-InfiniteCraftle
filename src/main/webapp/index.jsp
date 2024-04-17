@@ -28,17 +28,117 @@
     <%@include file="modules/element-playground.jsp" %>
     <img src="resources/images/logo.svg" class="logo" alt="logo"/>
     <div class="reset">Reset</div>
+    <a class="login" href="./login/">Log in</a>
 </div>
 
 <script>
     const clearButton = document.querySelector('.clear')
     let retrievedData = localStorage.getItem("test-data")
-    if(retrievedData == null){
-        let data = {"date": "15/04", "elements":[{"text":"Water","emoji":"💧","discovered":true},{"text":"Fire","emoji":"🔥","discovered":true},{"text":"Wind","emoji":"🌬️","discovered":false},{"text":"Earth","emoji":"🌍","discovered":false},{"text":"Ebert is Mega Gay","emoji":"🏳️‍🌈","discovered":true},{"text":"Mountain","emoji":"🏔️","discovered":false},{"text":"Dust","emoji":"🌫️","discovered":false},{"text":"Wave","emoji":"🌊","discovered":false},{"text":"Tornado","emoji":"🌪️","discovered":false},{"text":"Volcano","emoji":"🌋","discovered":false},{"text":"Lake","emoji":"🌊","discovered":false},{"text":"Island","emoji":"🏝️","discovered":false},{"text":"Lava","emoji":"🌋","discovered":false},{"text":"Mountain Range","emoji":"🏔️","discovered":false},{"text":"Fjord","emoji":"🏞️","discovered":false},{"text":"Tsunami","emoji":"🌊","discovered":false},{"text":"Ocean","emoji":"🌊","discovered":false},{"text":"Tree","emoji":"🌳","discovered":false},{"text":"Forest","emoji":"🌲","discovered":false},{"text":"Jungle","emoji":"🌴","discovered":false},{"text":"Earthquake","emoji":"🌋","discovered":false},{"text":"Smoke","emoji":"💨","discovered":false},{"text":"Eruption","emoji":"🌋","discovered":false},{"text":"Hurricane","emoji":"🌀","discovered":false},{"text":"Steam","emoji":"💨","discovered":false},{"text":"Cloud","emoji":"☁️","discovered":false},{"text":"Rain","emoji":"🌧️","discovered":false},{"text":"Rainbow","emoji":"🌈","discovered":false},{"text":"Flood","emoji":"🌊","discovered":false},{"text":"Unicorn","emoji":"🦄","discovered":false},{"text":"Dragon","emoji":"🐉","discovered":false},{"text":"Sea Serpent","emoji":"🐍","discovered":false},{"text":"Kraken","emoji":"🐙","discovered":false},{"text":"Poseidon","emoji":"🌊","discovered":false},{"text":"Triton","emoji":"🔱","discovered":false},{"text":"Mermaid","emoji":"🧜‍♀️","discovered":false},{"text":"Atlantis","emoji":"🌊","discovered":false},{"text":"Sand","emoji":"🏖️","discovered":false},{"text":"Desert","emoji":"🏜️","discovered":false},{"text":"Mirage","emoji":"🌵","discovered":false},{"text":"Oasis","emoji":"🏜️","discovered":false},{"text":"Cum","emoji":"💦","discovered":false},{"text":"Potato","emoji":"🥔","discovered":false},{"text":"Colonel","emoji":"🪖","discovered":false},{"text":"Microprocessors","emoji":"🖥️","discovered":false},{"text":"French Fries","emoji":"🍟","discovered":false},{"text":"Mud","emoji":"💩","discovered":false},{"text":"Dragonborn","emoji":"🐉","discovered":false},{"text":"French Cum","emoji":"🥐💦","discovered":false}]}
+    if (retrievedData == null) {
+        let data = {
+            "date": "15/04",
+            "elements": [{"text": "Water", "emoji": "💧", "discovered": true}, {
+                "text": "Fire",
+                "emoji": "🔥",
+                "discovered": true
+            }, {"text": "Wind", "emoji": "🌬️", "discovered": false}, {
+                "text": "Earth",
+                "emoji": "🌍",
+                "discovered": false
+            }, {"text": "Ebert is Mega Gay", "emoji": "🏳️‍🌈", "discovered": true}, {
+                "text": "Mountain",
+                "emoji": "🏔️",
+                "discovered": false
+            }, {"text": "Dust", "emoji": "🌫️", "discovered": false}, {
+                "text": "Wave",
+                "emoji": "🌊",
+                "discovered": false
+            }, {"text": "Tornado", "emoji": "🌪️", "discovered": false}, {
+                "text": "Volcano",
+                "emoji": "🌋",
+                "discovered": false
+            }, {"text": "Lake", "emoji": "🌊", "discovered": false}, {
+                "text": "Island",
+                "emoji": "🏝️",
+                "discovered": false
+            }, {"text": "Lava", "emoji": "🌋", "discovered": false}, {
+                "text": "Mountain Range",
+                "emoji": "🏔️",
+                "discovered": false
+            }, {"text": "Fjord", "emoji": "🏞️", "discovered": false}, {
+                "text": "Tsunami",
+                "emoji": "🌊",
+                "discovered": false
+            }, {"text": "Ocean", "emoji": "🌊", "discovered": false}, {
+                "text": "Tree",
+                "emoji": "🌳",
+                "discovered": false
+            }, {"text": "Forest", "emoji": "🌲", "discovered": false}, {
+                "text": "Jungle",
+                "emoji": "🌴",
+                "discovered": false
+            }, {"text": "Earthquake", "emoji": "🌋", "discovered": false}, {
+                "text": "Smoke",
+                "emoji": "💨",
+                "discovered": false
+            }, {"text": "Eruption", "emoji": "🌋", "discovered": false}, {
+                "text": "Hurricane",
+                "emoji": "🌀",
+                "discovered": false
+            }, {"text": "Steam", "emoji": "💨", "discovered": false}, {
+                "text": "Cloud",
+                "emoji": "☁️",
+                "discovered": false
+            }, {"text": "Rain", "emoji": "🌧️", "discovered": false}, {
+                "text": "Rainbow",
+                "emoji": "🌈",
+                "discovered": false
+            }, {"text": "Flood", "emoji": "🌊", "discovered": false}, {
+                "text": "Unicorn",
+                "emoji": "🦄",
+                "discovered": false
+            }, {"text": "Dragon", "emoji": "🐉", "discovered": false}, {
+                "text": "Sea Serpent",
+                "emoji": "🐍",
+                "discovered": false
+            }, {"text": "Kraken", "emoji": "🐙", "discovered": false}, {
+                "text": "Poseidon",
+                "emoji": "🌊",
+                "discovered": false
+            }, {"text": "Triton", "emoji": "🔱", "discovered": false}, {
+                "text": "Mermaid",
+                "emoji": "🧜‍♀️",
+                "discovered": false
+            }, {"text": "Atlantis", "emoji": "🌊", "discovered": false}, {
+                "text": "Sand",
+                "emoji": "🏖️",
+                "discovered": false
+            }, {"text": "Desert", "emoji": "🏜️", "discovered": false}, {
+                "text": "Mirage",
+                "emoji": "🌵",
+                "discovered": false
+            }, {"text": "Oasis", "emoji": "🏜️", "discovered": false}, {
+                "text": "Cum",
+                "emoji": "💦",
+                "discovered": false
+            }, {"text": "Potato", "emoji": "🥔", "discovered": false}, {
+                "text": "Colonel",
+                "emoji": "🪖",
+                "discovered": false
+            }, {"text": "Microprocessors", "emoji": "🖥️", "discovered": false}, {
+                "text": "French Fries",
+                "emoji": "🍟",
+                "discovered": false
+            }, {"text": "Mud", "emoji": "💩", "discovered": false}, {
+                "text": "Dragonborn",
+                "emoji": "🐉",
+                "discovered": false
+            }, {"text": "French Cum", "emoji": "🥐💦", "discovered": false}]
+        }
         localStorage.setItem("test-data", JSON.stringify(data))
     }
     document.addEventListener('DOMContentLoaded', function () {
-        clearButton.addEventListener('mousedown', function (event){
+        clearButton.addEventListener('mousedown', function (event) {
             document.querySelector('.instances').innerHTML = ''
         })
     })

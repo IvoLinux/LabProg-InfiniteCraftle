@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+
+@font-face {
+    font-family: Roboto;
+    src: url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+}
+
 @media screen and (max-width: 800px) {
     .infinite-craft-body {
         position: fixed;
@@ -80,6 +87,15 @@
     font-size: 15px;
 }
 
+.login {
+    position: fixed;
+    left: 75px;
+    bottom: 10px;
+    cursor: pointer;
+    opacity: 0.7;
+    font-size: 15px;
+}
+
 @keyframes sway-32e5f4a8 {
     0% {
         rotate: -6deg;
@@ -121,6 +137,10 @@
     }
 
     .reset {
+        bottom: 190px;
+    }
+
+    .login {
         bottom: 190px;
     }
 }
