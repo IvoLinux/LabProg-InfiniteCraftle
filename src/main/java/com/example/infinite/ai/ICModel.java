@@ -25,7 +25,14 @@ public class ICModel extends ModelBase {
 
     public String retrieveAnswer(String op1, String op2){
         String question = addQuestion(op1, op2);
-        System.out.println(question);
-        return super.retrieveAnswer(question);
+
+        String ret = super.retrieveAnswer(question);
+        updateTemplate(op1, op2, ret);
+        return ret;
+    }
+
+    public String[] getNewCraft(String parent1, String parent2, String emoji1, String emoji2){
+        String ret = retrieveAnswer(emoji1+parent1, emoji2+parent2);
+        return new String[]{String.valueOf(ret.charAt(0)), ret.substring(1)};
     }
 }
