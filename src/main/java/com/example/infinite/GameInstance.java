@@ -13,4 +13,9 @@ public class GameInstance {
         this.win = false;
         elements = new ArrayList<>();
     }
+    public void setEndGame(double score,long timeMillis,boolean win){
+        this.score = score;
+        this.timeMillis = timeMillis;
+        this.win = win;
+    }
 }
