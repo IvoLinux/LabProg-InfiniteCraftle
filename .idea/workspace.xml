@@ -27,7 +27,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/infinite/MainServlet.java</url>
-          <line>96</line>
+          <line>102</line>
           <properties class="com.example.infinite.MainServlet" method="doPost">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

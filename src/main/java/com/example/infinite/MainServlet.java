@@ -4,6 +4,8 @@ import java.io.*;
 import com.google.gson.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
+import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -14,6 +16,7 @@ public class MainServlet extends HttpServlet {
     private DatabaseManager databaseManager;
     private String user;
     private String gameDay;
+    private long initialTime;
 
     public void init() {
         message = "SUP JIZZERS!";
@@ -46,11 +49,13 @@ public class MainServlet extends HttpServlet {
         int code=-1;
         String username = new String();
         String password = new String();
+
         if(type.equals("LOGIN")){
             username = jsonObject.get("username").getAsString();
             password = jsonObject.get("password").getAsString();
             code = databaseManager.authenticateUser(username, password);
             gameDay = todayDay();
+            initialTime = System.currentTimeMillis();
         }
         else if(type.equals("REGISTER")){
             // Register the user into the database
@@ -58,6 +63,7 @@ public class MainServlet extends HttpServlet {
             password = jsonObject.get("password").getAsString();
             code = databaseManager.registerUser(username, password);
             gameDay = todayDay();
+            initialTime = System.currentTimeMillis();
         }
         else if(type.equals("CHANGEDATE")){
             String date = jsonObject.get("data").getAsString();
@@ -107,30 +113,35 @@ public class MainServlet extends HttpServlet {
         JsonObject jsonObject = JsonParser.parseString(jsonPayload.toString()).getAsJsonObject();
         String type = jsonObject.get("type").getAsString();
         if(type.equals("CRAFT")){
+            boolean craft = true;
+            boolean end = false;
             String dad = jsonObject.get("dad").getAsString();
             String mom = jsonObject.get("mom").getAsString();
+            //modificar para receber son e emoji
             String son = DatabaseManager.searchSon(mom,dad,gameDay);
-            if(son!=null){
-                sendElementSon(son, response);
-            }
-            else{
+            if(son==null){
                 //função que pega da IA
-                JsonObject jsonResponse = new JsonObject();
-                jsonResponse = getElementSon();
-                DatabaseManager.saveSon(mom,dad,jsonResponse.get("son").toString());
-                PrintWriter out = response.getWriter();
-                out.println(jsonResponse.toString());
+                son = getElementSon();
+                DatabaseManager.saveSon(mom,dad,son.toString());
             }
-        }
-        else if(type.equals("END")){
-            String score = jsonObject.get("score").getAsString();
-            String time = jsonObject.get("time").getAsString();
-            String pastGame = jsonObject.get("pastGame").getAsString();
-            //se estiver salvo na tabela o isDone retornará true
-            DatabaseManager.saveGameInstance(score,time,pastGame);
+
+            if(son==null){
+                craft = false;
+            }
+            else if(isElementDay(son)){
+                end = true;
+                long time= 0;
+                if(gameDay.equals(todayDay())){
+                    time= (System.currentTimeMillis()- initialTime)/1000;
+                }
+                int numElements = getNumElements();
+                int score = score(time,numElements);
+                DatabaseManager.saveGameDay(time, score, user, gameDay);
+            }
+            sendElementSon(son, emoji, response, craft, end);
         }
     }
-
+    //OK
     private String todayDay(){
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -141,7 +152,7 @@ public class MainServlet extends HttpServlet {
 
     }
 
-    private void sendElementSon(String son, HttpServletResponse response) {
+    private void sendElementSon(String son, HttpServletResponse response, boolean craft, boolean end) {
 
     }
 
@@ -161,10 +172,21 @@ public class MainServlet extends HttpServlet {
 
     }
 
-    private JsonObject getElementSon() {
+    private boolean isElementDay(String son){
 
     }
 
+    private String getElementSon() {
+
+    }
+
+    private int getNumElements(){
+
+    }
+    //OK
+    private int score(long time, int numElements){
+        return (int)time * numElements/100000;
+    }
     public void destroy() {
     }
 }
