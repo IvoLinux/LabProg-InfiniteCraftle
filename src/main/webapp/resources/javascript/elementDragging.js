@@ -35,12 +35,9 @@ function handleItemDrag(event, component) {
         const matchedElement = document.querySelector('.instance-hover')
         if (matchedElement !== null) {
             instanceIdTracker++
-            let midX = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2
-            let midY = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2
-            const newElement = component.cloneNode(true)
-            newElement.id = 'instance-' + instanceIdTracker
-            newElement.style.left = midX + 'px'
-            newElement.style.top = midY + 'px'
+            const newElement = createElement("🥵", "cog", true)
+            newElement.style.left = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2 + 'px'
+            newElement.style.top = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2 + 'px'
             itemInstances.appendChild(newElement)
             matchedElement.remove()
             component.remove()
@@ -54,16 +51,6 @@ function handleItemDrag(event, component) {
     }
 }
 
-function doDivsOverlap(div1, div2) {
-    const rect1 = div1.getBoundingClientRect();
-    const rect2 = div2.getBoundingClientRect();
-
-    return !(rect1.right < rect2.left ||
-        rect1.left > rect2.right ||
-        rect1.bottom < rect2.top ||
-        rect1.top > rect2.bottom);
-}
-
 // Waits for DOM to fully load
 document.addEventListener('DOMContentLoaded', function () {
     // Retrieves local storage
@@ -71,18 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let elements = JSON.parse(retrievedData0).elements
     // Creates a component for each element
     elements.forEach(item => {
-        const itemComponent = document.createElement('div')
-        itemComponent.classList.add('item')
-        if (item.discovered) itemComponent.classList.add('item-discovered')
-
-        const emojiElement = document.createElement('span')
-        emojiElement.classList.add('item-emoji')
-        emojiElement.textContent = item.emoji
-        const textNode = document.createTextNode(item.text)
-
-        itemComponent.appendChild(emojiElement)
-        itemComponent.appendChild(textNode)
-        itemSidebar.appendChild(itemComponent)
+        itemSidebar.appendChild(createElement(item.emoji, item.text))
     });
 
     // Adds an on click event listener to all "item" divs in Sidebar
@@ -105,3 +81,26 @@ document.addEventListener('DOMContentLoaded', function () {
         if (event.target.classList.contains('item')) handleItemDrag(event, event.target)
     })
 })
+
+function createElement(emoji, text, instance = false) {
+    const newElement = document.createElement('div')
+    if (instance) newElement.classList.add('instance')
+    newElement.classList.add('item')
+    const emojiElement = document.createElement('span')
+    emojiElement.classList.add('item-emoji')
+    emojiElement.textContent = emoji
+    const textNode = document.createTextNode(text)
+    newElement.appendChild(emojiElement)
+    newElement.appendChild(textNode)
+    return newElement
+}
+
+function doDivsOverlap(div1, div2) {
+    const rect1 = div1.getBoundingClientRect();
+    const rect2 = div2.getBoundingClientRect();
+
+    return !(rect1.right < rect2.left ||
+        rect1.left > rect2.right ||
+        rect1.bottom < rect2.top ||
+        rect1.top > rect2.bottom);
+}
