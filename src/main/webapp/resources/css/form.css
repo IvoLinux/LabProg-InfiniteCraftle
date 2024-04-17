@@ -155,7 +155,8 @@ input:focus {
 
 .session {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: auto;
     height: auto;
     margin: auto auto;

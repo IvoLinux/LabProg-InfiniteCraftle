@@ -4,10 +4,12 @@
 <head>
     <title>Sign Up</title>
     <link href="../resources/css/form.css" rel="stylesheet">
+    <link href="../resources/css/modal.css" rel="stylesheet">
     <link href="../global.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../components/upper-left-logo.jsp" %>
+
 <div class="session">
     <form action="" class="log-in" autocomplete="off">
         <h4><span>Infinite Craftle</span></h4>
@@ -25,12 +27,54 @@
                    autocomplete="off">
             <label for="confirm-password">Password</label>
         </div>
-        <button type="submit" onClick="return false;">Sign up</button>
+        <button class="btn-open" type="button" onClick="">Sign up</button>
         <a href="../login/" class="discrete" target="_self">Log in</a>
     </form>
+
+    <div id="modal-success" class="modal hidden">
+        <div>
+            <h3>Sign up Successful</h3>
+            <p>Press the button to be redirected to the home page</p>
+        </div>
+        <button class="btn btn-close">Go to home</button>
+    </div>
+    <%--    <div id="modal-fail" class="modal hidden">--%>
+    <%--        <div>--%>
+    <%--            <h3>Sign up Failed</h3>--%>
+    <%--            <p>Username already taken</p>--%>
+    <%--        </div>--%>
+    <%--        <button class="btn btn-close">Close</button>--%>
+    <%--    </div>--%>
 </div>
-</body>
+
+<div class="overlay hidden"></div>
+
+<script>
+    const modal = document.querySelector(".modal");
+    const overlay = document.querySelector(".overlay");
+    const openModalBtn = document.querySelector(".btn-open");
+    const closeModalBtn = document.querySelector(".btn-close");
+
+    const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    };
+
+    const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
+
+    closeModalBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", closeModal);
+    openModalBtn.addEventListener("click", openModal);
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+    });
+</script>
 
 <script>if (window.location.pathname.includes("/components/")) window.location.href = '<%= request.getContextPath() %>'</script>
 
+</body>
 </html>

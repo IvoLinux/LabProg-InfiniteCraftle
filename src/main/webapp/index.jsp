@@ -29,10 +29,12 @@
     <img src="resources/images/logo.svg" class="logo" alt="logo"/>
     <div class="reset">Reset</div>
     <a class="login" href="./login/">Log in</a>
+    <a class="logout">Log out</a>
 </div>
 
 <script>if (window.location.pathname.includes("/components/")) window.location.href = '<%= request.getContextPath() %>'</script>
 <script>
+
     const clearButton = document.querySelector('.clear')
     let retrievedData = sessionStorage.getItem("test-data")
     if (retrievedData == null) {
@@ -142,6 +144,8 @@
         clearButton.addEventListener('mousedown', function () {
             document.querySelector('.instances').innerHTML = ''
         })
+        if (sessionStorage.getItem('loggedIn') === 'true') document.querySelector('.logout').style.display = 'block';
+        else document.querySelector('.login').style.display = 'block';
     })
 </script>
 
