@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import org.mindrot.jbcrypt.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -272,6 +273,83 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
             return -1; // Error occurred during database operation
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    private Element generateELement(){
+        Connection connection = null;
+        ArrayList<Element> elements = new ArrayList<>();
+        try {
+            connection = getConnection();
+            String query = "SELECT DISTINCT element_id, name, emoji FROM Element";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int id = resultSet.getInt("element_id");
+                        String name = resultSet.getString("name");
+                        String emoji = resultSet.getString("emoji");
+                        Element el = new Element(name, emoji);
+                        el.setId(id);
+                        elements.add(el);
+                    }
+                    int randomIndex = (int) (Math.random() * elements.size());
+                    return elements.get(randomIndex);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    private void createDate(java.sql.Date date){
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String query = "INSERT INTO LastGames(date, element_id) VALUES (?, ?);";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setDate(1, date);
+                statement.setInt(2, generateELement().getId());
+                statement.executeQuery();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    public void updateLastGames(String gameDay){
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String query = "SELECT MAX(date) AS most_recent_date FROM LastGames";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        java.sql.Date date = resultSet.getDate("date");
+                        LocalDate currentDate = date.toLocalDate();
+                        while(!date.toString().equals(gameDay)){
+                            createDate(date);
+                            currentDate = currentDate.plusDays(1);
+                            date = java.sql.Date.valueOf(currentDate);
+                        }
+                    }
+                    createDate(java.sql.Date.valueOf(gameDay));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         finally {
             if (connection != null){

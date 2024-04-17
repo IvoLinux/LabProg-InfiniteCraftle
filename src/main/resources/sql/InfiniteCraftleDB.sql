@@ -32,7 +32,7 @@ CREATE TABLE GameInstance (
   user_id INT,
   score INT,
   time DOUBLE,
-  past_game BOOLEAN,
+  win BOOLEAN,
   PRIMARY KEY (date, user_id),
   FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
   FOREIGN KEY (date) REFERENCES LastGames(date) ON DELETE CASCADE

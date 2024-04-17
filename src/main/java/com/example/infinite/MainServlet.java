@@ -6,9 +6,12 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import javax.xml.crypto.Data;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.ArrayList;
+
 
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class MainServlet extends HttpServlet {
@@ -21,6 +24,10 @@ public class MainServlet extends HttpServlet {
     public void init() {
         message = "SUP JIZZERS!";
         //user=="" significa que ainda não logou
+        try {
+            databaseManager = new DatabaseManager();
+        } catch (SQLException e){
+        }
         user = "";
     }
 
@@ -47,8 +54,7 @@ public class MainServlet extends HttpServlet {
         JsonObject jsonObject = JsonParser.parseString(jsonPayload.toString()).getAsJsonObject();
         String type = jsonObject.get("type").getAsString();
         int code=-1;
-        String username = new String();
-        String password = new String();
+        String username = "", password = "";
 
         if(type.equals("LOGIN")){
             username = jsonObject.get("username").getAsString();
@@ -66,9 +72,10 @@ public class MainServlet extends HttpServlet {
             initialTime = System.currentTimeMillis();
         }
         else if(type.equals("CHANGEDATE")){
+            username = jsonObject.get("username").getAsString();
             String date = jsonObject.get("data").getAsString();
             if(isValidData(date)){
-                gameDay= date;
+                gameDay = date;
                 code = 0;
             }
             else{
@@ -76,13 +83,11 @@ public class MainServlet extends HttpServlet {
             }
         }
         if(code==0){
-            if(isDone()){
-                sendDoneMessage(response);
-                return;
+            if(gameDay.equals(todayDay())){
+                databaseManager.updateLastGames(gameDay);
+                //ArrayList<Element> elements = databaseManager.getGameInstance(gameDay, username);
             }
-            user = username;
-            Array <Elemento> elements = DatabaseManager.getElementsArray(gameDay,user);
-            sendElementsList(elements, response,code, ErrorCodeDictionary.getErrorMessage(code));
+            //sendElementsList(elements, response,code, ErrorCodeDictionary.getErrorMessage(code));
         }
         else{
             sendErrorMessage(code,ErrorCodeDictionary.getErrorMessage(code),response);
@@ -118,27 +123,27 @@ public class MainServlet extends HttpServlet {
             String dad = jsonObject.get("dad").getAsString();
             String mom = jsonObject.get("mom").getAsString();
             //modificar para receber son e emoji
-            String son = DatabaseManager.searchSon(mom,dad,gameDay);
-            if(son==null){
+            //String son = DatabaseManager.searchSon(mom,dad,gameDay);
+            //if(son==null){
                 //função que pega da IA
-                son = getElementSon();
-                DatabaseManager.saveSon(mom,dad,son.toString());
-            }
+              //  son = getElementSon();
+                //DatabaseManager.saveSon(mom,dad,son.toString());
+            //}
 
-            if(son==null){
-                craft = false;
-            }
-            else if(isElementDay(son)){
-                end = true;
+            //if(son==null){
+              //  craft = false;
+         //   }
+            //else if(isElementDay(son)){
+              //  end = true;
                 long time= 0;
-                if(gameDay.equals(todayDay())){
-                    time= (System.currentTimeMillis()- initialTime)/1000;
-                }
+//                if(gameDay.equals(todayDay())){
+  //                  time= (System.currentTimeMillis()- initialTime)/1000;
+    //            }
                 int numElements = getNumElements();
                 int score = score(time,numElements);
-                DatabaseManager.saveGameDay(time, score, user, gameDay);
-            }
-            sendElementSon(son, emoji, response, craft, end);
+      //          DatabaseManager.saveGameDay(time, score, user, gameDay);
+            //}
+        //    sendElementSon(son, emoji, response, craft, end);
         }
     }
     //OK
@@ -148,9 +153,8 @@ public class MainServlet extends HttpServlet {
         return format.format(today);
     }
 
-    private void sendElementsList(Array<Elemento> elements, HttpServletResponse response, int code, String error) {
-
-    }
+    //private void sendElementsList(Array<Element> elements, HttpServletResponse response, int code, String error) {
+    //}
 
     private void sendElementSon(String son, HttpServletResponse response, boolean craft, boolean end) {
 
@@ -161,27 +165,27 @@ public class MainServlet extends HttpServlet {
     }
 
     private void sendDoneMessage(HttpServletResponse response) {
-        DatabaseManager.getGameInstanceData();
+        //DatabaseManager.getGameInstanceData();
     }
 
     private boolean isValidData(String data){
-
+        return true;
     }
 
     private boolean isDone(){
-
+        return true;
     }
 
     private boolean isElementDay(String son){
-
+        return true;
     }
 
     private String getElementSon() {
-
+        return "";
     }
 
     private int getNumElements(){
-
+        return 0;
     }
     //OK
     private int score(long time, int numElements){
