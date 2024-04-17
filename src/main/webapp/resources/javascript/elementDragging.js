@@ -1,5 +1,6 @@
 const itemSidebar = document.querySelector('.items-inner')
 const itemInstances = document.querySelector('.instances')
+const input = document.querySelector('.sidebar-input');
 let instanceIdTracker = 0;
 
 function handleItemDrag(event, component) {
@@ -35,7 +36,8 @@ function handleItemDrag(event, component) {
         const matchedElement = document.querySelector('.instance-hover')
         if (matchedElement !== null) {
             instanceIdTracker++
-            const newElement = createElement("🥵", "cog", true)
+            const newElement = createElement("🥵", matchedElement.innerText.slice(3) + ' ' + component.innerText.slice(3), true)
+            newElement.id = 'instance-' + instanceIdTracker
             newElement.style.left = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2 + 'px'
             newElement.style.top = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2 + 'px'
             itemInstances.appendChild(newElement)
@@ -60,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
     elements.forEach(item => {
         itemSidebar.appendChild(createElement(item.emoji, item.text))
     });
+    document.querySelector('.sidebar-input').placeholder = 'Search (' + elements.length + ') items...';
 
     // Adds an on click event listener to all "item" divs in Sidebar
     itemSidebar.addEventListener('mousedown', function (event) {
@@ -80,6 +83,17 @@ document.addEventListener('DOMContentLoaded', function () {
         instanceIdTracker++
         if (event.target.classList.contains('item')) handleItemDrag(event, event.target)
     })
+
+    // Updates visible elements based on search input
+    input.addEventListener('input', function () {
+        const searchText = input.value.toLowerCase();
+        const items = document.querySelectorAll('.items-inner .item');
+        items.forEach(function (item) {
+            const itemText = item.textContent.toLowerCase();
+            if (itemText.includes(searchText)) item.style.display = 'inline-block';
+            else item.style.display = 'none';
+        });
+    });
 })
 
 function createElement(emoji, text, instance = false) {

@@ -121,8 +121,8 @@
     height: 40px;
     line-height: 18px;
     position: relative;
-    background-size: 21px 21px;
-    background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgNTAgNTAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM6c2VyaWY9Imh0dHA6Ly93d3cuc2VyaWYuY29tLyIgc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoyOyI+CiAgICA8cGF0aCBkPSJNMjEsM0MxMS42MjEsMyA0LDEwLjYyMSA0LDIwQzQsMjkuMzc5IDExLjYyMSwzNyAyMSwzN0MyNC43MTEsMzcgMjguMTQxLDM1LjgwNSAzMC45MzgsMzMuNzgxTDQ0LjA5NCw0Ni45MDZMNDYuOTA2LDQ0LjA5NEwzMy45MDYsMzEuMDYzQzM2LjQ2MSwyOC4wODYgMzgsMjQuMjIzIDM4LDIwQzM4LDEwLjYyMSAzMC4zNzksMyAyMSwzWk0yMSw1QzI5LjI5Nyw1IDM2LDExLjcwMyAzNiwyMEMzNiwyOC4yOTcgMjkuMjk3LDM1IDIxLDM1QzEyLjcwMywzNSA2LDI4LjI5NyA2LDIwQzYsMTEuNzAzIDEyLjcwMyw1IDIxLDVaIiBzdHlsZT0iZmlsbDpyZ2IoMTU5LDE1OSwxNTkpO2ZpbGwtcnVsZTpub256ZXJvOyIvPgo8L3N2Zz4=") no-repeat 10px 10px;
+    background-size: 21px 21px !important;
+    background: url("https://neal.fun/infinite-craft/search.svg") no-repeat 10px 10px;
     color: var(--text-color);
 }
 
