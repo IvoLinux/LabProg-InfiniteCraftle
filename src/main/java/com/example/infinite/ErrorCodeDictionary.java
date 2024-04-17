@@ -12,7 +12,9 @@ public class ErrorCodeDictionary {
         errorMessages.put(1, "Registration failed: user already exists");
         errorMessages.put(2, "Authentication failed: incorrect password");
         errorMessages.put(3, "Authentication failed: user does not exist");
+        errorMessages.put(4, "Invalid date");
         errorMessages.put(-1, "calma ai biggers deu ruim aqui");
+
     }
 
     // Method to get error message by error code
