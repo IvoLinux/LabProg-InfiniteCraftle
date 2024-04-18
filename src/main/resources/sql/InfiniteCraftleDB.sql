@@ -24,7 +24,7 @@ CREATE TABLE LastGames (
 CREATE TABLE User (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255),
-  password_hash VARCHAR(60) -- For bcrypt, typically 60 characters
+  password_hash VARCHAR(60)
 );
 
 CREATE TABLE GameInstance (
