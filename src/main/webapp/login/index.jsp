@@ -26,6 +26,11 @@
         <a href="../signup/" class="discrete" target="_self">Sign up</a>
     </form>
 
+    <div>
+        <% String
+        %>>
+    </div>
+
     <div id="modal-success" class="modal hidden">
         <div>
             <h3>Logged in Successfully</h3>
