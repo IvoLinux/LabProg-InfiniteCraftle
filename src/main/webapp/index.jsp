@@ -162,6 +162,7 @@
                     font-size: 14px;
                     text-align: center;
                     padding: 0 8px 0 8px;
+                    cursor: pointer;
                 }`,
             onChange: (e) => {
                 checkIfDateAvailable(e.detail)
