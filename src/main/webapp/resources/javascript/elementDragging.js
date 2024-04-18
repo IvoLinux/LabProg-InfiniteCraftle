@@ -92,6 +92,7 @@ function handleItemDrag(event, component) {
                     "discovered": false
                 })
                 sessionStorage.setItem('test-data', JSON.stringify(data))
+                document.querySelector('.sidebar-input').placeholder = 'Search (' + itemSidebar.children.length + ') items...';
             }
             matchedElement.remove()
             component.remove()

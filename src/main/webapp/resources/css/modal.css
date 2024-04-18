@@ -31,7 +31,3 @@
     backdrop-filter: blur(3px);
     z-index: 1;
 }
-
-.hidden {
-    display: none;
-}
