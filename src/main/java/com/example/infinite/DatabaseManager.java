@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import org.mindrot.jbcrypt.*;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DatabaseManager {
@@ -63,7 +65,7 @@ public class DatabaseManager {
             }
         }
     }
-    private Element generateELement(){
+    private Element generateElement(){
         Connection connection = null;
         ArrayList<Element> elements = new ArrayList<>();
         Element el = new Element("","");
@@ -101,7 +103,7 @@ public class DatabaseManager {
             String query = "INSERT INTO LastGames(date, element_id) VALUES (?, ?);";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setDate(1, date);
-                statement.setInt(2, generateELement().getId());
+                statement.setInt(2, generateElement().getId());
                 statement.execute();
             }
         } catch (SQLException e) {
@@ -132,6 +134,7 @@ public class DatabaseManager {
                 statement.setInt(5, game.getUser().getId());
                 statement.setInt(6, element_id);
                 statement.execute();
+                game.setElements(getElementList(game));
                 return 0;
             }
         } catch (SQLException e) {
@@ -176,6 +179,37 @@ public class DatabaseManager {
             }
         }
     }
+    private ArrayList<Element> getElementList(Game game){
+        ArrayList<Element> elements = new ArrayList<>();
+        String query = "SELECT e.element_id, e.name, e.emoji \n" +
+                "FROM Element e \n" +
+                "JOIN CraftedInGame cig ON e.element_id = cig.element_id \n" +
+                "WHERE cig.date = ? AND cig.user_id = ?;";
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setDate(1, new java.sql.Date(game.getDate().getTime()));
+                statement.setInt(2, game.getUser().getId());
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        String name = resultSet.getString("name");
+                        String emoji = resultSet.getString("emoji");
+                        Element el = new Element(name, emoji);
+                        elements.add(el);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+        return elements;
+    }
     public DatabaseManager() throws SQLException {
         pool = new ArrayList<>();
         initializePool();
@@ -202,11 +236,12 @@ public class DatabaseManager {
         try {
             connection = getConnection();
             // Check if the username already exists
-            String queryCheck = "SELECT COUNT(*) FROM User WHERE username = ?";
+            String queryCheck = "SELECT user_id FROM User WHERE username = ?";
             try (PreparedStatement statementCheck = connection.prepareStatement(queryCheck)) {
                 statementCheck.setString(1, user.getUsername());
                 try (ResultSet resultSet = statementCheck.executeQuery()) {
                     if (resultSet.next() && resultSet.getInt(1) > 0) {
+                        user.setId(resultSet.getInt("user_id"));
                         return 1; // Username already exists
                     }
                 }
@@ -216,7 +251,7 @@ public class DatabaseManager {
             String salt = BCrypt.gensalt(); // Generate a salt
             String hashedPassword = BCrypt.hashpw(user.getPassword(), salt); // Hash the password with the salt
             String queryInsert = "INSERT INTO User (username, password_hash) VALUES (?, ?)";
-            try (PreparedStatement statementInsert = connection.prepareStatement(queryInsert)) {
+            try (PreparedStatement statementInsert = connection.prepareStatement(queryInsert, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 statementInsert.setString(1, user.getUsername());
                 statementInsert.setString(2, hashedPassword);
                 int rowsAffected = statementInsert.executeUpdate();
@@ -369,10 +404,10 @@ public class DatabaseManager {
         Connection connection = null;
         try {
             connection = getConnection();
-            String query = "SELECT element_id, name, emoji " +
+            String query = "SELECT e.element_id, e.name, e.emoji " +
                     "FROM Element e JOIN ElementsCrafted ec " +
                     "ON e.element_id = ec.child_id " +
-                    "WHERE parent1_id = ? AND parent2_id = ?";
+                    "WHERE ec.parent1_id = ? AND ec.parent2_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setInt(1, parent1.getId());
                 statement.setInt(2, parent2.getId());
@@ -409,10 +444,15 @@ public class DatabaseManager {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         java.sql.Date date = resultSet.getDate("most_recent_date");
-                        LocalDate currentDate = date.toLocalDate();
-                        while(!date.toString().equals(gameDay)){
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        LocalDate currentDate = LocalDate.parse(date.toString(), formatter);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define your desired pattern
+                        String dateString = sdf.format(gameDay);
+                        System.out.println(dateString + " sasdasjdnasdl");
+                        while(!date.toString().equals(dateString)){
                             currentDate = currentDate.plusDays(1);
                             date = java.sql.Date.valueOf(currentDate);
+                            System.out.println(date.toString());
                             createDate(date);
                         }
                     }
@@ -431,7 +471,7 @@ public class DatabaseManager {
         }
     }
     public int getGame(Game game){
-        String query = "SELECT (score, time, win) FROM GameInstance WHERE date = ? AND user_id = ?";
+        String query = "SELECT score, time, win FROM GameInstance WHERE date = ? AND user_id = ?";
         Connection connection = null;
         try {
             connection = getConnection();
@@ -444,6 +484,7 @@ public class DatabaseManager {
                         game.setScore(resultSet.getInt("score"));
                         game.setTimeMillis(resultSet.getInt("time"));
                         game.setWin(resultSet.getBoolean("win"));
+                        game.setElements(getElementList(game));
                         return 0;
                     }
                     else{
@@ -464,7 +505,7 @@ public class DatabaseManager {
     public Element getElementDay(java.util.Date date){
         Element el = new Element("", "");
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        String query = "SELECT (element_id, name, emoji) FROM Element e " +
+        String query = "SELECT element_id, name, emoji FROM Element e " +
                 "JOIN LastGames lg " +
                 "ON e.element_id = lg.element_id " +
                 "WHERE date = ?";
