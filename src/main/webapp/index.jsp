@@ -21,6 +21,12 @@
 <body class="infinite-craft-body vsc-initialized" style="background: white">
 <div class="container">
     <%@include file="components/upper-left-logo.jsp" %>
+
+    <script src="${pageContext.request.contextPath}/resources/javascript/datedreamer.js"></script>
+    <div class="calendar-container">
+        <div id="calendar" class="calendar"></div>
+    </div>
+
     <div class="side-controls">
         <img src="resources/images/clear.svg" class="clear" alt="clear canvas icon"/>
     </div>
@@ -34,7 +40,6 @@
 
 <script>if (window.location.pathname.includes("/components/")) window.location.href = '<%= request.getContextPath() %>'</script>
 <script>
-
     const clearButton = document.querySelector('.clear')
     let retrievedData = sessionStorage.getItem("test-data")
     if (retrievedData == null) {
@@ -140,16 +145,38 @@
         }
         sessionStorage.setItem("test-data", JSON.stringify(gameInstance))
     }
+    sessionStorage.setItem("listDates", JSON.stringify({"dates": ["2024-04-01", "2024-04-02", "2024-04-03", "2024-04-04", "2024-04-05", "2024-04-06", "2024-04-07", "2024-04-08", "2024-04-09", "2024-04-10", "2024-04-11", "2024-04-12", "2024-04-13","2024-04-14", "2024-04-15", "2024-04-16", "2024-04-17", "2024-04-18", "2024-04-19", "2024-04-20"]}))
     document.addEventListener('DOMContentLoaded', function () {
         clearButton.addEventListener('mousedown', function () {
             document.querySelector('.instances').innerHTML = ''
         })
+        new datedreamer.calendarToggle({
+            element: "#calendar",
+            format: "YYYY-MM-DD",
+            theme: "lite-purple",
+            styles: `
+                #date-input {
+                    width: 80px;
+                    background-size: 23px 23px;
+                    height: 32px;
+                    font-size: 14px;
+                    text-align: center;
+                    padding: 0 8px 0 8px;
+                }`,
+            onChange: (e) => {
+                checkIfDateAvailable(e.detail)
+            }
+        })
         if (sessionStorage.getItem('loggedIn') === 'true') document.querySelector('.logout').style.display = 'block';
         else document.querySelector('.login').style.display = 'block';
     })
+
+    function checkIfDateAvailable(text) {
+        if(!JSON.parse(sessionStorage.getItem("listDates")).dates.includes(text)) {
+            window.alert('Data não disponível')
+        }
+    }
 </script>
 
 </body>
-
 </html>
-
