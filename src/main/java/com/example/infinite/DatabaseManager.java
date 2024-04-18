@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import org.mindrot.jbcrypt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseManager {
@@ -15,11 +16,6 @@ public class DatabaseManager {
     private static final String JDBC_PASSWORD = "root@icraftle";
     private static final int INITIAL_POOL_SIZE = 20;
     private List<Connection> pool;
-
-    public DatabaseManager() throws SQLException {
-        pool = new ArrayList<>();
-        initializePool();
-    }
     private void initializePool() throws SQLException {
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
@@ -35,13 +31,162 @@ public class DatabaseManager {
     private synchronized void releaseConnection(Connection connection) {
         pool.add(connection);
     }
-    public int removeUser(String username) {
+    private int loadElement(Element element) {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String query = "SELECT element_id, depth \n" +
+                    "FROM Element \n" +
+                    "WHERE name = ? \n" +
+                    "ORDER BY depth DESC \n" +
+                    "LIMIT 1\n";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, element.getName());
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        System.out.println("oi: " + resultSet.getInt("element_id"));
+                        element.setId(resultSet.getInt("element_id"));
+                        element.setDepth(resultSet.getInt("depth"));
+                        return 0;
+                    }
+                    else{
+                        return -1;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        } finally {
+            if (connection != null) {
+                releaseConnection(connection);
+            }
+        }
+    }
+    private Element generateELement(){
+        Connection connection = null;
+        ArrayList<Element> elements = new ArrayList<>();
+        Element el = new Element("","");
+        try {
+            connection = getConnection();
+            String query = "SELECT DISTINCT element_id, name, emoji FROM Element";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int id = resultSet.getInt("element_id");
+                        String name = resultSet.getString("name");
+                        String emoji = resultSet.getString("emoji");
+                        el = new Element(name, emoji);
+                        el.setId(id);
+                        elements.add(el);
+                    }
+                    int randomIndex = (int) (Math.random() * elements.size());
+                    return elements.get(randomIndex);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return el;
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    private void createDate(java.sql.Date date){
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String query = "INSERT INTO LastGames(date, element_id) VALUES (?, ?);";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setDate(1, date);
+                statement.setInt(2, generateELement().getId());
+                statement.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    private int storeCraftedElement(Game game, int element_id){
+        String query = "INSERT INTO CraftedInGame (date, user_id, element_id)\n" +
+                "SELECT ?, ?, ?\n" +
+                "WHERE NOT EXISTS (\n" +
+                "    SELECT 1\n" +
+                "    FROM CraftedInGame\n" +
+                "    WHERE date = ? AND user_id = ? AND element_id = ?\n" +
+                ");\n";
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setDate(1, new java.sql.Date(game.getDate().getTime()));
+                statement.setInt(2, game.getUser().getId());
+                statement.setInt(3, element_id);
+                statement.setDate(4, new java.sql.Date(game.getDate().getTime()));
+                statement.setInt(5, game.getUser().getId());
+                statement.setInt(6, element_id);
+                statement.execute();
+                return 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // Error occurred during database operation
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    private int createGame(Game game){
+        String query = "INSERT INTO GameInstance(date, user_id, score, time, win) VALUES (?,?,?,?,?)";
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setDate(1, new java.sql.Date(game.getDate().getTime()));
+                statement.setInt(2, game.getUser().getId());
+                statement.setInt(3, game.getScore());
+                statement.setLong(4, game.getTimeMillis());
+                statement.setBoolean(5, game.isWin());
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    // adicionar elementos padrao
+                    return storeCraftedElement(game, 1) &
+                            storeCraftedElement(game, 2) &
+                            storeCraftedElement(game, 3) &
+                            storeCraftedElement(game, 4);
+                } else{
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // Error occurred during database operation
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    public DatabaseManager() throws SQLException {
+        pool = new ArrayList<>();
+        initializePool();
+    }
+    public int removeUser(User user) {
         Connection connection = null;
         try {
             connection = getConnection();
             String queryDelete = "DELETE FROM User WHERE username = ?";
             PreparedStatement statementDelete = connection.prepareStatement(queryDelete);
-            statementDelete.setString(1, username);
+            statementDelete.setString(1, user.getUsername());
             statementDelete.executeUpdate();
             return 0;
         } catch (SQLException e) {
@@ -52,14 +197,14 @@ public class DatabaseManager {
             if(connection != null) releaseConnection(connection);
         }
     }
-    public int registerUser(String username, String password) {
+    public int registerUser(User user) {
         Connection connection = null;
         try {
             connection = getConnection();
             // Check if the username already exists
             String queryCheck = "SELECT COUNT(*) FROM User WHERE username = ?";
             try (PreparedStatement statementCheck = connection.prepareStatement(queryCheck)) {
-                statementCheck.setString(1, username);
+                statementCheck.setString(1, user.getUsername());
                 try (ResultSet resultSet = statementCheck.executeQuery()) {
                     if (resultSet.next() && resultSet.getInt(1) > 0) {
                         return 1; // Username already exists
@@ -69,14 +214,20 @@ public class DatabaseManager {
 
             // If the username doesn't exist, register the user
             String salt = BCrypt.gensalt(); // Generate a salt
-            String hashedPassword = BCrypt.hashpw(password, salt); // Hash the password with the salt
+            String hashedPassword = BCrypt.hashpw(user.getPassword(), salt); // Hash the password with the salt
             String queryInsert = "INSERT INTO User (username, password_hash) VALUES (?, ?)";
             try (PreparedStatement statementInsert = connection.prepareStatement(queryInsert)) {
-                statementInsert.setString(1, username);
+                statementInsert.setString(1, user.getUsername());
                 statementInsert.setString(2, hashedPassword);
                 int rowsAffected = statementInsert.executeUpdate();
                 if (rowsAffected > 0) {
-                    return 0; // User registered successfully
+                    ResultSet generatedKeys = statementInsert.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        user.setId(generatedKeys.getInt(1));
+                        return 0;
+                    } else {
+                        return -1; // Failed to retrieve user_id
+                    }
                 } else{
                     return -1;
                 }
@@ -90,7 +241,7 @@ public class DatabaseManager {
             if(connection != null) releaseConnection(connection);
         }
     }
-    public int authenticateUser(String username, String password) {
+    public int authenticateUser(User user) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -98,18 +249,12 @@ public class DatabaseManager {
             connection = getConnection();
             String query = "SELECT * FROM User WHERE username = ?";
             statement = connection.prepareStatement(query);
-            statement.setString(1, username);
-
-            // Execute the query
+            statement.setString(1, user.getUsername());
             resultSet = statement.executeQuery();
-
-            // Check if a user with the given username exists
             if (resultSet.next()) {
-                // Retrieve the hashed password and salt from the database
                 String storedPasswordHash = resultSet.getString("password_hash");
-
-                // Verify the provided password against the stored hash
-                if (BCrypt.checkpw(password, storedPasswordHash)) {
+                user.setId(resultSet.getInt("user_id"));
+                if (BCrypt.checkpw(user.getPassword(), storedPasswordHash)) {
                     return 0;
                 } else {
                     return 2;
@@ -175,39 +320,7 @@ public class DatabaseManager {
             }
         }
     }
-    private int loadElement(Element element) {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            String query = "SELECT element_id, depth \n" +
-                    "FROM Element \n" +
-                    "WHERE name = ? \n" +
-                    "ORDER BY depth DESC \n" +
-                    "LIMIT 1\n";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setString(1, element.getName());
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        System.out.println("oi: " + resultSet.getInt("element_id"));
-                        element.setId(resultSet.getInt("element_id"));
-                        element.setDepth(resultSet.getInt("depth"));
-                        return 0;
-                    }
-                    else{
-                        return -1;
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
-        } finally {
-            if (connection != null) {
-                releaseConnection(connection);
-            }
-        }
-    }
-    public int craftElement(Element parent1, Element parent2, Element element){
+    public int craftElement(Game game, Element parent1, Element parent2, Element element){
         // Load id and depth of both parents
         loadElement(parent1);
         loadElement(parent2);
@@ -232,8 +345,13 @@ public class DatabaseManager {
                 statement.setInt(1, parent1.getId());
                 statement.setInt(2, parent2.getId());
                 statement.setInt(3, element.getId());
-                statement.execute();
-                return 0; // Success
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    storeCraftedElement(game, element.getId());
+                    return 0;
+                } else{
+                    return -1;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -245,13 +363,13 @@ public class DatabaseManager {
             }
         }
     }
-    public int queryElement(Element parent1, Element parent2, Element element){
+    public int queryElement(Game game, Element parent1, Element parent2, Element element){
         loadElement(parent1);
         loadElement(parent1);
         Connection connection = null;
         try {
             connection = getConnection();
-            String query = "SELECT name, emoji " +
+            String query = "SELECT element_id, name, emoji " +
                     "FROM Element e JOIN ElementsCrafted ec " +
                     "ON e.element_id = ec.child_id " +
                     "WHERE parent1_id = ? AND parent2_id = ?";
@@ -261,12 +379,14 @@ public class DatabaseManager {
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
+                        element.setId(resultSet.getInt("element_id"));
                         element.setName(resultSet.getString("name"));
                         element.setEmoji(resultSet.getString("emoji"));
+                        storeCraftedElement(game, element.getId());
                         return 0;
                     }
                     else{
-                        return -1;
+                        return 7;
                     }
                 }
             }
@@ -280,56 +400,7 @@ public class DatabaseManager {
             }
         }
     }
-    private Element generateELement(){
-        Connection connection = null;
-        ArrayList<Element> elements = new ArrayList<>();
-        try {
-            connection = getConnection();
-            String query = "SELECT DISTINCT element_id, name, emoji FROM Element";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        int id = resultSet.getInt("element_id");
-                        String name = resultSet.getString("name");
-                        String emoji = resultSet.getString("emoji");
-                        Element el = new Element(name, emoji);
-                        el.setId(id);
-                        elements.add(el);
-                    }
-                    int randomIndex = (int) (Math.random() * elements.size());
-                    return elements.get(randomIndex);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-        finally {
-            if (connection != null){
-                releaseConnection(connection);
-            }
-        }
-    }
-    private void createDate(java.sql.Date date){
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            String query = "INSERT INTO LastGames(date, element_id) VALUES (?, ?);";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setDate(1, date);
-                statement.setInt(2, generateELement().getId());
-                statement.executeQuery();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            if (connection != null){
-                releaseConnection(connection);
-            }
-        }
-    }
-    public void updateLastGames(String gameDay){
+    public void updateLastGames(java.util.Date gameDay){
         Connection connection = null;
         try {
             connection = getConnection();
@@ -337,16 +408,129 @@ public class DatabaseManager {
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        java.sql.Date date = resultSet.getDate("date");
+                        java.sql.Date date = resultSet.getDate("most_recent_date");
                         LocalDate currentDate = date.toLocalDate();
                         while(!date.toString().equals(gameDay)){
-                            createDate(date);
                             currentDate = currentDate.plusDays(1);
                             date = java.sql.Date.valueOf(currentDate);
+                            createDate(date);
                         }
                     }
-                    createDate(java.sql.Date.valueOf(gameDay));
+                    else {
+                        createDate(new java.sql.Date(gameDay.getTime()));
+                    }
                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    public int getGame(Game game){
+        String query = "SELECT (score, time, win) FROM GameInstance WHERE date = ? AND user_id = ?";
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setDate(1, new java.sql.Date(game.getDate().getTime()));
+                statement.setInt(2, game.getUser().getId());
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        game.setScore(resultSet.getInt("score"));
+                        game.setTimeMillis(resultSet.getInt("time"));
+                        game.setWin(resultSet.getBoolean("win"));
+                        return 0;
+                    }
+                    else{
+                        return createGame(game);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // Error occurred during database operation
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+    }
+    public Element getElementDay(java.util.Date date){
+        Element el = new Element("", "");
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        String query = "SELECT (element_id, name, emoji) FROM Element e " +
+                "JOIN LastGames lg " +
+                "ON e.element_id = lg.element_id " +
+                "WHERE date = ?";
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setDate(1, sqlDate);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        el.setId(resultSet.getInt("element_id"));
+                        el.setName(resultSet.getString("name"));
+                        el.setEmoji(resultSet.getString("emoji"));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+        return el;
+    }
+    public ArrayList<java.util.Date> getDates() {
+        ArrayList<java.util.Date> dates = new ArrayList<>();
+        String query = "SELECT date FROM LastGames";
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        dates.add(new java.util.Date(resultSet.getDate("date").getTime()));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null){
+                releaseConnection(connection);
+            }
+        }
+        return dates;
+    }
+    public void saveEndGame(Game game){
+        // update score and time
+        int score = game.getScore();
+        int time = game.getTimeMillis();
+        String query = "UPDATE GameInstance\n" +
+                "SET score = ?, time = ?\n" +
+                "WHERE date = ? AND user_id = ?;\n";
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setInt(1, score);
+                statement.setInt(2, time);
+                statement.setDate(3, new java.sql.Date(game.getDate().getTime()));
+                statement.setInt(4, game.getUser().getId());
+                statement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();

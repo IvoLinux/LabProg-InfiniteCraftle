@@ -1,6 +1,7 @@
 import com.example.infinite.DatabaseManager;
 import static org.junit.Assert.assertEquals;
 
+import com.example.infinite.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 public class DBRegisterTest {
 
     private DatabaseManager db;
+    private User user;
     private String username, password;
     int result;
 
@@ -17,6 +19,7 @@ public class DBRegisterTest {
     public void setUp() {
         username = "fhsnjdasmok";
         password = "andiashbdinasmk";
+        user = new User(username, password);
         try{
             db = new DatabaseManager();
         } catch (SQLException e){
@@ -29,13 +32,13 @@ public class DBRegisterTest {
 
     @Test
     public void testRegisterUser() {
-        result = db.removeUser(username);
+        result = db.removeUser(user);
         assertEquals(0, result);
-        result = db.registerUser(username, password);
+        result = db.registerUser(user);
         assertEquals(0, result);
-        result = db.registerUser(username, password);
+        result = db.registerUser(user);
         assertEquals(1, result);
-        result = db.removeUser(username);
+        result = db.removeUser(user);
         assertEquals(0, result);
     }
 }
