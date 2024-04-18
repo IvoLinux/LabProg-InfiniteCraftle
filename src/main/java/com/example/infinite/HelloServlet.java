@@ -1,28 +1,11 @@
 package com.example.infinite;
 
-import java.io.*;
+import com.example.infinite.ai.ICModel;
 
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
-public class HelloServlet extends HttpServlet {
-    private String message;
-
-    public void init() {
-        message = "SUP JIZZERS!";
-    }
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
-    }
-
-    public void destroy() {
+public class HelloServlet {
+    public static void main(String[] args){
+        ICModel model = ICModel.buildDefault("API_KEY", 10, 0.7f);
+        String ret = model.retrieveAnswer("Cat", "Dog");
+        System.out.println(ret);
     }
 }
