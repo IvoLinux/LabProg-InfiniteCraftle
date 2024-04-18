@@ -20,6 +20,10 @@ public class Element {
     public Element(String name, String emoji) {
         this(name, emoji, 0, null, null);
     }
+
+    public Element() {
+        this(null,null);
+    }
     // Constructor with null parents
     public Element(String name, String emoji, int depth) {
         this(name, emoji, depth, null, null);

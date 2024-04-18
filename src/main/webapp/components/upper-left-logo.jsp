@@ -14,3 +14,4 @@
 <a href="http://localhost:8080/Infinite_war_exploded/" class="home-link">
     <img src="${pageContext.request.contextPath}/resources/images/logo_002.svg" class="site-title" alt="NEAL.FUN logo"/>
 </a>
+<script>if (window.location.pathname.includes("/components/")) window.location.href = '<%= request.getContextPath() %>'</script>

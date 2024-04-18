@@ -17,15 +17,15 @@ public class DummyTest {
     @After
     public void tearDown() {
     }
-    public void oi(A a){
-        a.set(2);
-    }
-    @Test
-    public void test() {
-        A a = new A();
-        a.set(1);
-        oi(a);
-        System.out.println(a.get());
-    }
+//    public void oi(A a){
+//        a.set(2);
+//    }
+//    @Test
+//    public void test() {
+//        A a = new A();
+//        a.set(1);
+//        oi(a);
+//        System.out.println(a.get());
+//    }
 }
 

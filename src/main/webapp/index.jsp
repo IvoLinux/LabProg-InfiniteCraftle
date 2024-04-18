@@ -25,18 +25,21 @@
         <img src="resources/images/clear.svg" class="clear" alt="clear canvas icon"/>
     </div>
     <canvas class="particles" width="1920" height="972"></canvas>
-    <%@include file="modules/element-playground.jsp" %>
+    <%@include file="components/element-playground.jsp" %>
     <img src="resources/images/logo.svg" class="logo" alt="logo"/>
     <div class="reset">Reset</div>
     <a class="login" href="./login/">Log in</a>
+    <a class="logout">Log out</a>
 </div>
 
+<script>if (window.location.pathname.includes("/components/")) window.location.href = '<%= request.getContextPath() %>'</script>
 <script>
+
     const clearButton = document.querySelector('.clear')
-    let retrievedData = localStorage.getItem("test-data")
+    let retrievedData = sessionStorage.getItem("test-data")
     if (retrievedData == null) {
-        let data = {
-            "date": "15/04",
+        let gameInstance = {
+            "element-of-the-day": "Water",
             "elements": [{"text": "Water", "emoji": "💧", "discovered": true}, {
                 "text": "Fire",
                 "emoji": "🔥",
@@ -135,15 +138,16 @@
                 "discovered": false
             }, {"text": "French Cum", "emoji": "🥐💦", "discovered": false}]
         }
-        localStorage.setItem("test-data", JSON.stringify(data))
+        sessionStorage.setItem("test-data", JSON.stringify(gameInstance))
     }
     document.addEventListener('DOMContentLoaded', function () {
-        clearButton.addEventListener('mousedown', function (event) {
+        clearButton.addEventListener('mousedown', function () {
             document.querySelector('.instances').innerHTML = ''
         })
+        if (sessionStorage.getItem('loggedIn') === 'true') document.querySelector('.logout').style.display = 'block';
+        else document.querySelector('.login').style.display = 'block';
     })
 </script>
-
 
 </body>
 
