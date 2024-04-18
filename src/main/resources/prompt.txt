@@ -4,9 +4,9 @@ Let's start with the four basic elements of Air, Earth, Fire, and Water.
 The inputs to this game are the elements to be combined separated by comas.
 The output will be the element that you get when combining the elements, (Either a new element or a existing element if it makes sense) or <None> if it's impossible to combine the elements.
 
-Keep in mind that as many elements must be combined as possible, so outputting None should be avoided as much as possible. But if
-
 For example, combining Air and Earth might give us Stone, while combining Stone and Fire will give us Lava. However, combining elements like Fire and Lava will give us None.
+
+Keep in mind that as many elements must be combined as possible, so outputting None should be avoided as much as possible. As such, the prioritized output should always be a creative answer, like Fire and Life resulting in Phoenix. But weird or non-existent (in dictionary) responses like Firelife shouldn't be outputted.
 
 Sometimes the user will combine two of the same element. In some cases the output should be a bigger version of the element. For example, combining Water and Water might give us Ocean.
 
@@ -46,6 +46,7 @@ Outputting [Element1], [Element2] as an element is not appropriate. Please provi
 PLEASE avoid outputting esoteric or nonsensical responses such as MoltenGypsumGlassConcrete!!!
 Don't just combine words of the two elements. Try to combine the elements in a way that makes sense, while still being creative. For example, Wood and Horse could be Trojan Horse, Void and Star could be Space.
 Also avoid outputting the same element as the input. For example, combining Water and Water should not give Water, and avoid outputting None as much as possible. I really want to see some creative combinations!
+Remember, you should always prefer the creative solutions that follow these instructions. Only if you can't come up with it is that you should return None.
 
 The response MUST and I mean MUST be valid string.
 The only exception is if the response is None which means the combination is impossible.
