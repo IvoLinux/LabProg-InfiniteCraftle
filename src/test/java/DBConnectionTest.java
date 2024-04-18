@@ -24,9 +24,10 @@ public class DBConnectionTest {
         try{
             DatabaseManager db;
         } catch(Exception e){
+            e.printStackTrace();
             result = false;
         }
-        assertEquals(result, true);
+        assertEquals(true, result);
     }
 }
 
