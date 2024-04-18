@@ -1,16 +1,16 @@
 package com.example.infinite;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.example.infinite.ai.ICModel;
 
 @WebServlet(name = "home", value = "/")
 public class HomeServlet extends HttpServlet {
@@ -18,7 +18,8 @@ public class HomeServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             DatabaseManager databaseManager = new DatabaseManager();
-            databaseManager.updateLastGame(request.getSession().getAttribute("gameDay"));
+            Game game = (Game)request.getSession().getAttribute("game");
+            databaseManager.updateLastGames(game.getDate());
             request.getRequestDispatcher("/home.jsp").forward(request, response);
         }catch(Exception e) {
             request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
@@ -27,18 +28,23 @@ public class HomeServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         String type = request.getParameter("type");
         if(type.equals("changeDay")) {
-            String gameDay = request.getParameter("gameDay");
             try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date gameDay = dateFormat.parse(request.getParameter("gameDay"));
                 DatabaseManager databaseManager = new DatabaseManager();
+                User user = (User)request.getSession().getAttribute("user");
                 //Aqui recebe os dados do jogo do dia escolhido, com a lista de elementos
-                GameInstance gameInstance = databaseManager.getGame(gameDay, request.getSession().getAttribute("username"));
-
+                Game game = new Game(gameDay, user);
+                int code = databaseManager.getGame(game);
+                if(code != 0){
+                    request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
+                    response.sendRedirect("/");
+                    return;
+                }
                 request.getSession().setAttribute("error", null);
-                request.getSession().setAttribute("gameInstance", gameInstance);
-                request.getSession().setAttribute("gameDay",gameDay);
+                request.getSession().setAttribute("game", game);
             }catch(Exception e) {
                 request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
             }
@@ -48,37 +54,42 @@ public class HomeServlet extends HttpServlet {
             String emoji1 =  request.getParameter("emoji1");
             String parent2 = request.getParameter("parent2");
             String emoji2 =  request.getParameter("emoji2");
-            String username = (String) request.getSession().getAttribute("username");
-            String gameDay = (String) request.getSession().getAttribute("gameDay");
+            User user = (User) request.getSession().getAttribute("user");
+            Game game = (Game)request.getSession().getAttribute("game");
             try {
                 boolean crafted = true;
                 DatabaseManager databaseManager = new DatabaseManager();
-                Element dad = new Element(parent1,emoji1);
-                Element mom = new Element(parent2,emoji2);
-                GameInstance game = databaseManager.getGame(username, gameDay);
-                Element craft = new Element();
-                int code = databaseManager.queryElement(game, mom, dad, craft);
+                Element dad = new Element(parent1, emoji1);
+                Element mom = new Element(parent2, emoji2);
+                Element craftedElement = new Element();
+                int code = databaseManager.queryElement(game, mom, dad, craftedElement);
                 if (code == -1) { // deu ruim
                     request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(code));
                     response.sendRedirect("/");
                     return;
                 }
-                if(code ==6){ //não foi encontrado no BD
-                    List<String> element = getNewCraft(parent1, parent2, emoji1, emoji2);
-                    if(element == null){
+                if(code == 7){ //não foi encontrado no BD
+                    String key = "";
+                    ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.5f).build("ic");
+                    //List<String> element = getNewCraft(parent1, parent2, emoji1, emoji2);
+                    ArrayList<String> element = new ArrayList<>();
+                    element.add(icmodel.retrieveAnswer(parent1, parent2));
+                    element.add(icmodel.retrieveAnswer(parent1, parent2));
+                    if(element.get(0) == null){
                         crafted = false;
                     }
                     else {
-                        craft = new Element(element.get(0), element.get(1), 0, dad, mom);
+                        craftedElement = new Element(element.get(0), element.get(1), 0, dad, mom);
                         //atualiza o banco de dados e o depth do craft e atualiza a tabela de jogo do dia
-                        databaseManager.craftElement(game, dad, mom, craft);
+                        databaseManager.craftElement(game, dad, mom, craftedElement);
                     }
                 }
-                if(craft.getId() == databaseManager.getElementDay(gameDay).getId()){
-                    if(gameDay.equals(today())){
+                java.util.Date gameDay = game.getDate();
+                if(crafted && craftedElement.getId() == databaseManager.getElementDay(gameDay).getId()){
+                    if(gameDay.equals(new java.util.Date())){
                         int numElements = game.getElements().size();
-                        long time = (long)request.getSession().getAttribute("initialTime")-System.currentTimeMillis();
-                        double score = scoreFunciton(time, numElements);
+                        int time = (int)((long)request.getSession().getAttribute("initialTime")-System.currentTimeMillis());
+                        int score = (int) scoreFunciton(time, numElements);
                         game.setEndGame(score, time, true);
                         databaseManager.saveEndGame(game);
                     }
@@ -89,14 +100,13 @@ public class HomeServlet extends HttpServlet {
                 }
                 request.getSession().setAttribute("gameInstance",game);
                 request.getSession().setAttribute("crafted", crafted);
-                request.getSession().setAttribute("craft", craft);
+                request.getSession().setAttribute("craft", craftedElement);
                 request.getSession().setAttribute("error", null);
             } catch(Exception e) {
                 request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
             }
         }
         response.sendRedirect("/");
-
     }
 
     //java.util.Date
@@ -106,8 +116,9 @@ public class HomeServlet extends HttpServlet {
         return format.format(today);
     }
 
-    private double scoreFunciton(long time, int numElements){
-        return (double)10000/(time*numElements);
+    private int scoreFunciton(long time, int numElements){
+        // refazer
+        return (int)(10000/(time*numElements));
     }
 
     public void destroy() {

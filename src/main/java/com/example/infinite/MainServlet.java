@@ -1,3 +1,4 @@
+/*
 package com.example.infinite;
 
 import java.io.*;
@@ -59,7 +60,7 @@ public class MainServlet extends HttpServlet {
         if(type.equals("LOGIN")){
             username = jsonObject.get("username").getAsString();
             password = jsonObject.get("password").getAsString();
-            code = databaseManager.authenticateUser(username, password);
+            //code = databaseManager.authenticateUser(username, password);
             gameDay = todayDay();
             initialTime = System.currentTimeMillis();
         }
@@ -67,7 +68,7 @@ public class MainServlet extends HttpServlet {
             // Register the user into the database
             username = jsonObject.get("username").getAsString();
             password = jsonObject.get("password").getAsString();
-            code = databaseManager.registerUser(username, password);
+            //code = databaseManager.registerUser(username, password);
             gameDay = todayDay();
             initialTime = System.currentTimeMillis();
         }
@@ -84,7 +85,7 @@ public class MainServlet extends HttpServlet {
         }
         if(code==0){
             if(gameDay.equals(todayDay())){
-                databaseManager.updateLastGames(gameDay);
+                //databaseManager.updateLastGames(gameDay);
                 //ArrayList<Element> elements = databaseManager.getGameInstance(gameDay, username);
             }
             //sendElementsList(elements, response,code, ErrorCodeDictionary.getErrorMessage(code));
@@ -103,6 +104,7 @@ public class MainServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println(jsonResponse.toString());
         */
+        /*
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -194,3 +196,4 @@ public class MainServlet extends HttpServlet {
     public void destroy() {
     }
 }
+*/

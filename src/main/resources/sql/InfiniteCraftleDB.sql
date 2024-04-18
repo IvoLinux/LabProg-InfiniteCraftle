@@ -31,7 +31,7 @@ CREATE TABLE GameInstance (
   date DATE,
   user_id INT,
   score INT,
-  time DOUBLE,
+  time INT,
   win BOOLEAN,
   PRIMARY KEY (date, user_id),
   FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
@@ -46,3 +46,8 @@ CREATE TABLE CraftedInGame (
   FOREIGN KEY (date, user_id) REFERENCES GameInstance(date, user_id) ON DELETE CASCADE,
   FOREIGN KEY (element_id) REFERENCES Element(element_id) ON DELETE CASCADE
 );
+
+INSERT INTO Element(name, emoji, depth) VALUES ('water', '💧', '0');
+INSERT INTO Element(name, emoji, depth) VALUES ('fire', '🔥', '0');
+INSERT INTO Element(name, emoji, depth) VALUES ('earth', '🌍', '0');
+INSERT INTO Element(name, emoji, depth) VALUES ('wind', '💨', '0');
