@@ -3,6 +3,7 @@ package com.example.infinite;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import jakarta.servlet.ServletException;
@@ -71,15 +72,14 @@ public class HomeServlet extends HttpServlet {
                 if(code == 7){ //não foi encontrado no BD
                     String key = "";
                     ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.5f).build("ic");
-                    //List<String> element = getNewCraft(parent1, parent2, emoji1, emoji2);
-                    ArrayList<String> element = new ArrayList<>();
-                    element.add(icmodel.retrieveAnswer(parent1, parent2));
-                    element.add(icmodel.retrieveAnswer(parent1, parent2));
-                    if(element.get(0) == null){
+                    ArrayList<String> elements = new ArrayList<>(Arrays.asList(icmodel.getNewCraft(parent1, parent2, emoji1, emoji2)));
+                    elements.add(icmodel.retrieveAnswer(parent1, parent2));
+                    elements.add(icmodel.retrieveAnswer(parent1, parent2));
+                    if(elements.get(0) == null){
                         crafted = false;
                     }
                     else {
-                        craftedElement = new Element(element.get(0), element.get(1), 0, dad, mom);
+                        craftedElement = new Element(elements.get(0), elements.get(1), 0, dad, mom);
                         //atualiza o banco de dados e o depth do craft e atualiza a tabela de jogo do dia
                         databaseManager.craftElement(game, dad, mom, craftedElement);
                     }
