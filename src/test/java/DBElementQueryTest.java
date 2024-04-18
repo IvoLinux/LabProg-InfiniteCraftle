@@ -31,9 +31,9 @@ public class DBElementQueryTest {
             db.registerUser(user);
             game = new Game(date, user);
             db.getGame(game);
-            p1 = new Element("water1", "💧");
-            p2 = new Element("fire1", "🔥");
-            el = new Element("steam1", "💨");
+            p1 = new Element("water", "💧");
+            p2 = new Element("fire", "🔥");
+            el = new Element("steam", "💨");
         } catch (SQLException | ParseException e){
         }
     }
@@ -44,9 +44,11 @@ public class DBElementQueryTest {
 
     @Test
     public void testQueryAndCraft() {
+        db.removeElement(el);
         assertEquals(7, db.queryElement(game, p1, p2, el));
         assertEquals(0, db.craftElement(game, p1, p2, el));
         assertEquals(0, db.queryElement(game, p1, p2, el));
+        db.removeElement(el);
     }
 
 }

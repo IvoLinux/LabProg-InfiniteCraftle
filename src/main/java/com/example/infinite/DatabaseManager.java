@@ -18,21 +18,25 @@ public class DatabaseManager {
     private static final String JDBC_PASSWORD = "root@icraftle";
     private static final int INITIAL_POOL_SIZE = 20;
     private List<Connection> pool;
+    //OK
     private void initializePool() throws SQLException {
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
             pool.add(connection);
         }
     }
+    //OK
     private synchronized Connection getConnection() throws SQLException {
         if (pool.isEmpty()) {
             return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
         }
         return pool.remove(pool.size() - 1);
     }
+    //OK
     private synchronized void releaseConnection(Connection connection) {
         pool.add(connection);
     }
+    //OK
     private int loadElement(Element element) {
         Connection connection = null;
         try {
@@ -46,7 +50,6 @@ public class DatabaseManager {
                 statement.setString(1, element.getName());
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        System.out.println("oi: " + resultSet.getInt("element_id"));
                         element.setId(resultSet.getInt("element_id"));
                         element.setDepth(resultSet.getInt("depth"));
                         return 0;
@@ -115,6 +118,7 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     private int storeCraftedElement(Game game, int element_id){
         String query = "INSERT INTO CraftedInGame (date, user_id, element_id)\n" +
                 "SELECT ?, ?, ?\n" +
@@ -147,6 +151,7 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     private int createGame(Game game){
         String query = "INSERT INTO GameInstance(date, user_id, score, time, win) VALUES (?,?,?,?,?)";
         Connection connection = null;
@@ -179,6 +184,7 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     private ArrayList<Element> getElementList(Game game){
         ArrayList<Element> elements = new ArrayList<>();
         String query = "SELECT e.element_id, e.name, e.emoji \n" +
@@ -210,10 +216,12 @@ public class DatabaseManager {
         }
         return elements;
     }
+    //OK
     public DatabaseManager() throws SQLException {
         pool = new ArrayList<>();
         initializePool();
     }
+    //OK
     public int removeUser(User user) {
         Connection connection = null;
         try {
@@ -231,6 +239,7 @@ public class DatabaseManager {
             if(connection != null) releaseConnection(connection);
         }
     }
+    //OK
     public int registerUser(User user) {
         Connection connection = null;
         try {
@@ -276,6 +285,7 @@ public class DatabaseManager {
             if(connection != null) releaseConnection(connection);
         }
     }
+    //OK
     public int authenticateUser(User user) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -307,6 +317,7 @@ public class DatabaseManager {
             if(connection != null) releaseConnection(connection);
         }
     }
+    //OK
     public int addElement(Element element){
         Connection connection = null;
         try {
@@ -332,6 +343,7 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     public int removeElement(Element element) {
         Connection connection = null;
         try {
@@ -355,6 +367,7 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     public int craftElement(Game game, Element parent1, Element parent2, Element element){
         // Load id and depth of both parents
         loadElement(parent1);
@@ -367,16 +380,13 @@ public class DatabaseManager {
         element.setParent1(parent1);
         element.setParent2(parent2);
         // Load id of new element
-        System.out.println(element.getId());
         loadElement(element);
-        System.out.println(element.getId());
         // Insert into ElementsCrafted table
         Connection connection = null;
         try {
             connection = getConnection();
             String query = "INSERT INTO ElementsCrafted (parent1_id, parent2_id, child_id) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                //System.out.println(parent1.getId() + " " + parent2.getId() + " " + element.getId());
                 statement.setInt(1, parent1.getId());
                 statement.setInt(2, parent2.getId());
                 statement.setInt(3, element.getId());
@@ -398,6 +408,7 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     public int queryElement(Game game, Element parent1, Element parent2, Element element){
         loadElement(parent1);
         loadElement(parent1);
@@ -407,10 +418,12 @@ public class DatabaseManager {
             String query = "SELECT e.element_id, e.name, e.emoji " +
                     "FROM Element e JOIN ElementsCrafted ec " +
                     "ON e.element_id = ec.child_id " +
-                    "WHERE ec.parent1_id = ? AND ec.parent2_id = ?";
+                    "WHERE (ec.parent1_id = ? AND ec.parent2_id = ?) OR (ec.parent1_id = ? AND ec.parent2_id = ?)";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setInt(1, parent1.getId());
                 statement.setInt(2, parent2.getId());
+                statement.setInt(3, parent2.getId());
+                statement.setInt(4, parent1.getId());
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
@@ -435,6 +448,7 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     public void updateLastGames(java.util.Date gameDay){
         Connection connection = null;
         try {
@@ -448,11 +462,9 @@ public class DatabaseManager {
                         LocalDate currentDate = LocalDate.parse(date.toString(), formatter);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define your desired pattern
                         String dateString = sdf.format(gameDay);
-                        System.out.println(dateString + " sasdasjdnasdl");
                         while(!date.toString().equals(dateString)){
                             currentDate = currentDate.plusDays(1);
                             date = java.sql.Date.valueOf(currentDate);
-                            System.out.println(date.toString());
                             createDate(date);
                         }
                     }
@@ -470,6 +482,7 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     public int getGame(Game game){
         String query = "SELECT score, time, win FROM GameInstance WHERE date = ? AND user_id = ?";
         Connection connection = null;
