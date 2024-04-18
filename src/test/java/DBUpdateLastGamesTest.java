@@ -1,4 +1,5 @@
 import com.example.infinite.DatabaseManager;
+import com.example.infinite.Element;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,12 @@ public class DBUpdateLastGamesTest {
         boolean pass  = true;
         try{
             db.updateLastGames(sdf.parse("2024-04-18"));
+            Element el = db.getElementDay(sdf.parse("2024-04-18"));
+            System.out.println(el);
+            for(var d : db.getDates()){
+                System.out.println(d);
+            }
+
         } catch(Exception e){
             pass = false;
             e.printStackTrace();

@@ -31,6 +31,7 @@ public class DBElementQueryTest {
             db.registerUser(user);
             game = new Game(date, user);
             db.getGame(game);
+            game.setEndGame(3,3,true);
             p1 = new Element("water", "💧");
             p2 = new Element("fire", "🔥");
             el = new Element("steam", "💨");
@@ -48,7 +49,9 @@ public class DBElementQueryTest {
         assertEquals(7, db.queryElement(game, p1, p2, el));
         assertEquals(0, db.craftElement(game, p1, p2, el));
         assertEquals(0, db.queryElement(game, p1, p2, el));
+        db.saveEndGame(game);
         db.removeElement(el);
+
     }
 
 }

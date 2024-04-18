@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
-    private static final String JDBC_URL = "172.15.0.60:3306/infinitecraftledb";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/infinitecraftledb";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "root@icraftle";
+    private static final String JDBC_PASSWORD = "ebert";
     private static final int INITIAL_POOL_SIZE = 20;
     private List<Connection> pool;
     //OK
@@ -458,6 +458,10 @@ public class DatabaseManager {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         java.sql.Date date = resultSet.getDate("most_recent_date");
+                        if (date == null){
+                            createDate(new java.sql.Date(gameDay.getTime()));
+                            return;
+                        }
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                         LocalDate currentDate = LocalDate.parse(date.toString(), formatter);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define your desired pattern
@@ -515,10 +519,11 @@ public class DatabaseManager {
             }
         }
     }
+    //OK
     public Element getElementDay(java.util.Date date){
         Element el = new Element("", "");
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        String query = "SELECT element_id, name, emoji FROM Element e " +
+        String query = "SELECT e.element_id, name, emoji FROM Element e " +
                 "JOIN LastGames lg " +
                 "ON e.element_id = lg.element_id " +
                 "WHERE date = ?";
@@ -546,6 +551,7 @@ public class DatabaseManager {
         }
         return el;
     }
+    //OK
     public ArrayList<java.util.Date> getDates() {
         ArrayList<java.util.Date> dates = new ArrayList<>();
         String query = "SELECT date FROM LastGames";
@@ -569,6 +575,7 @@ public class DatabaseManager {
         }
         return dates;
     }
+    //OK
     public void saveEndGame(Game game){
         // update score and time
         int score = game.getScore();

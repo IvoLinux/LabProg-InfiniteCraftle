@@ -9,25 +9,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec817e02-af15-4c44-b4cd-fd95cf400ab4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Infinite_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Infinite_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DBRegisterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBRegisterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBElementQueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBElementQueryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBUpdateLastGamesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBUpdateLastGamesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="eboo" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -35,39 +48,85 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="2fFvPcufWX4CK31lY4thybmIHw8" />
+  <component name="ProjectId" id="2fEBBkEy8DX6BMY4T8zHe4hgt0P" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.DBAuthenticationTest.executor": "Run",
+    "JUnit.DBConnectionTest.executor": "Run",
+    "JUnit.DBElementQueryTest.testQueryAndCraft.executor": "Debug",
+    "JUnit.DBUpdateLastGamesTest.executor": "Run",
+    "JUnit.DBUpdateLastGamesTest.testUpdateLastGames.executor": "Run",
     "JUnit.java in Infinite.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Tomcat Server.Tomcat 10.1.19.executor": "Run",
-    "Tomcat Server.Tomcat 9.0.88.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.20.executor": "Run",
+    "Tomcat Server.Unnamed.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/johan/OneDrive/Documentos/C++/LabProg-InfiniteCraftle",
     "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.java in Infinite">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\johan\OneDrive\Documentos\C++\LabProg-InfiniteCraftle\src\main\webapp" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\johan\OneDrive\Documentos\C++\LabProg-InfiniteCraftle\src\main\webapp" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.DBElementQueryTest.testQueryAndCraft">
+    <configuration name="DBAuthenticationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Infinite" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DBAuthenticationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBElementQueryTest.testQueryAndCraft" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Infinite" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DBElementQueryTest" />
+      <option name="METHOD_NAME" value="testQueryAndCraft" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBUpdateLastGamesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Infinite" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DBUpdateLastGamesTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBUpdateLastGamesTest.testUpdateLastGames" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Infinite" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DBUpdateLastGamesTest" />
+      <option name="METHOD_NAME" value="testUpdateLastGames" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="java in Infinite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Infinite" />
       <option name="TEST_OBJECT" value="directory" />
@@ -76,18 +135,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat 9.0.88" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.88" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
-      <option name="UPDATING_POLICY" value="update-resources" />
+    <configuration name="Tomcat 10.1.20" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.20" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="Infinite:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/Infinite_war_exploded" />
+            <option name="CONTEXT_PATH" value="" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="0c4c652b-7ae8-4531-a83d-2d6fb8499328" />
+        <option name="BASE_DIRECTORY_NAME" value="309d6ecf-2bc3-43c4-97a7-640e5e151690" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -95,7 +153,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="64303" />
+        <option name="DEBUG_PORT" value="53053" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -164,27 +222,46 @@
         </option>
       </method>
     </configuration>
-    <list>
-      <item itemvalue="JUnit.java in Infinite" />
-      <item itemvalue="Tomcat Server.Tomcat 9.0.88" />
-    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DBElementQueryTest.testQueryAndCraft" />
+        <item itemvalue="JUnit.DBUpdateLastGamesTest.testUpdateLastGames" />
+        <item itemvalue="JUnit.DBUpdateLastGamesTest" />
         <item itemvalue="JUnit.java in Infinite" />
+        <item itemvalue="JUnit.DBAuthenticationTest" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ec817e02-af15-4c44-b4cd-fd95cf400ab4" name="Changes" comment="" />
-      <created>1713409618853</created>
+      <changelist id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="" />
+      <created>1713356224976</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1713409618853</updated>
-      <workItem from="1713409622450" duration="608000" />
-      <workItem from="1713410240344" duration="1160000" />
-      <workItem from="1713411418991" duration="2240000" />
+      <updated>1713356224976</updated>
+      <workItem from="1713356226940" duration="14072000" />
+      <workItem from="1713382760912" duration="679000" />
+      <workItem from="1713383458512" duration="12135000" />
+      <workItem from="1713404459557" duration="4661000" />
+      <workItem from="1713409159711" duration="1033000" />
+      <workItem from="1713410211717" duration="1225000" />
+      <workItem from="1713411459540" duration="466000" />
+      <workItem from="1713411938583" duration="556000" />
+      <workItem from="1713412506474" duration="98000" />
+      <workItem from="1713412616112" duration="98000" />
+      <workItem from="1713412728080" duration="560000" />
+      <workItem from="1713413440248" duration="30000" />
+      <workItem from="1713417867149" duration="148000" />
+      <workItem from="1713418031031" duration="1364000" />
     </task>
     <servers />
   </component>
