@@ -23,6 +23,7 @@ public class DBRegisterTest {
         try{
             db = new DatabaseManager();
         } catch (SQLException e){
+            e.printStackTrace();
         }
     }
 

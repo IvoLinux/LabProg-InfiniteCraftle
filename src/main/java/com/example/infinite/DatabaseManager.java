@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/infinitecraftledb";
+    private static final String JDBC_URL = "172.15.0.60:3306/infinitecraftledb";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "root@icraftle";
     private static final int INITIAL_POOL_SIZE = 20;
