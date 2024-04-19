@@ -218,6 +218,9 @@ public class DatabaseManager {
     }
     //OK
     public DatabaseManager() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }catch(Exception e){}
         pool = new ArrayList<>();
         initializePool();
     }

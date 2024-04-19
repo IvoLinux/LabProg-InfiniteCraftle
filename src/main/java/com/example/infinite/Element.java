@@ -1,12 +1,11 @@
 package com.example.infinite;
+
 public class Element {
     private String name;
     private int depth, id;
     private String emoji;
     private Element parent1, parent2;
-    public String getName() {
-        return name;
-    }
+
     public Element(String name, String emoji, int depth, Element parent1, Element parent2) {
         this.id = 0;
         this.name = name;
@@ -21,17 +20,26 @@ public class Element {
         this(name, emoji, 0, null, null);
     }
 
+    // Default constructor
     public Element() {
-        this(null,null);
+        this(null, null);
     }
+
     // Constructor with null parents
     public Element(String name, String emoji, int depth) {
         this(name, emoji, depth, null, null);
     }
+
+    // Getters and setters for name
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
+    // Getters and setters for depth
     public int getDepth() {
         return depth;
     }
@@ -39,6 +47,8 @@ public class Element {
     public void setDepth(int depth) {
         this.depth = depth;
     }
+
+    // Getters and setters for id
     public int getId() {
         return id;
     }
@@ -47,6 +57,7 @@ public class Element {
         this.id = id;
     }
 
+    // Getters and setters for emoji
     public String getEmoji() {
         return emoji;
     }

@@ -10,8 +10,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Element.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/Element.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/ErrorCodeDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/ErrorCodeDictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/components/element-playground.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/components/element-playground.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/components/upper-left-logo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/components/upper-left-logo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/login/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/signup/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signup/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,16 +70,16 @@
   "keyToString": {
     "JUnit.DBAuthenticationTest.executor": "Run",
     "JUnit.DBConnectionTest.executor": "Run",
-    "JUnit.DBElementQueryTest.testQueryAndCraft.executor": "Debug",
+    "JUnit.DBElementQueryTest.testQueryAndCraft.executor": "Run",
     "JUnit.DBUpdateLastGamesTest.executor": "Run",
     "JUnit.DBUpdateLastGamesTest.testUpdateLastGames.executor": "Run",
     "JUnit.java in Infinite.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Tomcat Server.Tomcat 10.1.20.executor": "Run",
     "Tomcat Server.Unnamed.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Rebasing branchcagada",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/johan/OneDrive/Documentos/C++/LabProg-InfiniteCraftle",
+    "last_opened_file_path": "C:/Users/johan/Downloads/LabProg-InfiniteCraftle",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -85,7 +98,7 @@
       <recent name="C:\Users\johan\OneDrive\Documentos\C++\LabProg-InfiniteCraftle\src\main\webapp" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DBElementQueryTest.testQueryAndCraft">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.20">
     <configuration name="DBAuthenticationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Infinite" />
       <option name="PACKAGE_NAME" value="" />
@@ -133,7 +146,8 @@
       </method>
     </configuration>
     <configuration name="Tomcat 10.1.20" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.20" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-      <option name="UPDATING_POLICY" value="restart-server" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATING_POLICY" value="update-resources" />
       <deployment>
         <artifact name="Infinite:war exploded">
           <settings>
@@ -219,12 +233,20 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.DBAuthenticationTest" />
+      <item itemvalue="JUnit.DBElementQueryTest.testQueryAndCraft" />
+      <item itemvalue="JUnit.DBUpdateLastGamesTest" />
+      <item itemvalue="JUnit.DBUpdateLastGamesTest.testUpdateLastGames" />
+      <item itemvalue="JUnit.java in Infinite" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.20" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DBElementQueryTest.testQueryAndCraft" />
-        <item itemvalue="JUnit.DBUpdateLastGamesTest.testUpdateLastGames" />
-        <item itemvalue="JUnit.DBUpdateLastGamesTest" />
         <item itemvalue="JUnit.java in Infinite" />
+        <item itemvalue="JUnit.DBUpdateLastGamesTest.testUpdateLastGames" />
+        <item itemvalue="JUnit.DBElementQueryTest.testQueryAndCraft" />
+        <item itemvalue="JUnit.DBUpdateLastGamesTest" />
         <item itemvalue="JUnit.DBAuthenticationTest" />
       </list>
     </recent_temporary>
@@ -259,6 +281,10 @@
       <workItem from="1713413440248" duration="30000" />
       <workItem from="1713417867149" duration="148000" />
       <workItem from="1713418031031" duration="2265000" />
+      <workItem from="1713446054981" duration="596000" />
+      <workItem from="1713461657705" duration="606000" />
+      <workItem from="1713462693384" duration="3965000" />
+      <workItem from="1713486872727" duration="11423000" />
     </task>
     <servers />
   </component>

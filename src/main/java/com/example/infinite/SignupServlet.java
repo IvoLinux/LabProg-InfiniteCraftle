@@ -15,7 +15,7 @@ import java.util.List;
 public class SignupServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("/signup.jsp").forward(request, response);
+        request.getRequestDispatcher("/signup/index.jsp").forward(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -47,6 +47,8 @@ public class SignupServlet extends HttpServlet {
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("listDates", listDates);
                 request.getSession().setAttribute("game", game);
+                response.sendRedirect("/");
+                return;
             }
         } catch(Exception e) {
             request.getSession().setAttribute("error", "Erro desconhecido");

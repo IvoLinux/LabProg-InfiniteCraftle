@@ -1,29 +1,36 @@
 package com.example.infinite;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Game {
     private int score;
     private int timeMillis;
     private boolean win;
     private ArrayList<Element> elements;
-    private java.util.Date date;
+    private Date date;
     private User user;
 
-    public Game(java.util.Date date, User user) {
+    public Game(Date date, User user) {
         this.date = date;
         this.user = user;
         this.score = 0;
         this.timeMillis = 0;
         this.win = false;
-        this.elements = new ArrayList<Element>();
+        this.elements = new ArrayList<>();
     }
-    public java.util.Date getDate() {
+
+    // Getter for date
+    public Date getDate() {
         return date;
     }
+
+    // Getter for user
     public User getUser() {
-        return this.user;
+        return user;
     }
+
+    // Getter and setter for score
     public int getScore() {
         return score;
     }
@@ -32,6 +39,7 @@ public class Game {
         this.score = score;
     }
 
+    // Getter and setter for timeMillis
     public int getTimeMillis() {
         return timeMillis;
     }
@@ -40,6 +48,7 @@ public class Game {
         this.timeMillis = timeMillis;
     }
 
+    // Getter and setter for win
     public boolean isWin() {
         return win;
     }
@@ -48,6 +57,7 @@ public class Game {
         this.win = win;
     }
 
+    // Getter and setter for elements
     public ArrayList<Element> getElements() {
         return elements;
     }
@@ -56,9 +66,10 @@ public class Game {
         this.elements = elements;
     }
 
-    public void setEndGame(int score, int time, boolean b) {
+    // Method to set game end details
+    public void setEndGame(int score, int time, boolean win) {
         setScore(score);
         setTimeMillis(time);
-        setWin(b);
+        setWin(win);
     }
 }
