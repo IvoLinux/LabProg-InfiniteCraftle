@@ -2,11 +2,21 @@ package com.example.infinite;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ErrorCodeDictionary {
-    // Static dictionary mapping error codes to error messages
-    private static final Map<Integer, String> errorMessages = new HashMap<>();
 
-    // Static initializer to populate the dictionary
+/**
+ * Class to map error codes to error messages
+ * This class is used to get the error message corresponding to an error code
+ * 
+ */
+public class ErrorCodeDictionary {
+    /**
+     * Static dictionary mapping error codes to error messages
+    */
+     private static final Map<Integer, String> errorMessages = new HashMap<>();
+
+    /**
+     * Static initializer to populate the dictionary
+    */ 
     static {
         errorMessages.put(0, "success");
         errorMessages.put(1, "Registration failed: user already exists");
@@ -20,7 +30,11 @@ public class ErrorCodeDictionary {
 
     }
 
-    // Method to get error message by error code
+    /**
+     * Method to get the error message corresponding to an error code
+     * @param errorCode the error code
+     * @return the error message corresponding to the error code
+    */
     public static String getErrorMessage(int errorCode) {
         return errorMessages.getOrDefault(errorCode, "Unknown Error");
     }

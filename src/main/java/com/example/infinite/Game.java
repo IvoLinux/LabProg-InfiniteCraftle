@@ -3,6 +3,12 @@ package com.example.infinite;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+/**
+ * Game class
+ * Represents a game
+ * Contains the game's score, time, win status, elements, date and user
+ */
 public class Game {
     private int score;
     private int timeMillis;
@@ -11,6 +17,11 @@ public class Game {
     private Date date;
     private User user;
 
+    /**
+     * Constructor for Game class
+     * @param date date of the game
+     * @param user user that played the game
+     */
     public Game(Date date, User user) {
         this.date = date;
         this.user = user;
@@ -20,53 +31,93 @@ public class Game {
         this.elements = new ArrayList<>();
     }
 
-    // Getter for date
+    /**
+     * Getter for date of the game
+     * @return date of the game
+     */
     public Date getDate() {
         return date;
     }
 
-    // Getter for user
+    /**
+     * Getter for user that played the game
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
-    // Getter and setter for score
+    /**
+     * Getter for score of the game
+     * @return score of the game
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Setter for score of the game
+     * @param score
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
-    // Getter and setter for timeMillis
+    /**
+     * Getter for time of the game in milliseconds
+     * @return time of the game in milliseconds
+     */
     public int getTimeMillis() {
         return timeMillis;
     }
 
+    /**
+     * Setter for time of the game in milliseconds
+     * @param timeMillis
+     */
     public void setTimeMillis(int timeMillis) {
         this.timeMillis = timeMillis;
     }
 
-    // Getter and setter for win
+    /**
+     * Getter for win status of the game
+     * @return win status of the game
+     */
     public boolean isWin() {
         return win;
     }
 
+    /**
+     * Setter for win status of the game
+     * @param win
+     */
     public void setWin(boolean win) {
         this.win = win;
     }
 
-    // Getter and setter for elements
+    /**
+     * Getter for elements of the game
+     * @return elements of the game
+     */
     public ArrayList<Element> getElements() {
         return elements;
     }
 
+    /**
+     * Setter for elements of the game
+     * @param elements
+     */
     public void setElements(ArrayList<Element> elements) {
         this.elements = elements;
     }
 
-    // Method to set game end details
+    /**
+     * Method to set game end details
+     * 
+     * @param score score of the game
+     * @param time time of the game in milliseconds
+     * @param win win status of the game
+     */
     public void setEndGame(int score, int time, boolean win) {
         setScore(score);
         setTimeMillis(time);

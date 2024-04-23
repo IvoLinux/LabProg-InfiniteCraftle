@@ -1,11 +1,25 @@
 package com.example.infinite;
 
+
+/**
+ * Element class
+ * Represents an element
+ * Contains the element's name, depth, id, emoji, and parents
+ */
 public class Element {
     private String name;
     private int depth, id;
     private String emoji;
     private Element parent1, parent2;
 
+    /**
+    * Constructor for Element class
+    * @param name name of the element
+    * @param emoji emoji of the element
+    * @param depth depth of the element
+    * @param parent1 first parent of the element
+    * @param parent2 second parent of the element
+    */
     public Element(String name, String emoji, int depth, Element parent1, Element parent2) {
         this.id = 0;
         this.name = name;

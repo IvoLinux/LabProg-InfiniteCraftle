@@ -1,5 +1,9 @@
 package com.example.infinite.ai;
 
+/**
+ * ModelBuilder is a class that is used to build a model object.
+ * It is used to set the parameters for the model object.
+ */
 public class ModelBuilder {
 
     private String apiKey;
@@ -23,11 +27,19 @@ public class ModelBuilder {
         }
     }
 
-
+    /**
+     * Constructor for ModelBuilder
+     */
     public ModelBuilder() {
 
     }
 
+    /**
+     * Build a model object
+     * @param modelType type of model to build
+     * @return the model object
+     * @throws RuntimeException if the model type is not supported
+     */
     public ModelBase build(String modelType) throws RuntimeException {
         String url = "https://api.openai.com/%s/%s/%s";
         url = String.format(url, this.modelVersion, this.modelEngine, this.modelTask);
@@ -43,31 +55,61 @@ public class ModelBuilder {
         else throw new RuntimeException("Model type not supported");
     }
 
+    /**
+     * Set the API key for the model
+     * @param apiKey API key for the model
+     * @return the model builder
+     */
     public ModelBuilder APIKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
 
+    /**
+     * Set the model engine for the model
+     * @param modelEngine model engine for the model
+     * @return the model builder
+     */
     public ModelBuilder modelEngine(String modelEngine) {
         this.modelEngine = modelEngine;
         return this;
     }
 
+    /**
+     * Set the model version for the model
+     * @param modelVersion model version for the model
+     * @return the model builder
+     */
     public ModelBuilder modelVersion(String modelVersion) {
         this.modelVersion = modelVersion;
         return this;
     }
 
+    /**
+     * Set the maximum number of tokens for the model
+     * @param maxTokens maximum number of tokens for the model
+     * @return the model builder
+     */
     public ModelBuilder maxTokens(int maxTokens) {
         this.maxTokens = maxTokens;
         return this;
     }
 
+    /**
+     * Set the task for the model
+     * @param task task for the model
+     * @return the model builder
+     */
     public ModelBuilder task(String task) {
         this.modelTask = task;
         return this;
     }
 
+    /**
+     * Set the temperature for the model
+     * @param temperature temperature for the model
+     * @return the model builder
+     */
     public ModelBuilder temperature(float temperature) {
         this.temp = temperature;
         return this;
