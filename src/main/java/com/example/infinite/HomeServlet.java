@@ -17,8 +17,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.example.infinite.ai.ICModel;
 
+
+
+/**
+ * Servlet implementation class HomeServlet
+ * The value attribute defines the URL pattern that the servlet will listen to
+ */
 @WebServlet(name = "home", value = "/")
 public class HomeServlet extends HttpServlet {
+
+    /**
+     * doGet method is called when the client sends a GET request to the server
+     * @param request HttpServletRequest object that contains the request the client has made to the server
+     * @throws IOException when an error occurs while reading the request
+     * The method forwards the request to the index.jsp file in the home folder
+     */
     private Request readJson(HttpServletRequest request) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
@@ -39,6 +52,19 @@ public class HomeServlet extends HttpServlet {
         Gson gson = new Gson();
         return gson.fromJson(stringBuilder.toString(), Request.class);
     }
+
+
+    /**
+     * sendResponse method is used to send the response to the client
+     * It sends the error message, the game, the element and a boolean that indicates if the element was crafted
+     * The error message is used to inform the client if an error occurred
+     * @param response HttpServletResponse object that contains the response the server sends back to the client
+     * @param error error message
+     * @param game game object
+     * @param element element object
+     * @param crafted boolean that indicates if the element was crafted
+     * @throws IOException when an error occurs while sending the response
+     */
     private void sendResponse(HttpServletResponse response, String error, Game game, Element element, boolean crafted) throws IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
@@ -47,6 +73,16 @@ public class HomeServlet extends HttpServlet {
         String jsonString = gson.toJson(resp);
         out.println(jsonString);
     }
+    
+    /**
+     * doGet method is called when the client sends a GET request to the server
+     * @param request HttpServletRequest object that contains the request the client has made to the server
+     * @param response HttpServletResponse object that contains the response the server sends back to the client
+     * @throws IOException when an error occurs while reading the request
+     * @throws ServletException when an error occurs while forwarding the request
+     * The method forwards the request to the index.jsp file in the home folder
+     * The method also updates the last games in the database
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             DatabaseManager databaseManager = new DatabaseManager();
@@ -60,6 +96,13 @@ public class HomeServlet extends HttpServlet {
         }
     }
 
+    /**
+     * doPost method is called when the client sends a POST request to the server
+     * @param request HttpServletRequest object that contains the request the client has made to the server
+     * @param response HttpServletResponse object that contains the response the server sends back to the client
+     * @throws IOException
+     * The method reads the request from the client and calls the appropriate method based on the type of the request
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Game game = null;
         Element craftedElement = null;
@@ -144,13 +187,23 @@ public class HomeServlet extends HttpServlet {
         sendResponse(response, error, game, craftedElement, crafted);
     }
 
-    //java.util.Date
+    /**
+     * today method is used to get the current date
+     * @return the current date in the format dd/MM/yyyy
+     */
     private String today() {
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(today);
     }
 
+    /**
+     * scoreFunction method is used to calculate the score of the game
+     * The score is calculated based on the time and the number of elements crafted
+     * @param time time taken to craft the elements
+     * @param numElements number of elements crafted
+     * @return the score of the game
+     */
     private int scoreFunciton(long time, int numElements) {
         // refazer
         return (int) (10000 / (time * numElements));
@@ -159,12 +212,28 @@ public class HomeServlet extends HttpServlet {
     public void destroy() {
     }
 }
+
+/**
+ * Response class is used to send the response to the client
+ * It contains the error message, the game, the element and a boolean that indicates if the element was crafted
+ * The error message is used to inform the client if an error occurred
+ * The game is used to update the game in the session
+ * The element is used to update the element in the session
+ * The boolean is used to inform the client if the element was crafted
+ */
 class Response {
     private String error;
     private Game game;
     private Element element;
     private boolean crafted;
 
+    /**
+     * Constructor for Response class
+     * @param error error message
+     * @param game game object
+     * @param element element object
+     * @param crafted boolean that indicates if the element was crafted
+     */
     public Response(String error, Game game, Element element, boolean crafted) {
         this.error = error;
         this.game = game;
@@ -172,71 +241,139 @@ class Response {
         this.crafted = crafted;
     }
 
-    // Getters and setters for error
+    /**
+     * Getter for error message
+     * @return error message
+     */
     public String getError() {
         return error;
     }
 
+    /**
+     * Setter for error message
+     * @param error error message
+     */
     public void setError(String error) {
         this.error = error;
     }
 
-    // Getters and setters for game
+    /**
+     * Getter for game
+     * @return game object
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * Setter for game
+     * @param game game object
+     */
     public void setGame(Game game) {
         this.game = game;
     }
 
-    // Getters and setters for element
+    /**
+     * Getter for element
+     * @return element object
+     */
     public Element getElement() {
         return element;
     }
 
+    /**
+     * Setter for element
+     * @param element element object
+     */
     public void setElement(Element element) {
         this.element = element;
     }
 
-    // Getters and setters for crafted
+    /**
+     * Getter for crafted
+     * @return boolean that indicates if the element was crafted
+     */
     public boolean isCrafted() {
         return crafted;
     }
 
+    /**
+     * Setter for crafted
+     * @param crafted boolean that indicates if the element was crafted
+     */
     public void setCrafted(boolean crafted) {
         this.crafted = crafted;
     }
 }
+
+/**
+ * Request class is used to read the request from the client
+ * It contains the type of the request, the parent1 and the parent2
+ * The type is used to identify the type of the request
+ * The parent1 is used to identify the first parent
+ * The parent2 is used to identify the second parent
+ */
 class Request {
     private String type;
     private String parent1;
     private String parent2;
 
+    /**
+     * Constructor for Request class
+     * @param type type of the request
+     * @param name first parent
+     * @param xota second parent
+     */
     public Request(String type, String name, String xota) {
         this.type = type;
         this.parent1 = name;
         this.parent2 = xota;
     }
 
+    /**
+     * Getter for parent1
+     * @return parent1
+     */
     public String getParent1() {
         return parent1;
     }
 
+    /**
+     * Getter for parent2
+     * @return parent2
+     */
     public String getParent2() {
         return parent2;
     }
+
+    /**
+     * Getter for type
+     * @return type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Setter for type
+     * @param type type
+     */
     public void setType(String type) {
         this.type = type;
     }
+
+    /**
+     * Setter for parent2
+     * @param parent2 parent2
+     */
     public void setParent2(String parent2) {
         this.parent2 = parent2;
     }
 
+    /**
+     * Setter for parent1
+     * @param parent1 parent1
+     */
     public void setParent1(String parent1) {
         this.parent1 = parent1;
     }

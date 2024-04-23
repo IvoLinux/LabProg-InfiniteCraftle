@@ -5,8 +5,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
-import java.net.URL;
+import java.net.*;
 
+/**
+ * ModelBase class
+ * This class is the base class for the models based on GPT-3.5-turbo API
+ * It contains the URL, API key, maximum tokens, and temperature for the model
+ */
 public class ModelBase {
     private URL url;
     private final String apiKey;
@@ -14,13 +19,25 @@ public class ModelBase {
     private final String requestBody = "{\"model\": \"gpt-3.5-turbo\", \"messages\": [{\"role\": \"user\", \"content\": \" %s \"}], \"temperature\": %f, \"max_tokens\": %d}";
     private final float temperature;
 
+    /**
+     * returns the builder for the base model
+     * 
+     * @return ModelBuilder
+     */
     public static ModelBuilder builder() {
         return new ModelBuilder();
     }
 
+    /**
+     * Constructor for ModelBase
+     * @param url url to the OpenAI API
+     * @param apiKey API key for the OpenAI API
+     * @param maxTokens maximum number of tokens to generate
+     * @param temperature temperature for the model
+     */
     public ModelBase(String url, String apiKey, int maxTokens, float temperature) {
         try {
-            this.url = new URL(url);
+            this.url = new URI(url).toURL();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -29,10 +46,20 @@ public class ModelBase {
         this.temperature = temperature;
     }
 
+    /**
+     * Formats the message to be sent to the OpenAI API
+     * @param msg message to be sent
+     * @return
+     */
     private String formatSendMessage(String msg){
         return String.format(requestBody, msg, temperature, maxTokens);
     }
 
+    /**
+     * Retrieves the full answer from the OpenAI API
+     * @param msg message to be sent
+     * @return the full answer, a JSON in String format
+     */
     public String retrieveFullAnswer(String msg) {
         HttpURLConnection conn;
         try {
@@ -72,6 +99,11 @@ public class ModelBase {
 
     }
 
+    /**
+     * Retrieves the answer from the OpenAI API
+     * @param msg message to be sent
+     * @return the String answer formatted
+     */
     public String retrieveAnswer(String msg) {
         String answer = retrieveFullAnswer(msg);
         return answer.substring(answer.indexOf("content") + 11, answer.indexOf("\"", answer.indexOf("content") + 11));

@@ -12,31 +12,62 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * DatabaseManager class
+ * Manages the database connection and operations
+ * Implements methods to register, authenticate and remove users
+ * Implements methods to add, remove and query elements
+ * Implements methods to craft and query elements
+ * Implements methods to create and get games
+ * Implements methods to get the element of the day
+ */
 public class DatabaseManager {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/infinitecraftledb";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "ebert";
     private static final int INITIAL_POOL_SIZE = 20;
     private List<Connection> pool;
-    //OK
+    
+    // OK
+    /**
+     * Initializes the connection pool
+     *
+     */
     private void initializePool() throws SQLException {
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
             pool.add(connection);
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Gets a connection from the pool
+     * @return Connection object
+     */
     private synchronized Connection getConnection() throws SQLException {
         if (pool.isEmpty()) {
             return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
         }
         return pool.remove(pool.size() - 1);
     }
-    //OK
+    
+    // OK
+    /**
+     * Releases a connection back to the pool
+     * @param connection Connection object
+     */
     private synchronized void releaseConnection(Connection connection) {
         pool.add(connection);
     }
-    //OK
+    
+    // OK
+    /**
+     * Loads an element from the database
+     * @param element Element object
+     * @return 0 if the element was loaded successfully, -1 otherwise
+     */
     private int loadElement(Element element) {
         Connection connection = null;
         try {
@@ -68,6 +99,11 @@ public class DatabaseManager {
             }
         }
     }
+
+    /**
+     * Generates a random element from the database
+     * @return Element object
+     */
     private Element generateElement(){
         Connection connection = null;
         ArrayList<Element> elements = new ArrayList<>();
@@ -99,6 +135,11 @@ public class DatabaseManager {
             }
         }
     }
+
+    /**
+     * Creates a new date in the database
+     * @param date Date object
+     */
     private void createDate(java.sql.Date date){
         Connection connection = null;
         try {
@@ -118,7 +159,14 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+
+    // OK    
+    /**
+     * Stores a crafted element in the database
+     * @param game Game object
+     * @param element_id Element id
+     * @return 0 if the element was stored successfully, -1 otherwise
+     */
     private int storeCraftedElement(Game game, int element_id){
         String query = "INSERT INTO CraftedInGame (date, user_id, element_id)\n" +
                 "SELECT ?, ?, ?\n" +
@@ -151,7 +199,13 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Creates a new game in the database
+     * @param game Game object
+     * @return 0 if the game was created successfully, -1 otherwise
+     */
     private int createGame(Game game){
         String query = "INSERT INTO GameInstance(date, user_id, score, time, win) VALUES (?,?,?,?,?)";
         Connection connection = null;
@@ -184,7 +238,13 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Gets a list of elements from the database
+     * @param game Game object
+     * @return ArrayList of Element objects
+     */
     private ArrayList<Element> getElementList(Game game){
         ArrayList<Element> elements = new ArrayList<>();
         String query = "SELECT e.element_id, e.name, e.emoji \n" +
@@ -216,7 +276,13 @@ public class DatabaseManager {
         }
         return elements;
     }
-    //OK
+    
+    // OK
+    /**
+     * DatabaseManager constructor
+     * Initializes the connection pool
+     * @throws SQLException when any SQL errors occur
+     */
     public DatabaseManager() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -224,7 +290,14 @@ public class DatabaseManager {
         pool = new ArrayList<>();
         initializePool();
     }
-    //OK
+    
+    // OK
+    /**
+     * Registers a user in the database
+     * @param user User object
+     * @return 0 if the user was registered successfully, 1 if the username already exists, -1 otherwise
+     * 
+     */
     public int removeUser(User user) {
         Connection connection = null;
         try {
@@ -242,7 +315,13 @@ public class DatabaseManager {
             if(connection != null) releaseConnection(connection);
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Registers a user in the database
+     * @param user User object
+     * @return 0 if the user was registered successfully, 1 if the username already exists, -1 otherwise
+     */
     public int registerUser(User user) {
         Connection connection = null;
         try {
@@ -288,7 +367,13 @@ public class DatabaseManager {
             if(connection != null) releaseConnection(connection);
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Authenticates a user in the database
+     * @param user User object
+     * @return 0 if the user was authenticated successfully, 2 if the password is incorrect, 3 if the username doesn't exist, -1 otherwise
+     */
     public int authenticateUser(User user) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -320,7 +405,13 @@ public class DatabaseManager {
             if(connection != null) releaseConnection(connection);
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Adds an element to the database
+     * @param element Element object
+     * @return 0 if the element was added successfully, -1 otherwise
+     */
     public int addElement(Element element){
         Connection connection = null;
         try {
@@ -346,7 +437,13 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Removes an element from the database
+     * @param element Element object
+     * @return 0 if the element was removed successfully, -1 if the element_id was not found, -2 otherwise
+     */
     public int removeElement(Element element) {
         Connection connection = null;
         try {
@@ -370,7 +467,16 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Queries an element from the database
+     * @param game Game object
+     * @param element Element object
+     * @param parent1 first parent Element
+     * @param parent2 second parent Element
+     * @return 0 if the element was found successfully, -1 if the element_id was not found, -2 otherwise
+     */
     public int craftElement(Game game, Element parent1, Element parent2, Element element){
         // Load id and depth of both parents
         loadElement(parent1);
@@ -411,7 +517,16 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Queries an element from the database
+     * @param game Game object
+     * @param parent1 first parent Element
+     * @param parent2 second parent Element
+     * @param element Element object
+     * @return 0 if the element was found successfully, -1 if the element_id was not found, -2 otherwise
+     */
     public int queryElement(Game game, Element parent1, Element parent2, Element element){
         loadElement(parent1);
         loadElement(parent1);
@@ -451,7 +566,12 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Gets the last games from the database
+     * @param gameDay Date object
+     */
     public void updateLastGames(java.util.Date gameDay){
         Connection connection = null;
         try {
@@ -489,7 +609,13 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Gets the last games from the database
+     * @param game Game object
+     * @return integer code status
+     */
     public int getGame(Game game){
         String query = "SELECT score, time, win FROM GameInstance WHERE date = ? AND user_id = ?";
         Connection connection = null;
@@ -522,7 +648,13 @@ public class DatabaseManager {
             }
         }
     }
-    //OK
+    
+    // OK
+    /**
+     * Gets the element of the day from the database
+     * @param date Date object
+     * @return Element object
+     */
     public Element getElementDay(java.util.Date date){
         Element el = new Element("", "");
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
@@ -554,7 +686,12 @@ public class DatabaseManager {
         }
         return el;
     }
-    //OK
+    
+    // OK
+    /**
+     * Gets the element of the day from the database
+     * @return Element object
+     */
     public ArrayList<java.util.Date> getDates() {
         ArrayList<java.util.Date> dates = new ArrayList<>();
         String query = "SELECT date FROM LastGames";
@@ -578,7 +715,12 @@ public class DatabaseManager {
         }
         return dates;
     }
-    //OK
+    
+    // OK
+    /**
+     * Gets the element of the day from the database
+     * @param game Game object
+     */
     public void saveEndGame(Game game){
         // update score and time
         int score = game.getScore();
