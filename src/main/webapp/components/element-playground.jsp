@@ -443,7 +443,7 @@
     };
 
     function handleItemDrag(event, component) {
-        // Adds selected class and saves initial cursor offset
+        // Adds "selected" class, saves initial cursor offset, updates z-index to be the highest
         component.classList.add('instance-selected')
         component.style.zIndex = instanceIdTracker + ''
         const shiftX = event.clientX - event.target.getBoundingClientRect().left + 4
@@ -457,12 +457,14 @@
             // Updates (x, y) of the component
             component.style.left = event.pageX - shiftX + 'px'
             component.style.top = event.pageY - shiftY + 'px'
-            // Adds instance-hover class highest Z and intersecting
-            for (let j = 0; j < itemInstances.children.length; j++) itemInstances.children[j].classList.remove('instance-hover')
+            // Removes "hovering" class from all elements
+            for (let i = 0; i < itemInstances.children.length; i++) itemInstances.children[i].classList.remove('instance-hover')
+            // Adds "hovering" class to the single element with highest z-index and is overlapping
             if (getHighestZ(component) !== null) getHighestZ(component).classList.add('instance-hover')
         }
 
         function stopElementDrag() {
+            // matchedElement is the one selected by the user via dragging
             const matchedElement = document.querySelector('.instance-hover')
             if (matchedElement !== null) {
                 instanceIdTracker++
@@ -471,9 +473,10 @@
 
                     })
                     .catch(error => {
-                        // Lidar com erros da chamada assíncrona, se houver
+                        // Handle errors
                         console.error('Erro na chamada assíncrona:', error);
                     });
+                // Handle recipe result
                 const text = ""
                 const emoji = "🔥";
                 const newElement = createElement(emoji, text, true)
@@ -482,12 +485,13 @@
                 newElement.style.left = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2 + 'px'
                 newElement.style.top = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2 + 'px'
                 itemInstances.appendChild(newElement)
+                // Checks if the resulting element is already in the element tray (also in session storage)
                 let elementExists = false
                 for (let i = 0; i < itemSidebar.children.length; i++) {
                     if (itemSidebar.children[i].innerText.replace(/^[^A-Za-z0-9]*/, '') === text) elementExists = true
                 }
-
                 if (!elementExists) {
+                    // If the element was not in the tray, add it to the tray and the session
                     itemSidebar.appendChild(createElement(emoji, text))
                     let data = JSON.parse(sessionStorage.getItem('test-data'))
                     data.elements.push({
@@ -498,19 +502,24 @@
                     sessionStorage.setItem('test-data', JSON.stringify(data))
                     document.querySelector('.sidebar-input').placeholder = 'Search (' + itemSidebar.children.length + ') items...';
                 }
+                // Removes the two parent elements
                 matchedElement.remove()
                 component.remove()
             }
+            // Removes event listeners since dragging is over
             document.removeEventListener('mouseup', stopElementDrag)
             document.removeEventListener('mousemove', updateComponentPosition)
+            // Removes classes
             component.classList.remove('instance-selected')
             let children = itemInstances.children
-            for (let i = 0; i < children.length; i++) children[i].classList.remove('instance-hover')
+            for (let i = 0; i < children.length; i++) children[i].classList.remove('instance-hover');
+            // If element is dragged back onto the tray, it is removed
             if (doDivsOverlap(component, document.querySelector('.items'))) component.remove()
         }
     }
 
     function getHighestZ(selected) {
+        // Returns the element in the canvas that is overlapping with the selected one and has highest z-index
         let highestZIndex = -Infinity
         let highestZIndexChild = null
         for (let i = 0; i < itemInstances.children.length; i++) {
@@ -527,6 +536,7 @@
     }
 
     function createElement(emoji, text, instance = false) {
+        // Creates the element div
         const newElement = document.createElement('div')
         if (instance) newElement.classList.add('instance')
         newElement.classList.add('item')
@@ -540,6 +550,7 @@
     }
 
     function doDivsOverlap(div1, div2) {
+        // Returns true if divs overlap, false otherwise
         const rect1 = div1.getBoundingClientRect();
         const rect2 = div2.getBoundingClientRect();
 

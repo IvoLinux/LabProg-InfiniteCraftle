@@ -10,20 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Element.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/Element.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/ErrorCodeDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/ErrorCodeDictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/components/element-playground.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/components/element-playground.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,18 +34,21 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "varad-comrad"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;varad-comrad&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/IvoLinux/LabProg-InfiniteCraftle",
-    "accountId": "7099fe4a-9243-4d5d-a523-679ed14addf5"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/IvoLinux/LabProg-InfiniteCraftle&quot;,
+    &quot;accountId&quot;: &quot;7099fe4a-9243-4d5d-a523-679ed14addf5&quot;
   }
-}]]></component>
+}</component>
+  <component name="JspContextManager">
+    <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/components/element-playground.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/index.jsp" />
+  </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -92,7 +83,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.20.executor": "Run",
     "Tomcat Server.Unnamed.executor": "Run",
-    "git-widget-placeholder": "branchcagada",
+    "git-widget-placeholder": "dev2",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/fabricio/Documents/programs/test/teste_algum",
     "node.js.detected.package.eslint": "true",
@@ -113,7 +104,7 @@
       <recent name="C:\Users\johan\OneDrive\Documentos\C++\LabProg-InfiniteCraftle\src\main\webapp" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DBAuthenticationTest">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.20">
     <configuration name="DBAuthenticationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Infinite" />
       <option name="PACKAGE_NAME" value="" />
@@ -254,6 +245,7 @@
       <item itemvalue="JUnit.DBUpdateLastGamesTest" />
       <item itemvalue="JUnit.DBUpdateLastGamesTest.testUpdateLastGames" />
       <item itemvalue="JUnit.java in Infinite" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.20" />
     </list>
     <recent_temporary>
       <list>
