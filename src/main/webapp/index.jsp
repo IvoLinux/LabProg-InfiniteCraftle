@@ -170,6 +170,7 @@
         else document.querySelector('.login').style.display = 'block';
     })
 
+    // Implement date changing functionality here. Comm with back will be in this function too
     function checkIfDateAvailable(text) {
         if (!JSON.parse(sessionStorage.getItem("listDates")).dates.includes(text)) {
             window.alert('Data não disponível')
