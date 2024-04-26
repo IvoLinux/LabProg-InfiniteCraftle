@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +13,7 @@
 <div class="session">
     <form id="loginForm" method="POST" action="/login" class="log-in" autocomplete="off">
         <h4><span>Infinite Craftle</span></h4>
-        <p>Log in to recover your progress:</p>
+        <p>Log in to recover your progress</p>
         <span class="error-msg">
         <%
             String error = (String) request.getSession().getAttribute("error");
