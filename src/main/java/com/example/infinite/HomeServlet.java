@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 
 import com.google.gson.Gson;
@@ -194,16 +193,6 @@ public class HomeServlet extends HttpServlet {
     }
 
     /**
-     * today method is used to get the current date
-     * @return the current date in the format dd/MM/yyyy
-     */
-    private String today() {
-        Date today = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        return format.format(today);
-    }
-
-    /**
      * scoreFunction method is used to calculate the score of the game.
      * The score is calculated based on the time and the number of elements crafted
      * @param time time taken to craft the elements
@@ -211,7 +200,6 @@ public class HomeServlet extends HttpServlet {
      * @return the score of the game
      */
     private int scoreFunciton(long time, int numElements) {
-        // refazer
         return (int) (10000 / (time * numElements));
     }
 
@@ -224,7 +212,7 @@ public class HomeServlet extends HttpServlet {
  * It contains the error message, the game, the element and a boolean that indicates if the element was crafted.
  * The error message is used to inform the client if an error occurred.
  * The game is used to update the game in the session.
- * The element is used to update the element in the session.
+ * The element is used to inform the client the element crafted.
  * The boolean is used to inform the client if the element was crafted.
  */
 class Response {
