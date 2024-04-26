@@ -9,14 +9,75 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="created all javadoc strings">
+    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="fixed javadoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/allclasses-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/allpackages-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/DatabaseManager.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/Element.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/ErrorCodeDictionary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/Game.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/HomeServlet.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/LoginServlet.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/SignupServlet.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/User.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/ai/ICModel.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/ai/ModelBase.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/ai/ModelBuilder.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/ai/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/ai/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/element-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/help-doc.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-10.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-11.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-12.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-13.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-14.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-15.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-6.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-7.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-8.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-9.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/legal/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/legal/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/legal/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/legal/jquery.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/legal/jqueryUI.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/member-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/module-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/overview-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/overview-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/package-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/resource-files/copy.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/resource-files/glass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/resource-files/jquery-ui.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/resource-files/link.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/resource-files/stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/resource-files/x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-files/jquery-3.6.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-files/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-files/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-files/search-page.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-files/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/search.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/serialized-form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tag-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/type-search-index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Element.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/Element.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/ErrorCodeDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/ErrorCodeDictionary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/ai/ModelBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/ai/ModelBase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -295,7 +356,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713997448823</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixed javadoc">
+      <option name="closed" value="true" />
+      <created>1714093033379</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714093033379</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,6 +372,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created all javadoc strings" />
-    <option name="LAST_COMMIT_MESSAGE" value="created all javadoc strings" />
+    <MESSAGE value="fixed javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed javadoc" />
   </component>
 </project>
