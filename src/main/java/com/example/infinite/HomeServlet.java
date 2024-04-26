@@ -91,7 +91,8 @@ public class HomeServlet extends HttpServlet {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (Exception e) {
             System.out.println("oi");
-            response.sendRedirect("/login");
+//            response.sendRedirect("/login");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
             request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
         }
     }
