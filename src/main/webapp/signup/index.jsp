@@ -274,7 +274,7 @@
         // Obtém o valor da variável de sessão
         String error = (String) request.getSession().getAttribute("error");%>
         <button class="btn-open" type="submit" onClick="">Sign up</button>
-        <a href="../login/" class="discrete" target="_self">Log in</a>
+        <a href="../login" class="discrete" target="_self">Log in</a>
     </form>
 
 

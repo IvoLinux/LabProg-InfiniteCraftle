@@ -269,7 +269,7 @@
             <label for="password">Password:</label>
         </div>
         <button class="btn-open" type="submit" value="Login" onClick="">Log in</button>
-        <a href="../signup/" class="discrete" target="_self">Sign up</a>
+        <a href="../signup" class="discrete" target="_self">Sign up</a>
     </form>
     <%--    <div id="modal" class="modal hidden">--%>
     <%--        <div>--%>
