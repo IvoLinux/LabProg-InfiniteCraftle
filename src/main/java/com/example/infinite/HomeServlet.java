@@ -20,17 +20,17 @@ import com.example.infinite.ai.ICModel;
 
 
 /**
- * Servlet implementation class HomeServlet
- * The value attribute defines the URL pattern that the servlet will listen to
+ * Servlet implementation class HomeServlet. The value attribute defines the URL pattern that the servlet will listen to
  */
 @WebServlet(name = "home", value = "/")
 public class HomeServlet extends HttpServlet {
 
     /**
-     * doGet method is called when the client sends a GET request to the server
+     * This method reads the JSON data sent from the client in a POST request.
+     * It uses a StringBuilder to accumulate the JSON data line by line as it is read
+     * from the request body using a BufferedReader.
      * @param request HttpServletRequest object that contains the request the client has made to the server
      * @throws IOException when an error occurs while reading the request
-     * The method forwards the request to the index.jsp file in the home folder
      */
     private Request readJson(HttpServletRequest request) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
@@ -55,9 +55,9 @@ public class HomeServlet extends HttpServlet {
 
 
     /**
-     * sendResponse method is used to send the response to the client
-     * It sends the error message, the game, the element and a boolean that indicates if the element was crafted
-     * The error message is used to inform the client if an error occurred
+     * sendResponse method is used to send the response to the client.
+     * It sends the error message, the game, the element and a boolean that indicates if the element was crafted.
+     * The error message is used to inform the client if an error occurred.
      * @param response HttpServletResponse object that contains the response the server sends back to the client
      * @param error error message
      * @param game game object
@@ -75,13 +75,13 @@ public class HomeServlet extends HttpServlet {
     }
     
     /**
-     * doGet method is called when the client sends a GET request to the server
+     * doGet method is called when the client sends a GET request to the server.
+     * This method forwards the request to the index.jsp file in the home folder.
+     * It verifies if a user is logged. If he isn't, redirects to the login page.
      * @param request HttpServletRequest object that contains the request the client has made to the server
      * @param response HttpServletResponse object that contains the response the server sends back to the client
      * @throws IOException when an error occurs while reading the request
      * @throws ServletException when an error occurs while forwarding the request
-     * The method forwards the request to the index.jsp file in the home folder
-     * The method also updates the last games in the database
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
@@ -97,11 +97,16 @@ public class HomeServlet extends HttpServlet {
     }
 
     /**
-     * doPost method is called when the client sends a POST request to the server
+     * doPost method is called when the client sends a POST request to the server.
+     * This method reads the request from the client and processes it.
+     * It can change the day of the game or craft a new element.
+     * This method processes incoming POST requests, determining the action to take based on the request type.
+     * For "changeDay" requests, it retrieves game data for the specified day and user from the database.
+     * For "craft" requests, it processes the crafting of a new element based on two parent elements.
+     * After processing, it sends a response back to the client.
      * @param request HttpServletRequest object that contains the request the client has made to the server
      * @param response HttpServletResponse object that contains the response the server sends back to the client
      * @throws IOException
-     * The method reads the request from the client and calls the appropriate method based on the type of the request
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Game game = null;
@@ -198,7 +203,7 @@ public class HomeServlet extends HttpServlet {
     }
 
     /**
-     * scoreFunction method is used to calculate the score of the game
+     * scoreFunction method is used to calculate the score of the game.
      * The score is calculated based on the time and the number of elements crafted
      * @param time time taken to craft the elements
      * @param numElements number of elements crafted
@@ -214,12 +219,12 @@ public class HomeServlet extends HttpServlet {
 }
 
 /**
- * Response class is used to send the response to the client
- * It contains the error message, the game, the element and a boolean that indicates if the element was crafted
- * The error message is used to inform the client if an error occurred
- * The game is used to update the game in the session
- * The element is used to update the element in the session
- * The boolean is used to inform the client if the element was crafted
+ * Response class is used to send the response to the client.
+ * It contains the error message, the game, the element and a boolean that indicates if the element was crafted.
+ * The error message is used to inform the client if an error occurred.
+ * The game is used to update the game in the session.
+ * The element is used to update the element in the session.
+ * The boolean is used to inform the client if the element was crafted.
  */
 class Response {
     private String error;
@@ -307,11 +312,10 @@ class Response {
 }
 
 /**
- * Request class is used to read the request from the client
- * It contains the type of the request, the parent1 and the parent2
- * The type is used to identify the type of the request
- * The parent1 is used to identify the first parent
- * The parent2 is used to identify the second parent
+ * Request class is used to read the request from the client.
+ * It contains the type of the request, the parent1 and the parent2.
+ * The type is used to identify the type of the request.
+ * The parent1 is used to identify the first parent, and parent2, the second parent.
  */
 class Request {
     private String type;

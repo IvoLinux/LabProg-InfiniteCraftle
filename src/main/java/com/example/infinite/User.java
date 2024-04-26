@@ -1,8 +1,7 @@
 package com.example.infinite;
 
 /**
- * User class
- * Represents a user
+ * Class that represents a user.
  * Contains the user's username, password and id
  */
 public class User {

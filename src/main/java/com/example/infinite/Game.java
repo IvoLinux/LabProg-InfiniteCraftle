@@ -5,8 +5,7 @@ import java.util.Date;
 
 
 /**
- * Game class
- * Represents a game
+ * Game class that represents a game played by the user.
  * Contains the game's score, time, win status, elements, date and user
  */
 public class Game {
@@ -97,7 +96,7 @@ public class Game {
 
     /**
      * Getter for elements of the game
-     * @return elements of the game
+     * @return list of elements of the game
      */
     public ArrayList<Element> getElements() {
         return elements;

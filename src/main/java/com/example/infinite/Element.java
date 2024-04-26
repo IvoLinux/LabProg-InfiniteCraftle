@@ -2,8 +2,8 @@ package com.example.infinite;
 
 
 /**
- * Element class
- * Represents an element
+ * Element class that
+ * represents an element.
  * Contains the element's name, depth, id, emoji, and parents
  */
 public class Element {
@@ -28,8 +28,6 @@ public class Element {
         this.parent1 = parent1;
         this.parent2 = parent2;
     }
-
-    // Constructor with default depth and null parents
 
     /**
      * Element constructor that takes a name and emoji
@@ -58,7 +56,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Getter for the element's name
      * @return String with the element's name
      */
     public String getName() {
@@ -66,7 +64,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Setter for the element's name
      * @param name String with the element's name
      */
     public void setName(String name) {
@@ -74,7 +72,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Getter for the element's depth
      * @return int with the element's depth
      */
     public int getDepth() {
@@ -82,7 +80,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Setter for the element's depth
      * @param depth int with the element's depth
      */
     public void setDepth(int depth) {
@@ -90,7 +88,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Getter for the element's id
      * @return int with the element's id
      */
     public int getId() {
@@ -98,7 +96,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Setter for the element's id
      * @param id int with the element's id
      */
     public void setId(int id) {
@@ -106,7 +104,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Getter for the element's emoji
      * @return String with the element's emoji
      */
     public String getEmoji() {
@@ -114,7 +112,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Setter for the element's emoji
      * @param emoji String with the element's emoji
      */
     public void setEmoji(String emoji) {
@@ -122,7 +120,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Getter for the first parent of the element
      * @return Element with the element's first parent
      */
     public Element getParent1() {
@@ -130,7 +128,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Setter for the element's first parent
      * @param parent1 Element with the element's first parent
      */
     public void setParent1(Element parent1) {
@@ -138,7 +136,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Getter for the second parent of the element
      * @return Element with the element's second parent
      */
     public Element getParent2() {
@@ -146,7 +144,7 @@ public class Element {
     }
 
     /**
-     * Element constructor that takes a name, emoji, depth, and parents
+     * Setter for the element's second parent
      * @param parent2 Element with the element's second parent
      */
     public void setParent2(Element parent2) {

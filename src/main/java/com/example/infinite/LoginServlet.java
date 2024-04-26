@@ -12,9 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Servlet implementation class LoginServlet
- * The value attribute defines the URL pattern that the servlet will listen to
- * The name attribute defines the name of the servlet
+ * Servlet implementation class LoginServlet.
+ * The value attribute defines the URL pattern that the servlet will listen to.
  */
 @WebServlet(name = "login", value = "/login")
 public class LoginServlet extends HttpServlet {
@@ -36,9 +35,7 @@ public class LoginServlet extends HttpServlet {
      * @param request HttpServletRequest object that contains the request the client has made to the server
      * @param response HttpServletResponse object that contains the response the server sends back to the client
      * @throws IOException
-     * The method gets the username and password from the request and creates a new User object
-     * The method then calls the authenticateUser method from the DatabaseManager class to authenticate
-     * the user in the database
+     * The method checks if the username and password are correct. If they are, it forwards the request to the index.jsp file in the root folder
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

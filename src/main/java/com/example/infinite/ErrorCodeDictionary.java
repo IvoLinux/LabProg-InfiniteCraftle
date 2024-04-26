@@ -4,9 +4,7 @@ import java.util.Map;
 
 
 /**
- * Class to map error codes to error messages
- * This class is used to get the error message corresponding to an error code
- * 
+ * Class to map error codes to error messages.
  */
 public class ErrorCodeDictionary {
     /**

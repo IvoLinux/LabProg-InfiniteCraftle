@@ -14,13 +14,7 @@ import java.util.List;
 
 
 /**
- * DatabaseManager class
- * Manages the database connection and operations
- * Implements methods to register, authenticate and remove users
- * Implements methods to add, remove and query elements
- * Implements methods to craft and query elements
- * Implements methods to create and get games
- * Implements methods to get the element of the day
+ * DatabaseManager class that manages the database connection and operations, including user registration, authentication, and game data storage
  */
 public class DatabaseManager {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/infinitecraftledb";
@@ -101,7 +95,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Generates a random element from the database
+     * Retrieves a random element from the database
      * @return Element object
      */
     private Element generateElement(){
@@ -293,7 +287,7 @@ public class DatabaseManager {
     
     // OK
     /**
-     * Registers a user in the database
+     * Removes a user from the database
      * @param user User object
      * @return 0 if the user was registered successfully, 1 if the username already exists, -1 otherwise
      * 
@@ -470,7 +464,7 @@ public class DatabaseManager {
     
     // OK
     /**
-     * Queries an element from the database
+     * Inserts a new element in the database
      * @param game Game object
      * @param element Element object
      * @param parent1 first parent Element
@@ -569,7 +563,7 @@ public class DatabaseManager {
     
     // OK
     /**
-     * Gets the last games from the database
+     * Updates the games played by the user
      * @param gameDay Date object
      */
     public void updateLastGames(java.util.Date gameDay){
@@ -612,7 +606,7 @@ public class DatabaseManager {
     
     // OK
     /**
-     * Gets the last games from the database
+     * Gets the game from the database, based on the Game object
      * @param game Game object
      * @return integer code status
      */
@@ -689,8 +683,8 @@ public class DatabaseManager {
     
     // OK
     /**
-     * Gets the element of the day from the database
-     * @return Element object
+     * Gets the dates registered in the database
+     * @return List of dates
      */
     public ArrayList<java.util.Date> getDates() {
         ArrayList<java.util.Date> dates = new ArrayList<>();
@@ -718,7 +712,7 @@ public class DatabaseManager {
     
     // OK
     /**
-     * Gets the element of the day from the database
+     * Saves the game played by the user
      * @param game Game object
      */
     public void saveEndGame(Game game){

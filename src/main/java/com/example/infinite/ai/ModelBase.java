@@ -8,9 +8,9 @@ import java.net.ProtocolException;
 import java.net.*;
 
 /**
- * ModelBase class
- * This class is the base class for the models based on GPT-3.5-turbo API
- * It contains the URL, API key, maximum tokens, and temperature for the model
+ * ModelBase class.
+ * This class is the base class for the models based on GPT-3.5-turbo API.
+ * It contains the URL, API key, maximum tokens, and temperature for the model.
  */
 public class ModelBase {
     private URL url;
@@ -21,7 +21,6 @@ public class ModelBase {
 
     /**
      * returns the builder for the base model
-     * 
      * @return ModelBuilder
      */
     public static ModelBuilder builder() {
