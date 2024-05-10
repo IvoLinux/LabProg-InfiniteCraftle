@@ -523,7 +523,9 @@ public class DatabaseManager {
      */
     public int queryElement(Game game, Element parent1, Element parent2, Element element){
         loadElement(parent1);
-        loadElement(parent1);
+        loadElement(parent2);
+        System.out.println(parent1.getId());
+        System.out.println(parent2.getId());
         Connection connection = null;
         try {
             connection = getConnection();

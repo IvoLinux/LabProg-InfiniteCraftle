@@ -2,6 +2,7 @@ const itemSidebar = document.querySelector('.items-inner')
 const itemInstances = document.querySelector('.instances')
 const input = document.querySelector('.sidebar-input');
 let instanceIdTracker = 10;
+let obj = ""
 
 // Waits for DOM to fully load
 document.addEventListener('DOMContentLoaded', function () {
@@ -54,8 +55,6 @@ const sendRequest = async (component, matchedElement) => {
     };
     try {
         var json = JSON.stringify(data);
-        console.log("oi" + json)
-
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -66,7 +65,9 @@ const sendRequest = async (component, matchedElement) => {
         });
 
         const responseData = await response.text();
-        console.log(responseData + "dsfds"); // Aqui você pode fazer o que quiser com os dados retornados pelo servidor
+        obj = JSON.parse(responseData);
+        console.log(obj)
+        //console.log(responseData); // Aqui você pode fazer o que quiser com os dados retornados pelo servidor
     } catch (error) {
         console.error('Erro ao enviar os dados:', error);
     }
@@ -97,44 +98,48 @@ function handleItemDrag(event, component) {
         // matchedElement is the one selected by the user via dragging
         const matchedElement = document.querySelector('.instance-hover')
         if (matchedElement !== null) {
+            console.log("alow");
+            let text = ""
+            let emoji = "";
             instanceIdTracker++
             sendRequest(component, matchedElement)
-                .then(result => {
-
+                .then(() => {
+                    if (obj.element) {
+                        text = obj.element.name;
+                        emoji = obj.element.emoji;
+                    }
+                    // Handle recipe result
+                    const newElement = createElement(emoji, text, true)
+                    newElement.id = 'instance-' + instanceIdTracker
+                    newElement.style.zIndex = instanceIdTracker + ''
+                    newElement.style.left = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2 + 'px'
+                    newElement.style.top = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2 + 'px'
+                    itemInstances.appendChild(newElement)
+                    // Checks if the resulting element is already in the element tray (also in session storage)
+                    let elementExists = false
+                    for (let i = 0; i < itemSidebar.children.length; i++) {
+                        if (itemSidebar.children[i].innerText.replace(/^[^A-Za-z0-9]*/, '') === text) elementExists = true
+                    }
+                    if (!elementExists) {
+                        // If the element was not in the tray, add it to the tray and the session
+                        itemSidebar.appendChild(createElement(emoji, text))
+                        let data = JSON.parse(sessionStorage.getItem('test-data'))
+                        data.elements.push({
+                            "text": text,
+                            "emoji": emoji,
+                            "discovered": false
+                        })
+                        sessionStorage.setItem('test-data', JSON.stringify(data))
+                        document.querySelector('.sidebar-input').placeholder = 'Search (' + itemSidebar.children.length + ') items...';
+                    }
+                    // Removes the two parent elements
+                    matchedElement.remove()
+                    component.remove()
                 })
                 .catch(error => {
                     // Handle errors
                     console.error('Erro na chamada assíncrona:', error);
                 });
-            // Handle recipe result
-            const text = ""
-            const emoji = "🔥";
-            const newElement = createElement(emoji, text, true)
-            newElement.id = 'instance-' + instanceIdTracker
-            newElement.style.zIndex = instanceIdTracker + ''
-            newElement.style.left = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2 + 'px'
-            newElement.style.top = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2 + 'px'
-            itemInstances.appendChild(newElement)
-            // Checks if the resulting element is already in the element tray (also in session storage)
-            let elementExists = false
-            for (let i = 0; i < itemSidebar.children.length; i++) {
-                if (itemSidebar.children[i].innerText.replace(/^[^A-Za-z0-9]*/, '') === text) elementExists = true
-            }
-            if (!elementExists) {
-                // If the element was not in the tray, add it to the tray and the session
-                itemSidebar.appendChild(createElement(emoji, text))
-                let data = JSON.parse(sessionStorage.getItem('test-data'))
-                data.elements.push({
-                    "text": text,
-                    "emoji": emoji,
-                    "discovered": false
-                })
-                sessionStorage.setItem('test-data', JSON.stringify(data))
-                document.querySelector('.sidebar-input').placeholder = 'Search (' + itemSidebar.children.length + ') items...';
-            }
-            // Removes the two parent elements
-            matchedElement.remove()
-            component.remove()
         }
         // Removes event listeners since dragging is over
         document.removeEventListener('mouseup', stopElementDrag)

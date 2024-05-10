@@ -14,9 +14,11 @@ public class DBUpdateLastGamesTest {
     private DatabaseManager db;
     int result;
     SimpleDateFormat sdf;
+    String date;
 
     @Before
     public void setUp() {
+        date = "2024-04-23";
         sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
             db = new DatabaseManager();
@@ -32,8 +34,8 @@ public class DBUpdateLastGamesTest {
     public void testUpdateLastGames() {
         boolean pass  = true;
         try{
-            db.updateLastGames(sdf.parse("2024-04-18"));
-            Element el = db.getElementDay(sdf.parse("2024-04-18"));
+            db.updateLastGames(sdf.parse(date));
+            Element el = db.getElementDay(sdf.parse(date));
             System.out.println(el);
             for(var d : db.getDates()){
                 System.out.println(d);

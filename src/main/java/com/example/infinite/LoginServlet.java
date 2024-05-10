@@ -54,12 +54,17 @@ public class LoginServlet extends HttpServlet {
             } else {
                 //Aqui recebe os dados do jogo de hoje, com a lista de elementos
                 Game game = new Game(new java.util.Date(), user);
+                System.out.println("...updating last games");
+                databaseManager.updateLastGames(game.getDate());
+                System.out.println("...updating game");
                 int code2 = databaseManager.getGame(game);
                 if (code2 != 0) {
                     request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(code2));
                     response.sendRedirect("/login");
                     return;
                 }
+                System.out.println("antes " + game.getDate());
+                System.out.println("depois");
                 //Aqui recebe a lista de jogos já ganhos com os scores e tempos
                 List<java.util.Date> listDates = databaseManager.getDates();
                 request.getSession().setAttribute("elementDay", databaseManager.getElementDay(new java.util.Date()));

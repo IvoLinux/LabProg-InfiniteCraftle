@@ -34,7 +34,7 @@
     <%@include file="components/element-playground.jsp" %>
     <img src="resources/images/logo.svg" class="logo" alt="logo"/>
     <div class="reset">Reset</div>
-    <a class="login" href="./login/">Log in</a>
+    <a class="login" href="./login">Log in</a>
     <a class="logout">Log out</a>
 </div>
 
@@ -149,6 +149,8 @@
         clearButton.addEventListener('mousedown', function () {
             document.querySelector('.instances').innerHTML = ''
         })
+        if (sessionStorage.getItem('loggedIn') === 'true') document.querySelector('.logout').style.display = 'block';
+        else document.querySelector('.login').style.display = 'block';
         new datedreamer.calendarToggle({
             element: "#calendar",
             format: "YYYY-MM-DD",
@@ -166,8 +168,6 @@
                 checkIfDateAvailable(e.detail)
             }
         })
-        if (sessionStorage.getItem('loggedIn') === 'true') document.querySelector('.logout').style.display = 'block';
-        else document.querySelector('.login').style.display = 'block';
     })
 
     // Implement date changing functionality here. Comm with back will be in this function too

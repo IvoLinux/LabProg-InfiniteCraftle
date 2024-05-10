@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.Random;
 
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -23,7 +23,31 @@ import com.example.infinite.ai.ICModel;
  */
 @WebServlet(name = "home", value = "/")
 public class HomeServlet extends HttpServlet {
-
+    private static String[] testWords = {
+            "Elephant", "Sunshine", "Cascade", "Whirlwind", "Radiant",
+            "Serenity", "Bumblebee", "Tranquil", "Enigma", "Mystify",
+            "Harmony", "Flutter", "Galaxy", "Luminary", "Zephyr",
+            "Ethereal", "Melody", "Oasis", "Cascade", "Velvety",
+            "Aurora", "Firefly", "Blossom", "Whisper", "Majestic",
+            "Wanderlust", "Solitude", "Serendipity", "Nimbus",
+            "Enchanted", "Blissful", "Tantalize", "Euphoria", "Twilight",
+            "Aurora", "Captivate", "Resplendent", "Luminous",
+            "Kaleidoscope", "Tranquility", "Mesmerize", "Effervescent",
+            "Whisper", "Radiant", "Enthrall", "Celestial", "Glorious",
+            "Solace", "Tranquil", "Reverie"
+    };
+    private static String[] testEmojis = {
+            "😀", "😂", "😊", "😍", "🤩",
+            "😎", "😋", "😇", "🥳", "😜",
+            "🤪", "😘", "😉", "🥰", "🤗",
+            "😌", "😁", "😅", "🤣", "😆",
+            "😄", "😃", "😉", "😊", "😇",
+            "😋", "😌", "😍", "🥰", "😘",
+            "😗", "😙", "😚", "😛", "😝",
+            "😜", "🤪", "🤨", "🧐", "😎",
+            "🤓", "😕", "😟", "🙁", "☹️",
+            "😮", "😯", "😲", "😳", "🥺"
+    };
     /**
      * This method reads the JSON data sent from the client in a POST request.
      * It uses a StringBuilder to accumulate the JSON data line by line as it is read
@@ -84,9 +108,11 @@ public class HomeServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
+
             DatabaseManager databaseManager = new DatabaseManager();
             Game game = (Game) request.getSession().getAttribute("game");
             databaseManager.updateLastGames(game.getDate());
+
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (Exception e) {
             System.out.println("oi");
@@ -104,25 +130,25 @@ public class HomeServlet extends HttpServlet {
      * For "changeDay" requests, it retrieves game data for the specified day and user from the database.
      * For "craft" requests, it processes the crafting of a new element based on two parent elements.
      * After processing, it sends a response back to the client.
-     * @param request HttpServletRequest object that contains the request the client has made to the server
+     * @param servletRequest HttpServletRequest object that contains the request the client has made to the server
      * @param response HttpServletResponse object that contains the response the server sends back to the client
      * @throws IOException
      */
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
         Game game = null;
         Element craftedElement = null;
         String error = null;
         boolean crafted = true;
 
-        Request biggers = readJson(request);
+        Request request = readJson(servletRequest);
 
-        String type = biggers.getType();
+        String type = request.getType();
         if(type.equals("changeDay")) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                java.util.Date gameDay = dateFormat.parse(request.getParameter("gameDay"));
+                java.util.Date gameDay = dateFormat.parse(servletRequest.getParameter("gameDay"));
                 DatabaseManager databaseManager = new DatabaseManager();
-                User user = (User)request.getSession().getAttribute("user");
+                User user = (User)servletRequest.getSession().getAttribute("user");
                 //Aqui recebe os dados do jogo do dia escolhido, com a lista de elementos
                 game = new Game(gameDay, user);
                 int code = databaseManager.getGame(game);
@@ -131,61 +157,74 @@ public class HomeServlet extends HttpServlet {
                     sendResponse(response, error, game, craftedElement, crafted);
                     return;
                 }
-                request.getSession().setAttribute("error", null);
-                request.getSession().setAttribute("game", game);
+                servletRequest.getSession().setAttribute("error", null);
+                servletRequest.getSession().setAttribute("game", game);
             }catch(Exception e) {
-                request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
+                servletRequest.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
             }
         }
         else if(type.equals("craft")) {
-            String parent1 = biggers.getParent1();
-            String parent2 = biggers.getParent2();
-            game = (Game)request.getSession().getAttribute("game");
             try {
+                String parent1 = request.getParent1();
+                String parent2 = request.getParent2();
+                System.out.println("getting game from session...");
+                game = (Game)servletRequest.getSession().getAttribute("game");
                 crafted = true;
                 DatabaseManager databaseManager = new DatabaseManager();
                 Element dad = new Element(parent1, "");
                 Element mom = new Element(parent2, "");
                 craftedElement = new Element();
+                System.out.println("querying element...");
                 int code = databaseManager.queryElement(game, mom, dad, craftedElement);
                 if (code == -1) { // deu ruim
+                    System.out.println("error querying");
                     error = ErrorCodeDictionary.getErrorMessage(code);
                     sendResponse(response, error, game, craftedElement, crafted);
                     return;
                 }
                 if(code == 7){ //não foi encontrado no BD
+                    System.out.println("recipe not in db");
                     String key = "";
+                    System.out.println("building model...");
                     ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.5f).build("ic");
-
-                    ArrayList<String> elements = new ArrayList<>(Arrays.asList(icmodel.getNewCraft(parent1, parent2, "", "")));
-
-                    elements.add(icmodel.retrieveAnswer(parent1, parent2));
-                    elements.add(icmodel.retrieveAnswer(parent1, parent2));
+                    System.out.println("prompting model...");
+                    //ArrayList<String> elements = new ArrayList<>(Arrays.asList(icmodel.getNewCraft(parent1, parent2, "", "")));
+                    //elements.add(icmodel.retrieveAnswer(parent1, parent2));
+                    ArrayList<String> elements = new ArrayList<>();
+                    elements.add(generateRandomWord());
+                    elements.add(generateRandomEmoji());
                     if(elements.get(0) == null){
                         crafted = false;
                     }
                     else {
+                        System.out.println(elements.get(0));
+                        System.out.println(elements.get(1));
                         craftedElement = new Element(elements.get(0), elements.get(1), 0, dad, mom);
                         //atualiza o banco de dados e o depth do craft e atualiza a tabela de jogo do dia
+                        System.out.println("crafting element...");
                         databaseManager.craftElement(game, dad, mom, craftedElement);
                     }
                 }
                 java.util.Date gameDay = game.getDate();
                 if(crafted && craftedElement.getId() == databaseManager.getElementDay(gameDay).getId()){
+                    System.out.println("element of the day crafted");
                     if(gameDay.equals(new java.util.Date())){
+
                         int numElements = game.getElements().size();
-                        int time = (int)((long)request.getSession().getAttribute("initialTime")-System.currentTimeMillis());
+                        int time = (int)((long)servletRequest.getSession().getAttribute("initialTime")-System.currentTimeMillis());
                         int score = (int) scoreFunciton(time, numElements);
                         game.setEndGame(score, time, true);
-                        databaseManager.saveEndGame(game);
                     }
                     else{
                         game.setEndGame(0, 0, true);
-                        databaseManager.saveEndGame(game);
                     }
+                    System.out.println("Saving end game...");
+                    databaseManager.saveEndGame(game);
                 }
                 sendResponse(response, null, game, craftedElement, crafted);
+                return;
             } catch(Exception e) {
+                e.printStackTrace();
                 error = ErrorCodeDictionary.getErrorMessage(6);
             }
         }
@@ -204,6 +243,16 @@ public class HomeServlet extends HttpServlet {
     }
 
     public void destroy() {
+    }
+    private String generateRandomWord(){
+        Random random = new Random();
+        int rd = random.nextInt(testWords.length);
+        return testWords[rd];
+    }
+    private String generateRandomEmoji(){
+        Random random = new Random();
+        int rd = random.nextInt(testEmojis.length);
+        return testEmojis[rd];
     }
 }
 

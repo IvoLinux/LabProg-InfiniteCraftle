@@ -33,7 +33,9 @@ public class ICModel extends ModelBase {
     private String getPromptTemplate(){
         StringBuilder sb = new StringBuilder();
         try {
-            File myObj = new File("./src/main/resources/prompt.txt"); // Check for Windows
+            String filePath = "prompt.txt";
+            String absolutePath = ICModel.class.getClassLoader().getResource(filePath).getFile();
+            File myObj = new File(absolutePath);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 sb.append(myReader.nextLine());
