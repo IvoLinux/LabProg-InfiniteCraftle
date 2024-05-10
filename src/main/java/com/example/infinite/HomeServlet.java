@@ -23,6 +23,7 @@ import com.example.infinite.ai.ICModel;
  */
 @WebServlet(name = "home", value = "/")
 public class HomeServlet extends HttpServlet {
+    private DatabaseManager databaseManager;
     private static String[] testWords = {
             "Elephant", "Sunshine", "Cascade", "Whirlwind", "Radiant",
             "Serenity", "Bumblebee", "Tranquil", "Enigma", "Mystify",
@@ -108,8 +109,7 @@ public class HomeServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-
-            DatabaseManager databaseManager = new DatabaseManager();
+            DatabaseManager databaseManager = DatabaseManager.getInstance();
             Game game = (Game) request.getSession().getAttribute("game");
             databaseManager.updateLastGames(game.getDate());
 
@@ -147,7 +147,7 @@ public class HomeServlet extends HttpServlet {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 java.util.Date gameDay = dateFormat.parse(servletRequest.getParameter("gameDay"));
-                DatabaseManager databaseManager = new DatabaseManager();
+                DatabaseManager databaseManager = DatabaseManager.getInstance();
                 User user = (User)servletRequest.getSession().getAttribute("user");
                 //Aqui recebe os dados do jogo do dia escolhido, com a lista de elementos
                 game = new Game(gameDay, user);
@@ -170,7 +170,7 @@ public class HomeServlet extends HttpServlet {
                 System.out.println("getting game from session...");
                 game = (Game)servletRequest.getSession().getAttribute("game");
                 crafted = true;
-                DatabaseManager databaseManager = new DatabaseManager();
+                DatabaseManager databaseManager = DatabaseManager.getInstance();
                 Element dad = new Element(parent1, "");
                 Element mom = new Element(parent2, "");
                 craftedElement = new Element();
@@ -188,13 +188,13 @@ public class HomeServlet extends HttpServlet {
                     System.out.println("building model...");
                     ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.5f).build("ic");
                     System.out.println("prompting model...");
-                    //ArrayList<String> elements = new ArrayList<>(Arrays.asList(icmodel.getNewCraft(parent1, parent2, "", "")));
-                    //elements.add(icmodel.retrieveAnswer(parent1, parent2));
-                    ArrayList<String> elements = new ArrayList<>();
-                    elements.add(generateRandomWord());
-                    elements.add(generateRandomEmoji());
+                    ArrayList<String> elements = new ArrayList<>(Arrays.asList(icmodel.getNewCraft(parent1, parent2, "", "")));
+                    //ArrayList<String> elements = new ArrayList<>();
+                    //elements.add(generateRandomWord());
+                    //elements.add(generateRandomEmoji());
                     if(elements.get(0) == null){
                         crafted = false;
+                        System.out.println("none");
                     }
                     else {
                         System.out.println(elements.get(0));

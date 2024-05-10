@@ -10,15 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="fixed javadoc">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_24_24__7_23_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_24_24__7_23_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/ai/ICModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/ai/ICModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/ai/ModelBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/ai/ModelBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/prompt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/prompt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/InfiniteCraftleDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/InfiniteCraftleDB.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBAuthenticationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBAuthenticationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBElementQueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBElementQueryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBRegisterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBRegisterTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/DBUpdateLastGamesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBUpdateLastGamesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -322,7 +327,7 @@
       <workItem from="1715356700730" duration="22000" />
       <workItem from="1715356730063" duration="5412000" />
       <workItem from="1715363888751" duration="789000" />
-      <workItem from="1715364689654" duration="1012000" />
+      <workItem from="1715364689654" duration="6580000" />
     </task>
     <task id="LOCAL-00001" summary="created all javadoc strings">
       <option name="closed" value="true" />

@@ -20,11 +20,7 @@ public class DBRegisterTest {
         username = "fhsnjdasmok";
         password = "andiashbdinasmk";
         user = new User(username, password);
-        try{
-            db = new DatabaseManager();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+        db = DatabaseManager.getInstance();
     }
 
     @After

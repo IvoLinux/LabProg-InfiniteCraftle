@@ -44,7 +44,7 @@ public class SignupServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = new User(username, password);
         try {
-            DatabaseManager databaseManager = new DatabaseManager();
+            DatabaseManager databaseManager = DatabaseManager.getInstance();
             int code = databaseManager.registerUser(user);
             if (code != 0) {
                 request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(code));

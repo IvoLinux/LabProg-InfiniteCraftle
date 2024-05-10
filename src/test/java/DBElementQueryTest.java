@@ -23,7 +23,7 @@ public class DBElementQueryTest {
     @Before
     public void setUp() {
         try{
-            db = new DatabaseManager();
+            db = DatabaseManager.getInstance();
             sdf = new SimpleDateFormat("yyyy-MM-dd");
             date = sdf.parse("2024-04-18");
             db.updateLastGames(date);
@@ -35,7 +35,7 @@ public class DBElementQueryTest {
             p1 = new Element("water", "💧");
             p2 = new Element("fire", "🔥");
             el = new Element("steam", "💨");
-        } catch (SQLException | ParseException e){
+        } catch (ParseException e){
         }
     }
 

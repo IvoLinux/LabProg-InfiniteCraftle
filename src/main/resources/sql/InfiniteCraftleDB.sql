@@ -51,3 +51,5 @@ INSERT INTO Element(name, emoji, depth) VALUES ('water', '💧', '0');
 INSERT INTO Element(name, emoji, depth) VALUES ('fire', '🔥', '0');
 INSERT INTO Element(name, emoji, depth) VALUES ('earth', '🌍', '0');
 INSERT INTO Element(name, emoji, depth) VALUES ('wind', '💨', '0');
+INSERT INTO Element(name, emoji, depth) VALUES ('steam', '💨', '1');
+INSERT INTO ElementsCrafted(parent1_id, parent2_id, child_id) VALUES ('1', '2', '5');

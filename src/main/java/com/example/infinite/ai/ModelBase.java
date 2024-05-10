@@ -74,7 +74,8 @@ public class ModelBase {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setRequestProperty("Authorization", "Bearer " + apiKey);
         conn.setDoOutput(true);
-
+        System.out.println("Request: " + msg);
+        System.out.println(apiKey);
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = formatSendMessage(msg).getBytes("utf-8");
             os.write(input, 0, input.length);
@@ -105,6 +106,7 @@ public class ModelBase {
      */
     public String retrieveAnswer(String msg) {
         String answer = retrieveFullAnswer(msg);
+        System.out.println(answer);
         return answer.substring(answer.indexOf("content") + 11, answer.indexOf("\"", answer.indexOf("content") + 11));
     }
 }

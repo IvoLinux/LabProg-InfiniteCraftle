@@ -94,7 +94,11 @@ public class ICModel extends ModelBase {
      */
     public String[] getNewCraft(String parent1, String parent2, String emoji1, String emoji2){
         String ret = retrieveAnswer(emoji1+parent1, emoji2+parent2);
-        if(ret.equals("None")) return null;
+        if(ret.equals("None")){
+                String[] str = new String[2];
+                str[0] = str[1] = null;
+                return str;
+        }
         return ret.split(" ");
     }
 }

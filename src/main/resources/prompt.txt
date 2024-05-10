@@ -24,7 +24,7 @@ Examples:
 - Input: 🔥 Fire, 🌊 Water
 - Output: 💨 steam
 
-- Input: 🔥 Fire, 🌋 Lava
+- Input: 🔥 Fire, 🇰🇿 Khazakistan
 - Output: None
 
 - Input: ༄.° Wind, 🌍 Earth

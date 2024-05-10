@@ -21,12 +21,7 @@ public class DBAuthenticationTest {
         password = "andiashbdinasmk";
         user = new User(username, password);
         user2 = new User(username, 'a' + password);
-        try{
-            db = new DatabaseManager();
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+        db = DatabaseManager.getInstance();
     }
 
     @After

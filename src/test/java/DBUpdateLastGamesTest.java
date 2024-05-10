@@ -20,10 +20,7 @@ public class DBUpdateLastGamesTest {
     public void setUp() {
         date = "2024-04-23";
         sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try{
-            db = new DatabaseManager();
-        } catch (SQLException e){
-        }
+        db = DatabaseManager.getInstance();
     }
 
     @After

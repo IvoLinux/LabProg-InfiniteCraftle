@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
         User user = new User(username, password);
         //cria User e passa por referencia pro authenticate tudo com Username vira user
         try {
-            DatabaseManager databaseManager = new DatabaseManager();
+            DatabaseManager databaseManager = DatabaseManager.getInstance();
             int code = databaseManager.authenticateUser(user);
             System.out.println(code);
             if (code != 0) {
