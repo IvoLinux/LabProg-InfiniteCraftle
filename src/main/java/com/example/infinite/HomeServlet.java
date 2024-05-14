@@ -62,6 +62,10 @@ public class HomeServlet extends HttpServlet {
      * @throws IOException when an error occurs while sending the response
      */
     private void sendResponse(HttpServletResponse response, String error, Game game, Element element, boolean crafted) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();

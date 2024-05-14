@@ -46,7 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 })
 const sendRequest = async (component, matchedElement) => {
-    const url = 'http://localhost:8080/home' // Substitua pelo URL do seu servidor
+    const baseUrl = window.location.origin;
+    const path = '/home';
+    const url = `${baseUrl}${path}`;
     const data = {
         'type': 'craft',
         'parent1': component.innerText.replace(/^[^A-Za-z0-9]*/, ''),

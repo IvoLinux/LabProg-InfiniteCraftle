@@ -17,7 +17,7 @@
         <span class="error-msg">
         <%
             String error = (String) request.getSession().getAttribute("error");
-            if (error.contains("Authentication")) out.print("Incorrect User or Password");
+            if (error != null && error.contains("Authentication")) out.print("Incorrect User or Password");
         %>
         </span>
         <div class="floating-label">
