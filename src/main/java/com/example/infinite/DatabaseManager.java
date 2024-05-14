@@ -426,11 +426,20 @@ public class DatabaseManager {
         Connection connection = null;
         try {
             connection = getConnection();
-            String queryInsert = "INSERT INTO Element (name, emoji, depth) VALUES (?, ?, ?)";
+            String queryInsert = "INSERT INTO Element (name, emoji, depth) " +
+                "SELECT ?, ?, ? " +
+                "WHERE NOT EXISTS ( " +
+                "    SELECT 1 " +
+                "    FROM Element " +
+                "    WHERE name = ? " +
+                "    AND emoji = ? " +
+                ")";
             try (PreparedStatement statementInsert = connection.prepareStatement(queryInsert)) {
                 statementInsert.setString(1, element.getName());
                 statementInsert.setString(2, element.getEmoji());
                 statementInsert.setInt(3, element.getDepth());
+                statementInsert.setString(4, element.getName());
+                statementInsert.setString(5, element.getEmoji());
                 int rowsAffected = statementInsert.executeUpdate();
                 if (rowsAffected > 0) {
                     return 0; // Element added successfully
@@ -477,7 +486,6 @@ public class DatabaseManager {
             }
         }
     }
-    
     // OK
     /**
      * Inserts a new element in the database
@@ -643,6 +651,7 @@ public class DatabaseManager {
                         game.setTimeMillis(resultSet.getInt("time"));
                         game.setWin(resultSet.getBoolean("win"));
                         game.setElements(getElementList(game));
+                        game.setTargetElement(getElementDay(game.getDate()));
                         return 0;
                     }
                     else{

@@ -15,7 +15,7 @@ public class Game {
     private ArrayList<Element> elements;
     private Date date;
     private User user;
-
+    private Element targetElement;
     /**
      * Constructor for Game class
      * @param date date of the game
@@ -28,8 +28,15 @@ public class Game {
         this.timeMillis = 0;
         this.win = false;
         this.elements = new ArrayList<>();
+        this.targetElement = new Element();
     }
-
+    /**
+     * Getter for target element of the game
+     * @return target element of the game
+     */
+    public Element getTargetElement() {
+        return targetElement;
+    }
     /**
      * Getter for date of the game
      * @return date of the game
@@ -53,7 +60,13 @@ public class Game {
     public int getScore() {
         return score;
     }
-
+    /**
+     * Setter for target element of the game
+     * @param targetElement target element of the game
+     */
+    public void setTargetElement(Element targetElement) {
+        this.targetElement = targetElement;
+    }
     /**
      * Setter for score of the game
      * @param score score of the game

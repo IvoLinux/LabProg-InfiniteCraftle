@@ -129,9 +129,6 @@ function handleItemDrag(event, component) {
                 if (!elementExists) {
                     // If the element was not in the tray, add it to the tray and the session
                     itemSidebar.appendChild(createElement(emoji, text))
-                    let data = JSON.parse(sessionStorage.getItem('game'))
-                    data.elements.push(craftedElement)
-                    sessionStorage.setItem('test-data', JSON.stringify(data))
                     document.querySelector('.sidebar-input').placeholder = 'Search (' + itemSidebar.children.length + ') items...';
                 }
                 matchedElement.remove()
