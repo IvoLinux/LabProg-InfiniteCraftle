@@ -1,12 +1,11 @@
 package com.example.infinite;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -24,31 +23,6 @@ import com.example.infinite.ai.ICModel;
 @WebServlet(name = "home", value = "/")
 public class HomeServlet extends HttpServlet {
     private DatabaseManager databaseManager;
-    private static String[] testWords = {
-            "Elephant", "Sunshine", "Cascade", "Whirlwind", "Radiant",
-            "Serenity", "Bumblebee", "Tranquil", "Enigma", "Mystify",
-            "Harmony", "Flutter", "Galaxy", "Luminary", "Zephyr",
-            "Ethereal", "Melody", "Oasis", "Cascade", "Velvety",
-            "Aurora", "Firefly", "Blossom", "Whisper", "Majestic",
-            "Wanderlust", "Solitude", "Serendipity", "Nimbus",
-            "Enchanted", "Blissful", "Tantalize", "Euphoria", "Twilight",
-            "Aurora", "Captivate", "Resplendent", "Luminous",
-            "Kaleidoscope", "Tranquility", "Mesmerize", "Effervescent",
-            "Whisper", "Radiant", "Enthrall", "Celestial", "Glorious",
-            "Solace", "Tranquil", "Reverie"
-    };
-    private static String[] testEmojis = {
-            "😀", "😂", "😊", "😍", "🤩",
-            "😎", "😋", "😇", "🥳", "😜",
-            "🤪", "😘", "😉", "🥰", "🤗",
-            "😌", "😁", "😅", "🤣", "😆",
-            "😄", "😃", "😉", "😊", "😇",
-            "😋", "😌", "😍", "🥰", "😘",
-            "😗", "😙", "😚", "😛", "😝",
-            "😜", "🤪", "🤨", "🧐", "😎",
-            "🤓", "😕", "😟", "🙁", "☹️",
-            "😮", "😯", "😲", "😳", "🥺"
-    };
     /**
      * This method reads the JSON data sent from the client in a POST request.
      * It uses a StringBuilder to accumulate the JSON data line by line as it is read
@@ -109,16 +83,12 @@ public class HomeServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            DatabaseManager databaseManager = DatabaseManager.getInstance();
             Game game = (Game) request.getSession().getAttribute("game");
-            databaseManager.updateLastGames(game.getDate());
-
+            if(game == null) throw new Exception("game not set");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (Exception e) {
-            System.out.println("oi");
-//            response.sendRedirect("/login");
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
             request.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
+            response.sendRedirect("/login");
         }
     }
 
@@ -137,31 +107,15 @@ public class HomeServlet extends HttpServlet {
     public void doPost(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
         Game game = null;
         Element craftedElement = null;
-        String error = null;
+        String error = "";
         boolean crafted = true;
 
         Request request = readJson(servletRequest);
 
         String type = request.getType();
         if(type.equals("changeDay")) {
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                java.util.Date gameDay = dateFormat.parse(servletRequest.getParameter("gameDay"));
-                DatabaseManager databaseManager = DatabaseManager.getInstance();
-                User user = (User)servletRequest.getSession().getAttribute("user");
-                //Aqui recebe os dados do jogo do dia escolhido, com a lista de elementos
-                game = new Game(gameDay, user);
-                int code = databaseManager.getGame(game);
-                if(code != 0){
-                    error = ErrorCodeDictionary.getErrorMessage(6);
-                    sendResponse(response, error, game, craftedElement, crafted);
-                    return;
-                }
-                servletRequest.getSession().setAttribute("error", null);
-                servletRequest.getSession().setAttribute("game", game);
-            }catch(Exception e) {
-                servletRequest.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
-            }
+            error = handleChangeDay(servletRequest, game, error);
+            sendResponse(response, error, game, craftedElement, crafted);
         }
         else if(type.equals("craft")) {
             try {
@@ -184,7 +138,8 @@ public class HomeServlet extends HttpServlet {
                 }
                 if(code == 7){ //não foi encontrado no BD
                     System.out.println("recipe not in db");
-                    String key = "";
+
+                    String key = getApiKey();
                     System.out.println("building model...");
                     ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.5f).build("ic");
                     System.out.println("prompting model...");
@@ -228,9 +183,26 @@ public class HomeServlet extends HttpServlet {
                 error = ErrorCodeDictionary.getErrorMessage(6);
             }
         }
-        sendResponse(response, error, game, craftedElement, crafted);
     }
-
+    private String handleChangeDay(HttpServletRequest servletRequest, Game game, String error){
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date gameDay = dateFormat.parse(servletRequest.getParameter("gameDay"));
+            DatabaseManager databaseManager = DatabaseManager.getInstance();
+            User user = (User)servletRequest.getSession().getAttribute("user");
+            //Aqui recebe os dados do jogo do dia escolhido, com a lista de elementos
+            game = new Game(gameDay, user);
+            int code = databaseManager.getGame(game);
+            if(code != 0){
+                return ErrorCodeDictionary.getErrorMessage(6);
+            }
+            servletRequest.getSession().setAttribute("error", "");
+            servletRequest.getSession().setAttribute("game", game);
+        }catch(Exception e) {
+            servletRequest.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
+        }
+        return error;
+    }
     /**
      * scoreFunction method is used to calculate the score of the game.
      * The score is calculated based on the time and the number of elements crafted
@@ -244,15 +216,22 @@ public class HomeServlet extends HttpServlet {
 
     public void destroy() {
     }
-    private String generateRandomWord(){
-        Random random = new Random();
-        int rd = random.nextInt(testWords.length);
-        return testWords[rd];
-    }
-    private String generateRandomEmoji(){
-        Random random = new Random();
-        int rd = random.nextInt(testEmojis.length);
-        return testEmojis[rd];
+    private String getApiKey(){
+        String str = "";
+        String filePath = "apikey.txt";
+        String absolutePath = HomeServlet.class.getClassLoader().getResource(filePath).getFile();
+        File file = new File(absolutePath);
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = br.readLine(); // Read the first line
+            if (line != null) {
+                str = line;
+            } else {
+                System.out.println("File is empty.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+        return str;
     }
 }
 

@@ -6,12 +6,12 @@ let instanceIdTracker = 10;
 // Waits for DOM to fully load
 document.addEventListener('DOMContentLoaded', function () {
     // Retrieves local storage
-    let retrievedData0 = sessionStorage.getItem("test-data")
-    let elements = JSON.parse(retrievedData0).elements
-    // Fills element sidebar
-    elements.forEach(item => {
-        itemSidebar.appendChild(createElement(item.emoji, item.text))
-    });
+        let retrievedData0 = sessionStorage.getItem("game")
+        let elements = JSON.parse(retrievedData0).elements
+        // Fills element sidebar
+        elements.forEach(item => {
+            itemSidebar.appendChild(createElement(item.emoji, item.name))
+        });
     document.querySelector('.sidebar-input').placeholder = 'Search (' + elements.length + ') items...';
 
     // Adds an on click event listener to all "item" divs in Sidebar
@@ -99,6 +99,7 @@ function handleItemDrag(event, component) {
             console.log("alow");
             let text = ""
             let emoji = "";
+            let craftedElement = null
             instanceIdTracker++
             try {
                 const obj = await sendRequest(component, matchedElement);
@@ -106,6 +107,7 @@ function handleItemDrag(event, component) {
                 if (obj && obj.element && !obj.error && obj.crafted && obj.crafted === true) {
                     text = obj.element.name;
                     emoji = obj.element.emoji;
+                    craftedElement = obj.element
                 }
             } catch (error) {
                 // Handle errors
@@ -127,12 +129,8 @@ function handleItemDrag(event, component) {
                 if (!elementExists) {
                     // If the element was not in the tray, add it to the tray and the session
                     itemSidebar.appendChild(createElement(emoji, text))
-                    let data = JSON.parse(sessionStorage.getItem('test-data'))
-                    data.elements.push({
-                        "text": text,
-                        "emoji": emoji,
-                        "discovered": false
-                    })
+                    let data = JSON.parse(sessionStorage.getItem('game'))
+                    data.elements.push(craftedElement)
                     sessionStorage.setItem('test-data', JSON.stringify(data))
                     document.querySelector('.sidebar-input').placeholder = 'Search (' + itemSidebar.children.length + ') items...';
                 }

@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class DatabaseManager {
     private static DatabaseManager instance;
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/infinitecraftledb";
-    private static final String JDBC_USER = "root";
+    private static final String JDBC_URL = "jdbc:mysql://172.15.1.60:3306/infinitecraftledb";
+    private static final String JDBC_USER = "infinitecraftle";
     private static final String JDBC_PASSWORD = "ebert";
     private static final int INITIAL_POOL_SIZE = 20;
     private List<Connection> pool;

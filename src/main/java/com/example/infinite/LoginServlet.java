@@ -63,13 +63,11 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("/login");
                     return;
                 }
-                System.out.println("antes " + game.getDate());
-                System.out.println("depois");
                 //Aqui recebe a lista de jogos já ganhos com os scores e tempos
                 List<java.util.Date> listDates = databaseManager.getDates();
                 request.getSession().setAttribute("elementDay", databaseManager.getElementDay(new java.util.Date()));
                 request.getSession().setAttribute("initialTime", System.currentTimeMillis());
-                request.getSession().setAttribute("error", null);
+                request.getSession().setAttribute("error", "");
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("listDates", listDates);
                 request.getSession().setAttribute("game", game);

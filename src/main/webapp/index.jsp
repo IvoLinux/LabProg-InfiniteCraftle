@@ -1,3 +1,4 @@
+<%@ page import="com.google.gson.Gson" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en" data-n-head="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
@@ -40,30 +41,9 @@
 
 <script>
     const clearButton = document.querySelector('.clear')
-    let retrievedData = sessionStorage.getItem("test-data")
-    if (retrievedData == null) {
-        let gameInstance = {
-            "element-of-the-day": "Water",
-            "elements": [
-            {
-                "text": "Water",
-                "emoji": "💧",
-                "discovered": false
-            }, {
-                "text": "Fire",
-                "emoji": "🔥",
-                "discovered": false
-            }, {
-                "text": "Wind",
-                "emoji": "🌬️",
-                "discovered": false
-            }, {
-                "text": "Earth",
-                "emoji": "🌍",
-                "discovered": false
-            }]
-        }
-        sessionStorage.setItem("test-data", JSON.stringify(gameInstance))
+    const game = <%= new Gson().toJson(session.getAttribute("game")) %>;
+    if (game && game.elements) {
+        sessionStorage.setItem("game", JSON.stringify(game))
     }
     sessionStorage.setItem("listDates", JSON.stringify({"dates": ["2024-04-01", "2024-04-02", "2024-04-03", "2024-04-04", "2024-04-05", "2024-04-06", "2024-04-07", "2024-04-08", "2024-04-09", "2024-04-10", "2024-04-11", "2024-04-12", "2024-04-13", "2024-04-14", "2024-04-15", "2024-04-16", "2024-04-17", "2024-04-18", "2024-04-19", "2024-04-20"]}))
     document.addEventListener('DOMContentLoaded', function () {
