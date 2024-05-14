@@ -107,6 +107,12 @@
     justify-content: center;
 }
 
+.target-element-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @keyframes sway-32e5f4a8 {
     0% {
         rotate: -6deg;
