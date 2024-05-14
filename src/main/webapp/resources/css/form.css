@@ -181,3 +181,11 @@ input:focus {
     width: auto;
     margin: 20px;
 }
+
+.error-msg {
+    line-height: 155%;
+    font-size: 12px;
+    color: #ff0000;
+    opacity: 0.7;
+    font-weight: 400;
+}

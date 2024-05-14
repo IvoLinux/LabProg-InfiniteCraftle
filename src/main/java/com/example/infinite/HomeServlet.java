@@ -4,8 +4,6 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -154,7 +152,7 @@ public class HomeServlet extends HttpServlet {
                     else {
                         System.out.println(elements.get(0));
                         System.out.println(elements.get(1));
-                        craftedElement = new Element(elements.get(0), elements.get(1), 0, dad, mom);
+                        craftedElement = new Element(elements.get(1), elements.get(0), 0, dad, mom);
                         //atualiza o banco de dados e o depth do craft e atualiza a tabela de jogo do dia
                         System.out.println("crafting element...");
                         databaseManager.craftElement(game, dad, mom, craftedElement);
@@ -167,7 +165,7 @@ public class HomeServlet extends HttpServlet {
 
                         int numElements = game.getElements().size();
                         int time = (int)((long)servletRequest.getSession().getAttribute("initialTime")-System.currentTimeMillis());
-                        int score = (int) scoreFunciton(time, numElements);
+                        int score = (int) scoreFunction(time, numElements);
                         game.setEndGame(score, time, true);
                     }
                     else{
@@ -210,7 +208,7 @@ public class HomeServlet extends HttpServlet {
      * @param numElements number of elements crafted
      * @return the score of the game
      */
-    private int scoreFunciton(long time, int numElements) {
+    private int scoreFunction(long time, int numElements) {
         return (int) (10000 / (time * numElements));
     }
 

@@ -10,14 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="fixed javadoc">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/resetdb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/resetdb.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/form.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/form.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +67,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -95,7 +92,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat Server.Tomcat 10.1.20.executor": "Debug",
+    "Tomcat Server.Tomcat 10.1.20.executor": "Run",
     "Tomcat Server.Unnamed.executor": "Run",
     "git-widget-placeholder": "dev2",
     "kotlin-language-version-configured": "true",
@@ -268,26 +265,16 @@
       <item itemvalue="JUnit.All in Infinite" />
       <item itemvalue="JUnit.DBUpdateLastGamesTest.testUpdateLastGames" />
       <item itemvalue="JUnit.java in Infinite" />
-      <item itemvalue="Smart Tomcat.Tomcat: Infinite" />
       <item itemvalue="Tomcat Server.Tomcat 10.1.20" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.DBUpdateLastGamesTest" />
         <item itemvalue="JUnit.All in Infinite" />
-        <item itemvalue="Smart Tomcat.Tomcat: Infinite" />
         <item itemvalue="JUnit.java in Infinite" />
         <item itemvalue="JUnit.DBUpdateLastGamesTest.testUpdateLastGames" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-51586f01" />
-        <option value="jdk-22-openjdk-22-4caba194b151-f504ca98" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -326,6 +313,7 @@
       <workItem from="1715611259486" duration="557000" />
       <workItem from="1715612653155" duration="2730000" />
       <workItem from="1715686483623" duration="5708000" />
+      <workItem from="1715692696362" duration="1679000" />
     </task>
     <task id="LOCAL-00001" summary="created all javadoc strings">
       <option name="closed" value="true" />
