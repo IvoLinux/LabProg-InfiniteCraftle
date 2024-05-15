@@ -174,10 +174,11 @@ public class DatabaseManager {
     /**
      * Stores a crafted element in the database
      * @param game Game object
-     * @param element_id Element id
+     * @param element Element object
      * @return 0 if the element was stored successfully, -1 otherwise
      */
-    private int storeCraftedElement(Game game, int element_id){
+    private int storeCraftedElement(Game game, Element element){
+        System.out.println("storing "+element.getName());
         String query = "INSERT INTO CraftedInGame (date, user_id, element_id)\n" +
                 "SELECT ?, ?, ?\n" +
                 "WHERE NOT EXISTS (\n" +
@@ -191,13 +192,25 @@ public class DatabaseManager {
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setDate(1, new java.sql.Date(game.getDate().getTime()));
                 statement.setInt(2, game.getUser().getId());
-                statement.setInt(3, element_id);
+                statement.setInt(3, element.getId());
                 statement.setDate(4, new java.sql.Date(game.getDate().getTime()));
                 statement.setInt(5, game.getUser().getId());
-                statement.setInt(6, element_id);
-                statement.execute();
-                game.setElements(getElementList(game));
-                return 0;
+                statement.setInt(6, element.getId());
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("INSERIU");
+                    ArrayList<Element> list = game.getElements();
+                    list.add(element);
+                    game.setElements(list);
+                    System.out.println("updated list: ");
+                    for (Element el : game.getElements()) {
+                        System.out.println(el);
+                    }
+                    return 0;
+                } else{
+                    System.out.println("NAO INSERIU");
+                    return -1;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -229,11 +242,19 @@ public class DatabaseManager {
                 statement.setBoolean(5, game.isWin());
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
+                    Element e1 = new Element("Water", "");
+                    Element e2 = new Element("Fire", "");
+                    Element e3 = new Element("Wind", "");
+                    Element e4 = new Element("Earth", "");
+                    loadElement(e1);
+                    loadElement(e2);
+                    loadElement(e3);
+                    loadElement(e4);
                     // adicionar elementos padrao
-                    return storeCraftedElement(game, 1) &
-                            storeCraftedElement(game, 2) &
-                            storeCraftedElement(game, 3) &
-                            storeCraftedElement(game, 4);
+                    return storeCraftedElement(game, e1) &
+                            storeCraftedElement(game, e2) &
+                            storeCraftedElement(game, e3) &
+                            storeCraftedElement(game, e4);
                 } else{
                     return -1;
                 }
@@ -432,7 +453,6 @@ public class DatabaseManager {
                 "    SELECT 1 " +
                 "    FROM Element " +
                 "    WHERE name = ? " +
-                "    AND emoji = ? " +
                 ")";
             try (PreparedStatement statementInsert = connection.prepareStatement(queryInsert)) {
                 statementInsert.setString(1, element.getName());
@@ -519,7 +539,7 @@ public class DatabaseManager {
                 statement.setInt(3, element.getId());
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
-                    storeCraftedElement(game, element.getId());
+                    storeCraftedElement(game, element);
                     return 0;
                 } else{
                     return -1;
@@ -548,27 +568,28 @@ public class DatabaseManager {
     public int queryElement(Game game, Element parent1, Element parent2, Element element){
         loadElement(parent1);
         loadElement(parent2);
-        System.out.println(parent1.getId());
-        System.out.println(parent2.getId());
         Connection connection = null;
         try {
             connection = getConnection();
             String query = "SELECT e.element_id, e.name, e.emoji " +
-                    "FROM Element e JOIN ElementsCrafted ec " +
-                    "ON e.element_id = ec.child_id " +
-                    "WHERE (ec.parent1_id = ? AND ec.parent2_id = ?) OR (ec.parent1_id = ? AND ec.parent2_id = ?)";
+                    "FROM Element e " +
+                    "JOIN ElementsCrafted ec ON e.element_id = ec.child_id " +
+                    "JOIN Element p1 ON ec.parent1_id = p1.element_id " +
+                    "JOIN Element p2 ON ec.parent2_id = p2.element_id " +
+                    "WHERE (p1.name = ? AND p2.name = ?) OR (p1.name = ? AND p2.name = ?) " +
+                    "ORDER BY e.depth DESC";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, parent1.getId());
-                statement.setInt(2, parent2.getId());
-                statement.setInt(3, parent2.getId());
-                statement.setInt(4, parent1.getId());
+                statement.setString(1, parent1.getName());
+                statement.setString(2, parent2.getName());
+                statement.setString(3, parent2.getName());
+                statement.setString(4, parent1.getName());
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         element.setId(resultSet.getInt("element_id"));
                         element.setName(resultSet.getString("name"));
                         element.setEmoji(resultSet.getString("emoji"));
-                        storeCraftedElement(game, element.getId());
+                        storeCraftedElement(game, element);
                         return 0;
                     }
                     else{
@@ -705,6 +726,7 @@ public class DatabaseManager {
                 releaseConnection(connection);
             }
         }
+        System.out.println("Element of day: " + el.getName());
         return el;
     }
     

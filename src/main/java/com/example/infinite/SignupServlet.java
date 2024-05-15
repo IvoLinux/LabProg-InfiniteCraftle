@@ -65,7 +65,7 @@ public class SignupServlet extends HttpServlet {
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("listDates", listDates);
                 request.getSession().setAttribute("game", game);
-                response.sendRedirect("/");
+                response.sendRedirect("/login");
             }
             return;
         } catch(Exception e) {

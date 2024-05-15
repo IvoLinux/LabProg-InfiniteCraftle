@@ -102,6 +102,7 @@ function handleItemDrag(event, component) {
             let text = ""
             let emoji = "";
             let craftedElement = null
+            let newGame = {}
             instanceIdTracker++
             try {
                 const obj = await sendRequest(component, matchedElement);
@@ -109,7 +110,7 @@ function handleItemDrag(event, component) {
                 if (obj && obj.element && !obj.error && obj.crafted && obj.crafted === true) {
                     text = obj.element.name;
                     emoji = obj.element.emoji;
-                    craftedElement = obj.element
+                    newGame = obj.game
                 }
             } catch (error) {
                 // Handle errors
@@ -123,6 +124,8 @@ function handleItemDrag(event, component) {
                 newElement.style.left = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2 + 'px'
                 newElement.style.top = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2 + 'px'
                 itemInstances.appendChild(newElement)
+                console.log("oi" + JSON.stringify(newGame))
+                sessionStorage.setItem("game", JSON.stringify(newGame))
                 // Checks if the resulting element is already in the element tray (also in session storage)
                 let elementExists = false
                 for (let i = 0; i < itemSidebar.children.length; i++) {
