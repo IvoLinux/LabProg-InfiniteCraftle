@@ -10,9 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="fixed javadoc">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/homeCalendar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/global.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/modal.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/images/logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/images/logo.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" afterDir="false" />
     </list>
@@ -26,6 +33,7 @@
       <list>
         <option value="Jsp File" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -94,7 +102,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.20.executor": "Debug",
     "Tomcat Server.Unnamed.executor": "Run",
-    "git-widget-placeholder": "dev2",
+    "git-widget-placeholder": "Merging dev2",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/fabricio/Documents/programs/test/teste_algum",
     "node.js.detected.package.eslint": "true",
@@ -277,14 +285,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-51586f01" />
-        <option value="jdk-22-openjdk-22-4caba194b151-f504ca98" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -323,9 +323,10 @@
       <workItem from="1715612653155" duration="2730000" />
       <workItem from="1715686483623" duration="5708000" />
       <workItem from="1715692696362" duration="1679000" />
-      <workItem from="1715706358205" duration="3968000" />
       <workItem from="1715711399065" duration="3369000" />
       <workItem from="1715733303515" duration="6372000" />
+      <workItem from="1715706358205" duration="3080000" />
+      <workItem from="1715710349404" duration="4844000" />
     </task>
     <task id="LOCAL-00001" summary="created all javadoc strings">
       <option name="closed" value="true" />

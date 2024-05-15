@@ -66,8 +66,8 @@ const sendRequest = async (component, matchedElement) => {
         });
 
         const responseData = await response.text();
+        console.log(responseData); // Aqui você pode fazer o que quiser com os dados retornados pelo servidor
         return JSON.parse(responseData);
-        //console.log(responseData); // Aqui você pode fazer o que quiser com os dados retornados pelo servidor
     } catch (error) {
         console.error('Erro ao enviar os dados:', error);
     }
@@ -95,10 +95,12 @@ function handleItemDrag(event, component) {
     }
 
     async function stopElementDrag() {
+        // Removes event listeners since dragging is over
+        document.removeEventListener('mouseup', stopElementDrag)
+        document.removeEventListener('mousemove', updateComponentPosition)
         // matchedElement is the one selected by the user via dragging
         const matchedElement = document.querySelector('.instance-hover')
         if (matchedElement !== null) {
-            console.log("alow");
             let text = ""
             let emoji = "";
             let craftedElement = null
@@ -106,7 +108,6 @@ function handleItemDrag(event, component) {
             instanceIdTracker++
             try {
                 const obj = await sendRequest(component, matchedElement);
-                console.log(obj);
                 if (obj && obj.element && !obj.error && obj.crafted && obj.crafted === true) {
                     text = obj.element.name;
                     emoji = obj.element.emoji;
@@ -140,9 +141,6 @@ function handleItemDrag(event, component) {
             }
             component.remove()
         }
-        // Removes event listeners since dragging is over
-        document.removeEventListener('mouseup', stopElementDrag)
-        document.removeEventListener('mousemove', updateComponentPosition)
         // Removes classes
         component.classList.remove('instance-selected')
         let children = itemInstances.children
