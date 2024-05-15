@@ -82,7 +82,7 @@ public class DatabaseManager {
         Connection connection = null;
         try {
             connection = getConnection();
-            String query = "SELECT element_id, depth \n" +
+            String query = "SELECT element_id, depth, emoji \n" +
                     "FROM Element \n" +
                     "WHERE name = ? \n" +
                     "ORDER BY depth DESC \n" +
@@ -93,6 +93,7 @@ public class DatabaseManager {
                     if (resultSet.next()) {
                         element.setId(resultSet.getInt("element_id"));
                         element.setDepth(resultSet.getInt("depth"));
+                        element.setEmoji(resultSet.getString("emoji"));
                         return 0;
                     }
                     else{
