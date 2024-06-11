@@ -11,9 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  * Servlet implementation class LoginServlet.
  * The value attribute defines the URL pattern that the servlet will listen to.
@@ -45,11 +42,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         LoginResponse loginResponse = LoginApiServlet.handleLogin(username, password);
         if(!loginResponse.getError().isEmpty()) {
-            request.getSession().setAttribute("error", loginResponse.getError());
+            request.getSession().setAttribute("login-error", loginResponse.getError());
             response.sendRedirect("/login");
             return;
         }
-        request.getSession().setAttribute("error", loginResponse.getError());
+        request.getSession().setAttribute("login-error", loginResponse.getError());
         request.getSession().setAttribute("elementDay", loginResponse.getElementDay());
         request.getSession().setAttribute("initialTime", loginResponse.getInitialTime());
         request.getSession().setAttribute("listDates", loginResponse.getListDates());

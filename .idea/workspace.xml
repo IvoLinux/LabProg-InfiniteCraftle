@@ -10,7 +10,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="refactoring back end. Apis created, dealing with database errors" />
+    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="signup api created, login and signup messages updated">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/SignupApiServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/SignUpResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/ErrorCodeDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/ErrorCodeDictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/SignupServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/LoginApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/LoginApiServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/signup/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signup/index.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,34 +86,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.All in Infinite.executor": "Run",
-    "JUnit.DBAuthenticationTest.executor": "Run",
-    "JUnit.DBConnectionTest.executor": "Run",
-    "JUnit.DBElementQueryTest.testQueryAndCraft.executor": "Run",
-    "JUnit.DBUpdateLastGamesTest.executor": "Run",
-    "JUnit.DBUpdateLastGamesTest.testUpdateLastGames.executor": "Run",
-    "JUnit.java in Infinite.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat Server.Tomcat 10.1.20.executor": "Debug",
-    "Tomcat Server.Unnamed.executor": "Run",
-    "git-widget-placeholder": "dev2",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ebert/Desktop/labprog3/LabProg-InfiniteCraftle/pom.xml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.All in Infinite.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DBAuthenticationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DBConnectionTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DBElementQueryTest.testQueryAndCraft.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DBUpdateLastGamesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DBUpdateLastGamesTest.testUpdateLastGames.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.java in Infinite.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 10.1.20.executor&quot;: &quot;Debug&quot;,
+    &quot;Tomcat Server.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev2&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ebert/Desktop/labprog3/LabProg-InfiniteCraftle/pom.xml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\johan\OneDrive\Documentos\C++\LabProg-InfiniteCraftle\src\main\webapp" />
@@ -333,7 +343,8 @@
       <workItem from="1718026859591" duration="4171000" />
       <workItem from="1718047166676" duration="2176000" />
       <workItem from="1718071299546" duration="6842000" />
-      <workItem from="1718105280859" duration="9244000" />
+      <workItem from="1718105280859" duration="9494000" />
+      <workItem from="1718116005906" duration="5739000" />
     </task>
     <task id="LOCAL-00001" summary="created all javadoc strings">
       <option name="closed" value="true" />
@@ -369,6 +380,7 @@
     <MESSAGE value="created all javadoc strings" />
     <MESSAGE value="fixed javadoc" />
     <MESSAGE value="refactoring back end. Apis created, dealing with database errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring back end. Apis created, dealing with database errors" />
+    <MESSAGE value="signup api created, login and signup messages updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="signup api created, login and signup messages updated" />
   </component>
 </project>

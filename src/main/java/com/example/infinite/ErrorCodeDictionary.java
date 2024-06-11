@@ -14,14 +14,16 @@ public class ErrorCodeDictionary {
 
     static {
         errorMessages.put(0, "success");
-        errorMessages.put(1, "Registration failed: user already exists");
-        errorMessages.put(2, "Authentication failed: incorrect password");
-        errorMessages.put(3, "Authentication failed: user does not exist");
+        errorMessages.put(1, "User already exists");
+        errorMessages.put(8, "Passwords do not match");
+        errorMessages.put(9, "Password should have at least 8 characters");
+        errorMessages.put(2, "Incorrect password");
+        errorMessages.put(3, "Username does not exist");
         errorMessages.put(4, "Add element failed: element already exists");
         errorMessages.put(5, "Searching failed: element not found");
         errorMessages.put(6, "DataBase connection failed");
         errorMessages.put(7, "Query failed: element not built");
-        errorMessages.put(-1, "calma ai biggers deu ruim aqui");
+        errorMessages.put(-1, "Internal error");
 
     }
 

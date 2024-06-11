@@ -11,13 +11,15 @@
 <%@include file="../components/upper-left-logo.jsp" %>
 
 <div class="session">
-    <form id="loginForm" method="POST" action="/login" class="log-in" autocomplete="off">
+    <form id="loginForm" method="POST" action="${pageContext.request.contextPath}/login" class="log-in" autocomplete="off">
         <h4><span>Infinite Craftle</span></h4>
         <p>Log in to recover your progress</p>
         <span class="error-msg">
         <%
-            String error = (String) request.getSession().getAttribute("error");
-            if (error != null && error.contains("Authentication")) out.print("Incorrect User or Password");
+            String error = (String) request.getSession().getAttribute("login-error");
+            if (error != null && !error.isEmpty()){
+                out.print(error);
+            }
         %>
         </span>
         <div class="floating-label">

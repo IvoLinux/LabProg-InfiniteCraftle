@@ -31,7 +31,7 @@ public class LoginApiServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        LoginResponse loginResponse =  handleLogin(username, password);
+        LoginResponse loginResponse = handleLogin(username, password);
         response.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
