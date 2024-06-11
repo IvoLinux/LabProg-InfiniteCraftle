@@ -1,5 +1,7 @@
 package com.example.infinite;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,7 +15,7 @@ public class Game {
     private int timeMillis;
     private boolean win;
     private ArrayList<Element> elements;
-    private Date date;
+    private String date;
     private User user;
     private Element targetElement;
     /**
@@ -22,13 +24,25 @@ public class Game {
      * @param user user that played the game
      */
     public Game(Date date, User user) {
-        this.date = date;
+        this.date = DateToString(date);
         this.user = user;
         this.score = 0;
         this.timeMillis = 0;
         this.win = false;
         this.elements = new ArrayList<>();
         this.targetElement = new Element();
+    }
+    String DateToString(Date date){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
+    }
+    Date StringToDate(String date){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            return formatter.parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
     }
     /**
      * Getter for target element of the game
@@ -42,7 +56,7 @@ public class Game {
      * @return date of the game
      */
     public Date getDate() {
-        return date;
+        return StringToDate(date);
     }
 
     /**

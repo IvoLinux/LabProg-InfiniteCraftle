@@ -18,6 +18,11 @@ public class User {
         this.password = password;
         this.id = 0;
     }
+    public User(int id){
+        this.username = "";
+        this.password = "";
+        this.id = id;
+    }
 
     /**
      * Setter for id of the user

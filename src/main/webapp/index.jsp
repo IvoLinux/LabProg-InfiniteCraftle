@@ -56,8 +56,9 @@
 <script>
     const clearButton = document.querySelector('.clear')
     const game = <%= new Gson().toJson(session.getAttribute("game")) %>;
+    const listDates = <%= new Gson().toJson(session.getAttribute("listDates")) %>;
     if (game && game.elements) sessionStorage.setItem("game", JSON.stringify(game))
-    sessionStorage.setItem("listDates", JSON.stringify({"dates": ["2024-04-01", "2024-04-02", "2024-04-03", "2024-04-04", "2024-04-05", "2024-04-06", "2024-04-07", "2024-04-08", "2024-04-09", "2024-04-10", "2024-04-11", "2024-04-12", "2024-04-13", "2024-04-14", "2024-04-15", "2024-04-16", "2024-04-17", "2024-04-18", "2024-04-19", "2024-04-20"]}))
+    if (listDates) sessionStorage.setItem("listDates", JSON.stringify(listDates))
 
     clearButton.addEventListener('mousedown', function () {
         document.querySelector('.instances').innerHTML = ''

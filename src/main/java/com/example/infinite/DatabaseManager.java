@@ -24,14 +24,14 @@ public class DatabaseManager {
     private static final int INITIAL_POOL_SIZE = 20;
     private List<Connection> pool;
 
-    public static synchronized DatabaseManager getInstance() {
+    public static synchronized DatabaseManager getInstance() throws Exception{
         if (instance == null) {
             synchronized (DatabaseManager.class) {
                 if (instance == null) {
                     try{
                         instance = new DatabaseManager();
                     } catch (SQLException e){
-                        return null;
+                        throw new Exception("Could not connect to Database");
                     }
                 }
             }
@@ -199,17 +199,11 @@ public class DatabaseManager {
                 statement.setInt(6, element.getId());
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
-                    System.out.println("INSERIU");
                     ArrayList<Element> list = game.getElements();
                     list.add(element);
                     game.setElements(list);
-                    System.out.println("updated list: ");
-                    for (Element el : game.getElements()) {
-                        System.out.println(el);
-                    }
                     return 0;
                 } else{
-                    System.out.println("NAO INSERIU");
                     return -1;
                 }
             }
@@ -765,7 +759,7 @@ public class DatabaseManager {
      * Saves the game played by the user
      * @param game Game object
      */
-    public void saveEndGame(Game game){
+    public int saveEndGame(Game game){
         // update score and time
         int score = game.getScore();
         int time = game.getTimeMillis();
@@ -782,8 +776,10 @@ public class DatabaseManager {
                 statement.setInt(4, game.getUser().getId());
                 statement.executeUpdate();
             }
+            return 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return -1;
         }
         finally {
             if (connection != null){

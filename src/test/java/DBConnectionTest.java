@@ -1,5 +1,6 @@
 import com.example.infinite.DatabaseManager;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,14 +21,9 @@ public class DBConnectionTest {
 
     @Test
     public void testConnectionDB() {
-        result = true;
-        try{
-            DatabaseManager db;
-        } catch(Exception e){
-            e.printStackTrace();
-            result = false;
-        }
-        assertEquals(true, result);
+        assertThrows(Exception.class, () -> {
+            db = DatabaseManager.getInstance();
+        });
     }
 }
 

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
+      <artifact name="Infinite:war" />
       <artifact name="Infinite:war exploded" />
     </artifacts-to-build>
   </component>
@@ -10,10 +11,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="fixed javadoc">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/CraftApiServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/LoginApiServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/CraftRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/CraftResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_24_24__7_23_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_24_24__7_23_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/MainServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBAuthenticationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBAuthenticationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBConnectionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBConnectionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBElementQueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBElementQueryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBRegisterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBRegisterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBUpdateLastGamesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBUpdateLastGamesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +41,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jsp File" />
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -80,34 +97,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.All in Infinite.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBAuthenticationTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBConnectionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBElementQueryTest.testQueryAndCraft.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBUpdateLastGamesTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBUpdateLastGamesTest.testUpdateLastGames.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.java in Infinite.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.20.executor&quot;: &quot;Debug&quot;,
-    &quot;Tomcat Server.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev2&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/fabricio/Documents/programs/test/teste_algum&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.All in Infinite.executor": "Run",
+    "JUnit.DBAuthenticationTest.executor": "Run",
+    "JUnit.DBConnectionTest.executor": "Run",
+    "JUnit.DBElementQueryTest.testQueryAndCraft.executor": "Run",
+    "JUnit.DBUpdateLastGamesTest.executor": "Run",
+    "JUnit.DBUpdateLastGamesTest.testUpdateLastGames.executor": "Run",
+    "JUnit.java in Infinite.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Tomcat Server.Tomcat 10.1.20.executor": "Debug",
+    "Tomcat Server.Unnamed.executor": "Run",
+    "git-widget-placeholder": "dev2",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ebert/Desktop/labprog3/LabProg-InfiniteCraftle/pom.xml",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\johan\OneDrive\Documentos\C++\LabProg-InfiniteCraftle\src\main\webapp" />
@@ -153,12 +170,17 @@
       </method>
     </configuration>
     <configuration name="Tomcat 10.1.20" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.20" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
-      <option name="UPDATING_POLICY" value="update-resources" />
+      <option name="OPEN_IN_BROWSER" value="false" />
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
       <deployment>
         <artifact name="Infinite:war exploded">
           <settings>
             <option name="CONTEXT_PATH" value="" />
+          </settings>
+        </artifact>
+        <artifact name="Infinite:war">
+          <settings>
+            <option name="CONTEXT_PATH" value="/Infinite_war" />
           </settings>
         </artifact>
       </deployment>
@@ -237,6 +259,7 @@
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
           <artifact name="Infinite:war exploded" />
+          <artifact name="Infinite:war" />
         </option>
       </method>
     </configuration>
@@ -280,6 +303,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-51586f01" />
         <option value="jdk-22-openjdk-22-4caba194b151-f504ca98" />
       </set>
     </attachedChunks>
@@ -327,6 +351,10 @@
       <workItem from="1715706358205" duration="3080000" />
       <workItem from="1715710349404" duration="4844000" />
       <workItem from="1715771815425" duration="1943000" />
+      <workItem from="1718026859591" duration="4171000" />
+      <workItem from="1718047166676" duration="2176000" />
+      <workItem from="1718071299546" duration="6842000" />
+      <workItem from="1718105280859" duration="8935000" />
     </task>
     <task id="LOCAL-00001" summary="created all javadoc strings">
       <option name="closed" value="true" />
@@ -354,5 +382,16 @@
     <MESSAGE value="created all javadoc strings" />
     <MESSAGE value="fixed javadoc" />
     <option name="LAST_COMMIT_MESSAGE" value="fixed javadoc" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/infinite/api/CraftApiServlet.java</url>
+          <line>120</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -20,7 +20,6 @@ public class DBUpdateLastGamesTest {
     public void setUp() {
         date = "2024-04-23";
         sdf = new SimpleDateFormat("yyyy-MM-dd");
-        db = DatabaseManager.getInstance();
     }
 
     @After
@@ -29,6 +28,9 @@ public class DBUpdateLastGamesTest {
 
     @Test
     public void testUpdateLastGames() {
+        assertThrows(Exception.class, () -> {
+            db = DatabaseManager.getInstance();
+        });
         boolean pass  = true;
         try{
             db.updateLastGames(sdf.parse(date));

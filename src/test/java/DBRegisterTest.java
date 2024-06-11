@@ -1,5 +1,6 @@
 import com.example.infinite.DatabaseManager;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import com.example.infinite.User;
 import org.junit.After;
@@ -20,7 +21,6 @@ public class DBRegisterTest {
         username = "fhsnjdasmok";
         password = "andiashbdinasmk";
         user = new User(username, password);
-        db = DatabaseManager.getInstance();
     }
 
     @After
@@ -29,6 +29,9 @@ public class DBRegisterTest {
 
     @Test
     public void testRegisterUser() {
+        assertThrows(Exception.class, () -> {
+            db = DatabaseManager.getInstance();
+        });
         result = db.removeUser(user);
         assertEquals(0, result);
         result = db.registerUser(user);

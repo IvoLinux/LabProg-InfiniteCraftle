@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class DBElementQueryTest {
     private DatabaseManager db;
@@ -23,7 +24,6 @@ public class DBElementQueryTest {
     @Before
     public void setUp() {
         try{
-            db = DatabaseManager.getInstance();
             sdf = new SimpleDateFormat("yyyy-MM-dd");
             date = sdf.parse("2024-04-18");
             db.updateLastGames(date);
@@ -45,6 +45,9 @@ public class DBElementQueryTest {
 
     @Test
     public void testQueryAndCraft() {
+        assertThrows(Exception.class, () -> {
+            db = DatabaseManager.getInstance();
+        });
         db.removeElement(el);
         assertEquals(7, db.queryElement(game, p1, p2, el));
         assertEquals(0, db.craftElement(game, p1, p2, el));

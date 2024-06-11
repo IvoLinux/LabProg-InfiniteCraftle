@@ -47,14 +47,19 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 const sendRequest = async (component, matchedElement) => {
     const baseUrl = window.location.origin;
-    const path = '/home';
+    const path = '/api/craft';
     const url = `${baseUrl}${path}`;
-    const data = {
-        'type': 'craft',
-        'parent1': component.innerText.replace(/^[^A-Za-z0-9]*/, ''),
-        'parent2': matchedElement.innerText.replace(/^[^A-Za-z0-9]*/, '')
-    };
     try {
+        const gameStr = sessionStorage.getItem('game');
+        const game = JSON.parse(gameStr);
+        if(game === null) throw new Error("game objet is null");
+        const data = {
+            'userId': game.user.id,
+            'gameDate': game.date,
+            'parent1': component.innerText.replace(/^[^A-Za-z0-9]*/, ''),
+            'parent2': matchedElement.innerText.replace(/^[^A-Za-z0-9]*/, '')
+        };
+
         var json = JSON.stringify(data);
         const response = await fetch(url, {
             method: 'POST',

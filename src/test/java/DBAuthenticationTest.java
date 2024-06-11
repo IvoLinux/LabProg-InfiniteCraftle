@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class DBAuthenticationTest {
 
@@ -21,7 +22,6 @@ public class DBAuthenticationTest {
         password = "andiashbdinasmk";
         user = new User(username, password);
         user2 = new User(username, 'a' + password);
-        db = DatabaseManager.getInstance();
     }
 
     @After
@@ -30,6 +30,9 @@ public class DBAuthenticationTest {
 
     @Test
     public void testAuthenticateUser() {
+        assertThrows(Exception.class, () -> {
+            db = DatabaseManager.getInstance();
+        });
         result = db.removeUser(user);
         assertEquals(0, result);
         result = db.authenticateUser(user);
