@@ -1,10 +1,9 @@
 import com.example.infinite.DatabaseManager;
-import com.example.infinite.Element;
+import com.example.infinite.domain.Element;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.assertEquals;

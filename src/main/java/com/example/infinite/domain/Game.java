@@ -1,4 +1,4 @@
-package com.example.infinite;
+package com.example.infinite.domain;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class Game {
     private int score;
-    private int timeMillis;
+    private long timeMillis;
     private boolean win;
     private ArrayList<Element> elements;
     private String date;
@@ -93,7 +93,7 @@ public class Game {
      * Getter for time of the game in milliseconds
      * @return time of the game in milliseconds
      */
-    public int getTimeMillis() {
+    public long getTimeMillis() {
         return timeMillis;
     }
 
@@ -101,7 +101,7 @@ public class Game {
      * Setter for time of the game in milliseconds
      * @param timeMillis time of the game in milliseconds
      */
-    public void setTimeMillis(int timeMillis) {
+    public void setTimeMillis(long timeMillis) {
         this.timeMillis = timeMillis;
     }
 

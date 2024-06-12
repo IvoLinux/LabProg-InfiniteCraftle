@@ -1,7 +1,7 @@
 package com.example.infinite.dto;
 
-import com.example.infinite.Element;
-import com.example.infinite.Game;
+import com.example.infinite.domain.Element;
+import com.example.infinite.domain.Game;
 
 /**
  * Response class is used to send the response to the client.
@@ -30,7 +30,8 @@ public class CraftResponse {
         this.element = element;
         this.crafted = crafted;
     }
-
+    public CraftResponse(){
+    }
     /**
      * Getter for error message
      * @return error message

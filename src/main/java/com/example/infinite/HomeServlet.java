@@ -1,19 +1,13 @@
 package com.example.infinite;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import com.example.infinite.dto.CraftRequest;
-import com.google.gson.Gson;
+import com.example.infinite.domain.Game;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.example.infinite.ai.ICModel;
-
 
 
 /**

@@ -2,9 +2,8 @@ package com.example.infinite.dto;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import com.example.infinite.Game;
-import com.example.infinite.User;
-import com.example.infinite.Element;
+import com.example.infinite.domain.Game;
+import com.example.infinite.domain.Element;
 
 
 public class LoginResponse {

@@ -1,12 +1,11 @@
 import com.example.infinite.DatabaseManager;
-import com.example.infinite.Element;
-import com.example.infinite.Game;
-import com.example.infinite.User;
+import com.example.infinite.domain.Element;
+import com.example.infinite.domain.Game;
+import com.example.infinite.domain.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 

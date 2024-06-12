@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import com.example.infinite.*;
 import com.example.infinite.dto.LoginResponse;
+import com.example.infinite.domain.Game;
+import com.example.infinite.domain.User;
 import com.google.gson.Gson;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

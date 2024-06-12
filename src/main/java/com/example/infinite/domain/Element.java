@@ -1,4 +1,4 @@
-package com.example.infinite;
+package com.example.infinite.domain;
 
 
 /**
