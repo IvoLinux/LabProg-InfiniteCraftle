@@ -30,7 +30,8 @@ public class CraftResponse {
         this.element = element;
         this.crafted = crafted;
     }
-
+    public CraftResponse(){
+    }
     /**
      * Getter for error message
      * @return error message

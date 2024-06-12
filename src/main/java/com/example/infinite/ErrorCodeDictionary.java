@@ -16,7 +16,7 @@ public class ErrorCodeDictionary {
         errorMessages.put(0, "success");
         errorMessages.put(1, "User already exists");
         errorMessages.put(8, "Passwords do not match");
-        errorMessages.put(9, "Password should have at least 8 characters");
+        errorMessages.put(9, "Password should havex at least 8 characters");
         errorMessages.put(2, "Incorrect password");
         errorMessages.put(3, "Username does not exist");
         errorMessages.put(4, "Add element failed: element already exists");

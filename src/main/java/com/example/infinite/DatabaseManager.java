@@ -230,6 +230,9 @@ public class DatabaseManager {
      * @return 0 if the game was created successfully, -1 otherwise
      */
     private int createGame(Game game){
+        game.setScore(0);
+        game.setTimeMillis(System.currentTimeMillis());
+        game.setWin(false);
         String query = "INSERT INTO GameInstance(date, user_id, score, time, win) VALUES (?,?,?,?,?)";
         Connection connection = null;
         try {
@@ -669,15 +672,15 @@ public class DatabaseManager {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         game.setScore(resultSet.getInt("score"));
-                        game.setTimeMillis(resultSet.getInt("time"));
+                        game.setTimeMillis(resultSet.getLong("time"));
                         game.setWin(resultSet.getBoolean("win"));
                         game.setElements(getElementList(game));
-                        game.setTargetElement(getElementDay(game.getDate()));
-                        return 0;
                     }
-                    else{
-                        return createGame(game);
+                    else if(createGame(game) != 0){
+                        return -1;
                     }
+                    game.setTargetElement(getElementDay(game.getDate()));
+                    return 0;
                 }
             }
         } catch (SQLException e) {
@@ -767,18 +770,19 @@ public class DatabaseManager {
     public int saveEndGame(Game game){
         // update score and time
         int score = game.getScore();
-        int time = game.getTimeMillis();
+        long time = game.getTimeMillis();
         String query = "UPDATE GameInstance\n" +
-                "SET score = ?, time = ?\n" +
+                "SET score = ?, time = ?, win = ?\n" +
                 "WHERE date = ? AND user_id = ?;\n";
         Connection connection = null;
         try {
             connection = getConnection();
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setInt(1, score);
-                statement.setInt(2, time);
-                statement.setDate(3, new java.sql.Date(game.getDate().getTime()));
-                statement.setInt(4, game.getUser().getId());
+                statement.setLong(2, time);
+                statement.setBoolean(3, game.isWin());
+                statement.setDate(4, new java.sql.Date(game.getDate().getTime()));
+                statement.setInt(5, game.getUser().getId());
                 statement.executeUpdate();
             }
             return 0;

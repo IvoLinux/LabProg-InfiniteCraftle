@@ -17,6 +17,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 @WebServlet(name = "craft-api", value = "/api/craft")
 public class CraftApiServlet extends HttpServlet {
@@ -47,18 +48,7 @@ public class CraftApiServlet extends HttpServlet {
         Gson gson = new Gson();
         return gson.fromJson(stringBuilder.toString(), CraftRequest.class);
     }
-    /**
-     * sendResponse method is used to send the response to the client.
-     * It sends the error message, the game, the element and a boolean that indicates if the element was crafted.
-     * The error message is used to inform the client if an error occurred.
-     * @param response HttpServletResponse object that contains the response the server sends back to the client
-     * @param error error message
-     * @param game game object
-     * @param element element object
-     * @param crafted boolean that indicates if the element was crafted
-     * @throws IOException when an error occurs while sending the response
-     */
-    private void sendResponse(HttpServletResponse response, String error, Game game, Element element, boolean crafted) throws IOException {
+    private void sendResponse(HttpServletResponse response, CraftResponse craftResponse) throws IOException {
         response.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
@@ -66,84 +56,23 @@ public class CraftApiServlet extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        CraftResponse resp = new CraftResponse(error, game, element, crafted);
-        String jsonString = gson.toJson(resp);
+        String jsonString = gson.toJson(craftResponse);
         out.println(jsonString);
     }
     public void doPost(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
-        Game game = null;
-        Element craftedElement = null;
-        String error = "";
-        boolean crafted = false;
-        try {
-            CraftRequest request = readJson(servletRequest);
-            DatabaseManager databaseManager = DatabaseManager.getInstance();
-            String parent1 = request.getParent1();
-            String parent2 = request.getParent2();
-            int userId = request.getUserId();
-            java.util.Date gameDate = request.getGameDate();
-            if(gameDate == null) throw new Exception("Invalid date");
-            System.out.println("getting game from session...");
-
-            //game = (Game)servletRequest.getSession().getAttribute("game");
-            User user = new User(userId);
-            game = new Game(gameDate, user);
-            databaseManager.getGame(game);
-            if(databaseManager.getGame(game) == -1){
-                throw new Exception("Could not retrieve game");
-            }
-            Element dad = new Element(parent1, "");
-            Element mom = new Element(parent2, "");
-            craftedElement = new Element();
-            System.out.println("querying element...");
-            int code = databaseManager.queryElement(game, mom, dad, craftedElement);
-            if(code == -1){
-                throw new Exception("Error while querying element");
-            }
-            if(code == 7){ //não foi encontrado no BD
-                System.out.println("recipe not in db");
-                String key = getApiKey();
-                System.out.println("building model...");
-                ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.5f).build("ic");
-                System.out.println("prompting model...");
-                ArrayList<String> elements = new ArrayList<>(Arrays.asList(icmodel.getNewCraft(parent1, parent2, "", "")));
-                if(elements.get(0) == null){
-                    throw new Exception("Error getting AI element");
-                }
-                System.out.println(elements.get(0));
-                System.out.println(elements.get(1));
-                craftedElement = new Element(elements.get(1), elements.get(0), 0, dad, mom);
-                //atualiza o banco de dados e o depth do craft e atualiza a tabela de jogo do dia
-                System.out.println("crafting element...");
-                if(databaseManager.craftElement(game, dad, mom, craftedElement) == -1){
-                    throw new Exception("Error crafting new element");
-                }
-            }
-            java.util.Date gameDay = game.getDate();
-            Element elementDay = databaseManager.getElementDay(gameDay);
-            if(craftedElement.getName().equals(elementDay.getName())){
-                System.out.println("element of the day crafted");
-                if(gameDay.equals(new java.util.Date()) && !game.isWin()){
-                    int numElements = game.getElements().size();
-                    int time = (int)(System.currentTimeMillis() - (long)servletRequest.getSession().getAttribute("initialTime"));
-                    int score = (int) scoreFunction(time, numElements);
-                    game.setEndGame(score, time, true);
-                }
-                else{
-                    game.setEndGame(0, 0, true);
-                }
-                System.out.println("Saving end game...");
-                if(databaseManager.saveEndGame(game) == -1){
-                    throw new Exception("Error saving game result");
-                }
-            }
-            crafted = true;
-        } catch(Exception e) {
-            error = e.getMessage();
+        CraftResponse craftResponse = new CraftResponse();
+        try{
+            CraftRequest craftRequest = readJson(servletRequest);
+            craftResponse = handleCraft(craftRequest);
+            craftResponse.setError("");
         }
-        sendResponse(response, error, game, craftedElement, crafted);
+        catch (Exception e){
+            craftResponse.setError(e.getMessage());
+        }
+        sendResponse(response, craftResponse);
     }
     public static CraftResponse handleCraft(CraftRequest request){
+        CraftResponse craftResponse = new CraftResponse();
         Game game = null;
         Element craftedElement = null;
         String error = "";
@@ -155,15 +84,10 @@ public class CraftApiServlet extends HttpServlet {
             int userId = request.getUserId();
             java.util.Date gameDate = request.getGameDate();
             if(gameDate == null) throw new Exception("Invalid date");
-            System.out.println("getting game from session...");
-
-            //game = (Game)servletRequest.getSession().getAttribute("game");
+            System.out.println("retrieving game instance...");
             User user = new User(userId);
             game = new Game(gameDate, user);
-            databaseManager.getGame(game);
-            if(databaseManager.getGame(game) == -1){
-                throw new Exception("Could not retrieve game");
-            }
+            if(databaseManager.getGame(game) != 0) throw new Exception("Game not found");
             Element dad = new Element(parent1, "");
             Element mom = new Element(parent2, "");
             craftedElement = new Element();
@@ -191,31 +115,38 @@ public class CraftApiServlet extends HttpServlet {
                     throw new Exception("Error crafting new element");
                 }
             }
-            java.util.Date gameDay = game.getDate();
-            Element elementDay = databaseManager.getElementDay(gameDay);
-            if(craftedElement.getName().equals(elementDay.getName())){
+            if(craftedElement.getName().equals(game.getTargetElement().getName())){
                 System.out.println("element of the day crafted");
-                if(gameDay.equals(new java.util.Date()) && !game.isWin()){
-                    int numElements = game.getElements().size();
-                    int time = (int)(System.currentTimeMillis() - (long)servletRequest.getSession().getAttribute("initialTime"));
-                    int score = (int) scoreFunction(time, numElements);
-                    game.setEndGame(score, time, true);
-                }
-                else{
-                    game.setEndGame(0, 0, true);
+                if(!game.isWin()){
+                    int time = (int)(System.currentTimeMillis() - game.getTimeMillis());
+                    java.util.Date gameDay = game.getDate();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    String todayString = formatter.format(new java.util.Date());
+                    String dateString = formatter.format(gameDay);
+                    if(todayString.equals(dateString)){
+                        int numElements = game.getElements().size();
+                        int score = scoreFunction(time, numElements);
+                        game.setEndGame(score, time, true);
+                    }
+                    else{
+                        game.setEndGame(0, time, true);
+                    }
                 }
                 System.out.println("Saving end game...");
-                if(databaseManager.saveEndGame(game) == -1){
+                if(databaseManager.saveEndGame(game) != 0){
                     throw new Exception("Error saving game result");
                 }
             }
             crafted = true;
         } catch(Exception e) {
-            error = e.getMessage();
+            craftResponse.setError(e.getMessage());
         }
-        sendResponse(response, error, game, craftedElement, crafted);
+        craftResponse.setCrafted(crafted);
+        craftResponse.setElement(craftedElement);
+        craftResponse.setGame(game);
+        return craftResponse;
     }
-    private String getApiKey(){
+    private static String getApiKey(){
         String str = "";
         String filePath = "apikey.txt";
         String absolutePath = HomeServlet.class.getClassLoader().getResource(filePath).getFile();
@@ -239,8 +170,11 @@ public class CraftApiServlet extends HttpServlet {
      * @param numElements number of elements crafted
      * @return the score of the game
      */
-    private int scoreFunction(long time, int numElements) {
-        return (int) (10000 / (time * numElements));
+    private static int scoreFunction(long time, int numElements) {
+        double calc = (double)time / 86400;
+        double resDouble = ((double)1 / (calc * numElements));
+        int res = (int)Math.round(resDouble);
+        return res;
     }
     private String handleChangeDay(HttpServletRequest servletRequest, Game game, String error){
         try {
