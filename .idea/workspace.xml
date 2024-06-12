@@ -10,7 +10,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="resolving warnings" />
+    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="resolving warnings">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/Element.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com/example/infinite/Element.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/Game.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com/example/infinite/Game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com/example/infinite/User.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com/example/infinite/User.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Element.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/domain/Element.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/domain/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/HomeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/CraftApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/CraftApiServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/LoginApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/LoginApiServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/SignupApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/SignupApiServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/CraftResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/CraftResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBAuthenticationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBAuthenticationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBElementQueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBElementQueryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBRegisterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBRegisterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DBUpdateLastGamesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DBUpdateLastGamesTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -98,7 +117,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -165,6 +184,7 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="309d6ecf-2bc3-43c4-97a7-640e5e151690" />
+        <option name="HTTP_PORT" value="8000" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -335,6 +355,10 @@
       <workItem from="1718071299546" duration="6842000" />
       <workItem from="1718105280859" duration="9494000" />
       <workItem from="1718116005906" duration="5929000" />
+      <workItem from="1718128054826" duration="1839000" />
+      <workItem from="1718139409524" duration="6300000" />
+      <workItem from="1718190704220" duration="2961000" />
+      <workItem from="1718205106326" duration="332000" />
     </task>
     <task id="LOCAL-00001" summary="created all javadoc strings">
       <option name="closed" value="true" />
@@ -368,7 +392,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718121837219</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="resolving warnings">
+      <option name="closed" value="true" />
+      <created>1718128016553</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718128016553</updated>
+    </task>
+    <task id="LOCAL-00006" summary="resolving warnings">
+      <option name="closed" value="true" />
+      <created>1718128028039</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718128028039</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,6 +419,7 @@
     <MESSAGE value="fixed javadoc" />
     <MESSAGE value="refactoring back end. Apis created, dealing with database errors" />
     <MESSAGE value="signup api created, login and signup messages updated" />
+    <MESSAGE value="commiting workspace" />
     <MESSAGE value="resolving warnings" />
     <option name="LAST_COMMIT_MESSAGE" value="resolving warnings" />
   </component>

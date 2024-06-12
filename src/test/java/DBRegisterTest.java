@@ -2,12 +2,10 @@ import com.example.infinite.DatabaseManager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
-import com.example.infinite.User;
+import com.example.infinite.domain.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.sql.SQLException;
 
 public class DBRegisterTest {
 

@@ -4,6 +4,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import com.example.infinite.domain.Element;
+import com.example.infinite.domain.Game;
+import com.example.infinite.domain.User;
 import org.mindrot.jbcrypt.*;
 
 import java.text.SimpleDateFormat;
@@ -25,14 +29,15 @@ public class DatabaseManager {
     private List<Connection> pool;
 
     public static synchronized DatabaseManager getInstance() throws Exception{
-        if (instance == null) {
-            synchronized (DatabaseManager.class) {
-                if (instance == null) {
-                    try{
-                        instance = new DatabaseManager();
-                    } catch (SQLException e){
-                        throw new Exception("Could not connect to Database");
-                    }
+        if (instance != null) {
+            return instance;
+        }
+        synchronized (DatabaseManager.class) {
+            if (instance == null) {
+                try{
+                    instance = new DatabaseManager();
+                } catch (SQLException e){
+                    throw new Exception("Could not connect to Database");
                 }
             }
         }

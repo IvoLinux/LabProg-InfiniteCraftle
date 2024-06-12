@@ -4,6 +4,9 @@ import com.example.infinite.*;
 import com.example.infinite.ai.ICModel;
 import com.example.infinite.dto.CraftRequest;
 import com.example.infinite.dto.CraftResponse;
+import com.example.infinite.domain.Element;
+import com.example.infinite.domain.Game;
+import com.example.infinite.domain.User;
 import com.google.gson.Gson;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -120,9 +123,81 @@ public class CraftApiServlet extends HttpServlet {
             Element elementDay = databaseManager.getElementDay(gameDay);
             if(craftedElement.getName().equals(elementDay.getName())){
                 System.out.println("element of the day crafted");
-                if(gameDay.equals(new java.util.Date())){
+                if(gameDay.equals(new java.util.Date()) && !game.isWin()){
                     int numElements = game.getElements().size();
-                    int time = (int)((long)servletRequest.getSession().getAttribute("initialTime")-System.currentTimeMillis());
+                    int time = (int)(System.currentTimeMillis() - (long)servletRequest.getSession().getAttribute("initialTime"));
+                    int score = (int) scoreFunction(time, numElements);
+                    game.setEndGame(score, time, true);
+                }
+                else{
+                    game.setEndGame(0, 0, true);
+                }
+                System.out.println("Saving end game...");
+                if(databaseManager.saveEndGame(game) == -1){
+                    throw new Exception("Error saving game result");
+                }
+            }
+            crafted = true;
+        } catch(Exception e) {
+            error = e.getMessage();
+        }
+        sendResponse(response, error, game, craftedElement, crafted);
+    }
+    public static CraftResponse handleCraft(CraftRequest request){
+        Game game = null;
+        Element craftedElement = null;
+        String error = "";
+        boolean crafted = false;
+        try {
+            DatabaseManager databaseManager = DatabaseManager.getInstance();
+            String parent1 = request.getParent1();
+            String parent2 = request.getParent2();
+            int userId = request.getUserId();
+            java.util.Date gameDate = request.getGameDate();
+            if(gameDate == null) throw new Exception("Invalid date");
+            System.out.println("getting game from session...");
+
+            //game = (Game)servletRequest.getSession().getAttribute("game");
+            User user = new User(userId);
+            game = new Game(gameDate, user);
+            databaseManager.getGame(game);
+            if(databaseManager.getGame(game) == -1){
+                throw new Exception("Could not retrieve game");
+            }
+            Element dad = new Element(parent1, "");
+            Element mom = new Element(parent2, "");
+            craftedElement = new Element();
+            System.out.println("querying element...");
+            int code = databaseManager.queryElement(game, mom, dad, craftedElement);
+            if(code == -1){
+                throw new Exception("Error while querying element");
+            }
+            if(code == 7){ //não foi encontrado no BD
+                System.out.println("recipe not in db");
+                String key = getApiKey();
+                System.out.println("building model...");
+                ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.5f).build("ic");
+                System.out.println("prompting model...");
+                ArrayList<String> elements = new ArrayList<>(Arrays.asList(icmodel.getNewCraft(parent1, parent2, "", "")));
+                if(elements.get(0) == null){
+                    throw new Exception("Error getting AI element");
+                }
+                System.out.println(elements.get(0));
+                System.out.println(elements.get(1));
+                craftedElement = new Element(elements.get(1), elements.get(0), 0, dad, mom);
+                //atualiza o banco de dados e o depth do craft e atualiza a tabela de jogo do dia
+                System.out.println("crafting element...");
+                if(databaseManager.craftElement(game, dad, mom, craftedElement) == -1){
+                    throw new Exception("Error crafting new element");
+                }
+            }
+            java.util.Date gameDay = game.getDate();
+            Element elementDay = databaseManager.getElementDay(gameDay);
+            if(craftedElement.getName().equals(elementDay.getName())){
+                System.out.println("element of the day crafted");
+                if(gameDay.equals(new java.util.Date()) && !game.isWin()){
+                    int numElements = game.getElements().size();
+                    int time = (int)(System.currentTimeMillis() - (long)servletRequest.getSession().getAttribute("initialTime"));
                     int score = (int) scoreFunction(time, numElements);
                     game.setEndGame(score, time, true);
                 }

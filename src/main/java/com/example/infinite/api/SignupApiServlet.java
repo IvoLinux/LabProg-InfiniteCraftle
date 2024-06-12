@@ -2,6 +2,7 @@ package com.example.infinite.api;
 
 import com.example.infinite.*;
 import com.example.infinite.dto.SignUpResponse;
+import com.example.infinite.domain.User;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
