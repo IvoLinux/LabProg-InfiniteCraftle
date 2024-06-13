@@ -18,7 +18,6 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 @WebServlet(name = "craft-api", value = "/api/craft")
 public class CraftApiServlet extends HttpServlet {
@@ -75,7 +74,6 @@ public class CraftApiServlet extends HttpServlet {
         CraftResponse craftResponse = new CraftResponse();
         Game game = null;
         Element craftedElement = null;
-        String error = "";
         boolean crafted = false;
         try {
             DatabaseManager databaseManager = DatabaseManager.getInstance();
@@ -100,7 +98,7 @@ public class CraftApiServlet extends HttpServlet {
                 System.out.println("recipe not in db");
                 String key = getApiKey();
                 System.out.println("building model...");
-                ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.5f).build("ic");
+                ICModel icmodel = (ICModel) ICModel.builder().APIKey(key).maxTokens(15).temperature(0.8f).build("ic");
                 System.out.println("prompting model...");
                 ArrayList<String> elements = new ArrayList<>(Arrays.asList(icmodel.getNewCraft(parent1, parent2, "", "")));
                 if(elements.get(0) == null){
@@ -174,10 +172,7 @@ public class CraftApiServlet extends HttpServlet {
      * @return the score of the game
      */
     private static int scoreFunction(long time, int numElements) {
-        double calc = (double)time / 86400;
-        double resDouble = ((double)100 / (calc * numElements));
-        int res = (int)Math.round(resDouble);
-        return res;
+        return (int)(10000 * Math.exp(-numElements * (Math.pow((double) time / 1000, 2) / 10000)));
     }
     public void destroy() {
     }

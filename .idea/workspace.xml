@@ -10,14 +10,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="resolving warnings">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/domain/RankingRow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_24_24__7_23_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_24_24__7_23_PM__Changes_.xml" afterDir="false" />
+    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="real oficial pega esse commit brabo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/CraftApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/CraftApiServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/LoginApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/LoginApiServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/CraftResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/dto/CraftResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/homeCalendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/homeCalendar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,34 +81,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.All in Infinite.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBAuthenticationTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBConnectionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBElementQueryTest.testQueryAndCraft.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBUpdateLastGamesTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DBUpdateLastGamesTest.testUpdateLastGames.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.java in Infinite.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.20.executor&quot;: &quot;Debug&quot;,
-    &quot;Tomcat Server.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;hotfix__api&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ebert/Desktop/labprog3/LabProg-InfiniteCraftle/pom.xml&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.All in Infinite.executor": "Run",
+    "JUnit.DBAuthenticationTest.executor": "Run",
+    "JUnit.DBConnectionTest.executor": "Run",
+    "JUnit.DBElementQueryTest.testQueryAndCraft.executor": "Run",
+    "JUnit.DBUpdateLastGamesTest.executor": "Run",
+    "JUnit.DBUpdateLastGamesTest.testUpdateLastGames.executor": "Run",
+    "JUnit.java in Infinite.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Tomcat Server.Tomcat 10.1.20.executor": "Run",
+    "Tomcat Server.Unnamed.executor": "Run",
+    "git-widget-placeholder": "hotfix__api",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ebert/Desktop/labprog3/LabProg-InfiniteCraftle/pom.xml",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\johan\OneDrive\Documentos\C++\LabProg-InfiniteCraftle\src\main\webapp" />
@@ -158,7 +155,10 @@
     </configuration>
     <configuration name="Tomcat 10.1.20" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.20" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="OPEN_IN_BROWSER" value="false" />
-      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="HOT_SWAP_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
+      <option name="UPDATING_POLICY" value="hot-swap-classes" />
       <deployment>
         <artifact name="Infinite:war exploded">
           <settings>
@@ -349,6 +349,7 @@
       <workItem from="1718190704220" duration="2961000" />
       <workItem from="1718205106326" duration="332000" />
       <workItem from="1718205949212" duration="11134000" />
+      <workItem from="1718285224382" duration="6373000" />
     </task>
     <task id="LOCAL-00001" summary="created all javadoc strings">
       <option name="closed" value="true" />
@@ -398,7 +399,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718128028039</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="real oficial pega esse commit brabo">
+      <option name="closed" value="true" />
+      <created>1718249581336</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1718249581336</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -411,7 +420,8 @@
     <MESSAGE value="signup api created, login and signup messages updated" />
     <MESSAGE value="commiting workspace" />
     <MESSAGE value="resolving warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="resolving warnings" />
+    <MESSAGE value="real oficial pega esse commit brabo" />
+    <option name="LAST_COMMIT_MESSAGE" value="real oficial pega esse commit brabo" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

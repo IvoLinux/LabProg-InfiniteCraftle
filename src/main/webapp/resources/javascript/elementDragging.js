@@ -71,7 +71,6 @@ const sendRequest = async (component, matchedElement) => {
         });
 
         const responseData = await response.text();
-        console.log(responseData); // Aqui você pode fazer o que quiser com os dados retornados pelo servidor
         return JSON.parse(responseData);
     } catch (error) {
         console.error('Erro ao enviar os dados:', error);
@@ -130,13 +129,12 @@ function handleItemDrag(event, component) {
                 newElement.style.left = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2 + 'px'
                 newElement.style.top = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2 + 'px'
                 itemInstances.appendChild(newElement)
-                //console.log("oi" + JSON.stringify(newGame))
-                sessionStorage.setItem("game", JSON.stringify(newGame))
-                console.log(newGame);
-                if(newGame.win){
-                    overlay.classList.remove(
-                        "hidden")
+                console.log(JSON.parse(sessionStorage.getItem("game")))
+                console.log(newGame)
+                if(!JSON.parse(sessionStorage.getItem("game")).win && newGame.win){
+                    overlay.classList.remove("hidden")
                 }
+                sessionStorage.setItem("game", JSON.stringify(newGame))
                 // Checks if the resulting element is already in the element tray (also in session storage)
                 let elementExists = false
                 for (let i = 0; i < itemSidebar.children.length; i++) {
