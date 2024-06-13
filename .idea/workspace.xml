@@ -10,11 +10,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="real oficial pega esse commit brabo">
+    <list default="true" id="9d950ac0-4afa-44a5-88bb-3553631e0858" name="Changes" comment="commit brab^ancio">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/CraftApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/infinite/api/CraftApiServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/elementDragging.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/homeCalendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/homeCalendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/javascript/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/javascript/modal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -349,7 +349,7 @@
       <workItem from="1718190704220" duration="2961000" />
       <workItem from="1718205106326" duration="332000" />
       <workItem from="1718205949212" duration="11134000" />
-      <workItem from="1718285224382" duration="6373000" />
+      <workItem from="1718285224382" duration="8761000" />
     </task>
     <task id="LOCAL-00001" summary="created all javadoc strings">
       <option name="closed" value="true" />
@@ -407,7 +407,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718249581336</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="commit brab^ancio">
+      <option name="closed" value="true" />
+      <created>1718320012883</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1718320012883</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +429,8 @@
     <MESSAGE value="commiting workspace" />
     <MESSAGE value="resolving warnings" />
     <MESSAGE value="real oficial pega esse commit brabo" />
-    <option name="LAST_COMMIT_MESSAGE" value="real oficial pega esse commit brabo" />
+    <MESSAGE value="commit brab^ancio" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit brab^ancio" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

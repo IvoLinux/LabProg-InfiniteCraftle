@@ -129,10 +129,8 @@ function handleItemDrag(event, component) {
                 newElement.style.left = (parseFloat(matchedElement.style.left) + parseFloat(component.style.left)) / 2 + 'px'
                 newElement.style.top = (parseFloat(matchedElement.style.top) + parseFloat(component.style.top)) / 2 + 'px'
                 itemInstances.appendChild(newElement)
-                console.log(JSON.parse(sessionStorage.getItem("game")))
-                console.log(newGame)
                 if(!JSON.parse(sessionStorage.getItem("game")).win && newGame.win){
-                    overlay.classList.remove("hidden")
+                    openModal()
                 }
                 sessionStorage.setItem("game", JSON.stringify(newGame))
                 // Checks if the resulting element is already in the element tray (also in session storage)

@@ -42,9 +42,8 @@
         <div id="modal-fail" class="modal">
             <div>
                 <h2>You have found today's element of the day!</h2><br>
-                <p>Element</p>
-                <p>Score</p>
-                <p>Stuff</p>
+                <p id="modal-element-text">Element</p>
+                <p id="modal-score-text">Score</p>
                 <br>
                 <h5>You may keep playing, however this day's score will no longer change</h5>
             </div>
