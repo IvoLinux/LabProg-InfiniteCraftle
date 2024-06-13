@@ -7,14 +7,14 @@ import java.sql.ResultSet;
 
 import com.example.infinite.domain.Element;
 import com.example.infinite.domain.Game;
+import com.example.infinite.domain.RankingRow;
 import com.example.infinite.domain.User;
 import org.mindrot.jbcrypt.*;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -740,7 +740,7 @@ public class DatabaseManager {
      */
     public ArrayList<java.util.Date> getDates() {
         ArrayList<java.util.Date> dates = new ArrayList<>();
-        String query = "SELECT date FROM LastGames";
+        String query = "SELECT date FROM LastGames ORDER BY date DESC";
         Connection connection = null;
         try {
             connection = getConnection();
@@ -794,6 +794,34 @@ public class DatabaseManager {
             if (connection != null){
                 releaseConnection(connection);
             }
+        }
+    }
+    public ArrayList<RankingRow> getRanking(Date date){
+        ArrayList<RankingRow> ranking = new ArrayList<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        String query = "select u.username as username, gi.score as score\n" +
+                "from GameInstance as gi\n" +
+                "join User as u\n" +
+                "on gi.user_id = u.user_id\n" +
+                "where date = ? and gi.score > 0\n" +
+                "order by gi.score desc";
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setDate(1, new java.sql.Date(date.getTime()));
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        RankingRow row = new RankingRow();
+                        row.setUsername(resultSet.getString("username"));
+                        row.setScore(resultSet.getInt("score"));
+                        ranking.add(row);
+                    }
+                }
+            }
+            return ranking;
+        } catch (Exception e) {
+            return null;
         }
     }
 }

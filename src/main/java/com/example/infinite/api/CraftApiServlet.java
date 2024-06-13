@@ -2,6 +2,7 @@ package com.example.infinite.api;
 
 import com.example.infinite.*;
 import com.example.infinite.ai.ICModel;
+import com.example.infinite.domain.RankingRow;
 import com.example.infinite.dto.CraftRequest;
 import com.example.infinite.dto.CraftResponse;
 import com.example.infinite.domain.Element;
@@ -64,7 +65,6 @@ public class CraftApiServlet extends HttpServlet {
         try{
             CraftRequest craftRequest = readJson(servletRequest);
             craftResponse = handleCraft(craftRequest);
-            craftResponse.setError("");
         }
         catch (Exception e){
             craftResponse.setError(e.getMessage());
@@ -116,10 +116,10 @@ public class CraftApiServlet extends HttpServlet {
                 }
             }
             if(craftedElement.getName().equals(game.getTargetElement().getName())){
+                java.util.Date gameDay = game.getDate();
                 System.out.println("element of the day crafted");
                 if(!game.isWin()){
                     int time = (int)(System.currentTimeMillis() - game.getTimeMillis());
-                    java.util.Date gameDay = game.getDate();
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     String todayString = formatter.format(new java.util.Date());
                     String dateString = formatter.format(gameDay);
@@ -136,8 +136,11 @@ public class CraftApiServlet extends HttpServlet {
                 if(databaseManager.saveEndGame(game) != 0){
                     throw new Exception("Error saving game result");
                 }
+                ArrayList<RankingRow> ranking = databaseManager.getRanking(gameDay);
+                if(ranking != null) craftResponse.setRanking(ranking);
             }
             crafted = true;
+            craftResponse.setError("");
         } catch(Exception e) {
             craftResponse.setError(e.getMessage());
         }
@@ -172,28 +175,9 @@ public class CraftApiServlet extends HttpServlet {
      */
     private static int scoreFunction(long time, int numElements) {
         double calc = (double)time / 86400;
-        double resDouble = ((double)1 / (calc * numElements));
+        double resDouble = ((double)100 / (calc * numElements));
         int res = (int)Math.round(resDouble);
         return res;
-    }
-    private String handleChangeDay(HttpServletRequest servletRequest, Game game, String error){
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date gameDay = dateFormat.parse(servletRequest.getParameter("gameDay"));
-            DatabaseManager databaseManager = DatabaseManager.getInstance();
-            User user = (User)servletRequest.getSession().getAttribute("user");
-            //Aqui recebe os dados do jogo do dia escolhido, com a lista de elementos
-            game = new Game(gameDay, user);
-            int code = databaseManager.getGame(game);
-            if(code != 0){
-                return ErrorCodeDictionary.getErrorMessage(6);
-            }
-            servletRequest.getSession().setAttribute("error", "");
-            servletRequest.getSession().setAttribute("game", game);
-        }catch(Exception e) {
-            servletRequest.getSession().setAttribute("error", ErrorCodeDictionary.getErrorMessage(6));
-        }
-        return error;
     }
     public void destroy() {
     }

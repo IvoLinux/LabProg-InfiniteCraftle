@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -58,6 +59,10 @@ public class LoginApiServlet extends HttpServlet {
             } else {
                 //Aqui recebe os dados do jogo de hoje, com a lista de elementos
                 Game game = new Game(new java.util.Date(), user);
+//                Date today = new java.util.Date();
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//                Game game = new Game(formatter.parse("2024-06-11"), user);
+
                 System.out.println("...updating last games");
                 databaseManager.updateLastGames(game.getDate());
                 System.out.println("...updating game");

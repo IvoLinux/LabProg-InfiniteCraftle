@@ -2,6 +2,9 @@ package com.example.infinite.dto;
 
 import com.example.infinite.domain.Element;
 import com.example.infinite.domain.Game;
+import com.example.infinite.domain.RankingRow;
+
+import java.util.ArrayList;
 
 /**
  * Response class is used to send the response to the client.
@@ -16,6 +19,7 @@ public class CraftResponse {
     private Game game;
     private Element element;
     private boolean crafted;
+    private ArrayList<RankingRow> ranking;
 
     /**
      * Constructor for Response class
@@ -63,7 +67,13 @@ public class CraftResponse {
     public void setGame(Game game) {
         this.game = game;
     }
+    public ArrayList<RankingRow> getRanking() {
+        return ranking;
+    }
 
+    public void setRanking(ArrayList<RankingRow> ranking) {
+        this.ranking = ranking;
+    }
     /**
      * Getter for element
      * @return element object
